@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<User xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <ID>0</ID>
+  <name>user138</name>
+  <exp>0</exp>
+  <balance>100</balance>
+  <regDate>0001-01-01T00:00:00</regDate>
+  <lastVisit>0001-01-01T00:00:00</lastVisit>
+  <personalName>Ivan</personalName>
+</User>

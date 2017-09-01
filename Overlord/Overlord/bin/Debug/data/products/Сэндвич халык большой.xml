@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Product xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <name>Сэндвич халык большой</name>
+  <price>350</price>
+  <cost>12</cost>
+  <fee>0</fee>
+  <imgPath />
+  <stock>3</stock>
+  <notifyWhenLow>true</notifyWhenLow>
+</Product>

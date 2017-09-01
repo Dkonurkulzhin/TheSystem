@@ -1,0 +1,46 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Drone", "Drone\Drone.csproj", "{21D0D2EF-9C91-4CAA-BAEA-8EC0BC42BC10}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Overlord", "..\Overlord\Overlord\Overlord.csproj", "{5404B601-0B68-4995-B8FE-F82001B9F1EF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Updater", "Updater\Updater.csproj", "{9153EC88-BE90-4DC2-916C-86ECE7C6B7DF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{23E1C4AB-9998-4D6D-9875-217284324CA2}"
+	ProjectSection(SolutionItems) = preProject
+		Shared\AppUnit.cs = Shared\AppUnit.cs
+		Shared\User.cs = Shared\User.cs
+	EndProjectSection
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Networking", "Networking\Networking.shproj", "{5C5F5656-93E4-4177-9B73-76AE4DC3A2F9}"
+EndProject
+Global
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		Networking\Networking.projitems*{5c5f5656-93e4-4177-9b73-76ae4dc3a2f9}*SharedItemsImports = 13
+		Networking\Networking.projitems*{9153ec88-be90-4dc2-916c-86ece7c6b7df}*SharedItemsImports = 4
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{21D0D2EF-9C91-4CAA-BAEA-8EC0BC42BC10}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{21D0D2EF-9C91-4CAA-BAEA-8EC0BC42BC10}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{21D0D2EF-9C91-4CAA-BAEA-8EC0BC42BC10}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{21D0D2EF-9C91-4CAA-BAEA-8EC0BC42BC10}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5404B601-0B68-4995-B8FE-F82001B9F1EF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5404B601-0B68-4995-B8FE-F82001B9F1EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5404B601-0B68-4995-B8FE-F82001B9F1EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5404B601-0B68-4995-B8FE-F82001B9F1EF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9153EC88-BE90-4DC2-916C-86ECE7C6B7DF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9153EC88-BE90-4DC2-916C-86ECE7C6B7DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9153EC88-BE90-4DC2-916C-86ECE7C6B7DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9153EC88-BE90-4DC2-916C-86ECE7C6B7DF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

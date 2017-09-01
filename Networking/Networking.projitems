@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>5c5f5656-93e4-4177-9b73-76ae4dc3a2f9</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>Networking</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Constants.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)FileHandler.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ProtobufSerializer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ReceivedFile.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SendInfo.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UDPBroodcaster.cs" />
+  </ItemGroup>
+</Project>
