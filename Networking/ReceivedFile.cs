@@ -15,7 +15,7 @@ using System.IO;
         public ConnectionInfo SourceInfo { get; private set; }
         public long SizeBytes { get; private set; }
         public long ReceivedBytes { get; private set; }
-        public string RelativeDirectory { get; private set; }
+        public string RelativeDirectory { get; set; }
 
         public double CompletedPercent
         {

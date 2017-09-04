@@ -63,7 +63,7 @@ namespace Updater
         /// <param name="e"></param>
         private void UpdateCompleted()
         {
-           
+            fileHandler.SaveAllRecievedFiles(@"D:\Загрузки\");
         }
 
 
@@ -106,33 +106,49 @@ namespace Updater
             {
                 //Disable the send and compression buttons
                 button1.Enabled = false;
-
+                
 
                 //Parse the necessary remote information
                 string path = openDialog.SelectedPath;
                 string remoteIP = textBox1.Text;
                 string remotePort = textBox2.Text;
                 DirectoryInfo dir = new DirectoryInfo(path);
-                List<string> filesToSend = new List<string>();
-                foreach (var file in dir.GetFiles())
-                    filesToSend.Add(file.FullName);
-                fileHandler.SendFiles(filesToSend, remoteIP, remotePort);
-               
-                    //Once the send is finished reset the send progress bar
-                    UpdateSendProgress(0);
-
-                    //Once complete enable the send button again
-                    button1.BeginInvoke(new Action(() =>
+                UpdateStatus("sending files from: " + path);
+                Dictionary<string, string> fileDict = new Dictionary<string, string>();
+                string[] allfiles = Directory.GetFiles(path, "*.*", SearchOption.AllDirectories);
+                try
+                {
+                    foreach (string file in allfiles)
                     {
-                        button1.Enabled = true;
-                    }));
-               
+                        string filename = Path.GetFileName(file);
+                        string relativeLocation = file.Substring(path.Length, file.Length - filename.Length - path.Length);
+                        fileDict.Add(filename, relativeLocation);
+                        //Console.WriteLine(filename + "directory: " + relativeLocation);
+                    }
+                }
+                catch(Exception ex) { }
+
+                fileHandler.SendFiles(fileDict, remoteIP, remotePort, path + @"\");
+
+                //foreach (var file in dir.GetFiles())
+                //    filesToSend.Add(file.FullName);
+
+
+                //    //Once the send is finished reset the send progress bar
+                //    UpdateSendProgress(0);
+
+                //Once complete enable the send button again
+                button1.BeginInvoke(new Action(() =>
+                {
+                    button1.Enabled = true;
+                }));
+
             }
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            fileHandler.SaveAllRecievedFiles();
+            fileHandler.SaveAllRecievedFiles(@"D:\Загрузки\");
         }
 
         private void LoadClientSettings()

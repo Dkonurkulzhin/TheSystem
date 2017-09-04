@@ -111,6 +111,12 @@ namespace Networking
             TransitionCompleted();
         }
 
+        private void CheckDirectory(string dir)
+        {
+            if (!Directory.Exists(dir))
+               Directory.CreateDirectory(dir);
+        }
+
         public void IncomingPartialFileData(PacketHeader header, Connection connection, byte[] data)
         {
             
@@ -131,6 +137,7 @@ namespace Networking
                     {
                         //We have the associated SendInfo so we can add this data directly to the file
                         info = incomingDataInfoCache[connection.ConnectionInfo][sequenceNumber];
+                     
                         incomingDataInfoCache[connection.ConnectionInfo].Remove(sequenceNumber);
 
                         //Check to see if we have already received any files from this location
@@ -145,7 +152,7 @@ namespace Networking
                         }
 
                         file = receivedFilesDict[connection.ConnectionInfo][info.Filename];
-
+                        file.RelativeDirectory = info.FileRelativeLocation;
                         Console.WriteLine(file.CompletedPercent);
                     }
                     else
@@ -208,7 +215,7 @@ namespace Networking
                         //Check to see if we have already initialised this file
                         if (!receivedFilesDict[connection.ConnectionInfo].ContainsKey(info.Filename))
                         {
-                            receivedFilesDict[connection.ConnectionInfo].Add(info.Filename, new ReceivedFile(info.Filename, connection.ConnectionInfo, info.TotalBytes));
+                            receivedFilesDict[connection.ConnectionInfo].Add(info.Filename, new ReceivedFile(info.Filename, connection.ConnectionInfo, info.TotalBytes, info.FileRelativeLocation));
                             AddNewReceivedItem(receivedFilesDict[connection.ConnectionInfo][info.Filename]);
                         }
 
@@ -279,17 +286,21 @@ namespace Networking
             
         }
 
-        public void SaveAllRecievedFiles()
+        public void SaveAllRecievedFiles(string saveDir)
         {
             foreach (ReceivedFile file in receivedFiles)
             {
-                file.SaveFileToDisk(AppDomain.CurrentDomain.BaseDirectory + @"\" + file.Filename);
-                Console.WriteLine("Saving file: " + file.Filename);
+                CheckDirectory(saveDir + file.RelativeDirectory);
+                file.SaveFileToDisk(saveDir + file.RelativeDirectory + file.Filename);
+                Console.WriteLine("Saving file: " + file.RelativeDirectory + file.Filename);
+                UpdateStatus("Saving: " + file.RelativeDirectory + file.Filename);
             }
         }
 
-        public void SendFiles(List<string> filenames, string remoteIP, string remotePort)
+        public void SendFiles(Dictionary<string, string> filenames, string remoteIP, string remotePort, string path)
         {
+            
+            
             Task.Factory.StartNew(() =>
             {
                 //Parse the remote connectionInfo
@@ -311,21 +322,19 @@ namespace Networking
                 //Get a connection to the remote side
                 Connection connection = TCPConnection.GetConnection(remoteInfo);
 
-                foreach (string filename in filenames)
+                foreach (KeyValuePair<string, string> file in filenames)
                 {
+                    string fullName = path + file.Value + file.Key;
                     
                     try
                     {
                         //Create a fileStream from the selected file
-                        FileStream stream = new FileStream(filename, FileMode.Open, FileAccess.Read);
+                        FileStream stream = new FileStream(fullName, FileMode.Open, FileAccess.Read);
 
                         //Wrap the fileStream in a threadSafeStream so that future operations are thread safe
                         StreamTools.ThreadSafeStream safeStream = new StreamTools.ThreadSafeStream(stream);
 
                         //Get the filename without the associated path information
-                        string shortFileName = System.IO.Path.GetFileName(filename);
-
-                        
                         //Break the send into 20 segments. The less segments the less overhead 
                         //but we still want the progress bar to update in sensible steps
                         long sendChunkSizeBytes = (long)(stream.Length / 20.0) + 1;
@@ -349,7 +358,7 @@ namespace Networking
                             //Send the select data
                             connection.SendObject("PartialFileData", streamWrapper, customOptions, out packetSequenceNumber);
                             //Send the associated SendInfo for this send so that the remote can correctly rebuild the data
-                            connection.SendObject("PartialFileDataInfo", new SendInfo(shortFileName, stream.Length, totalBytesSent, packetSequenceNumber), customOptions);
+                            connection.SendObject("PartialFileDataInfo", new SendInfo(file.Key, stream.Length, totalBytesSent, packetSequenceNumber, file.Value), customOptions);
 
                             totalBytesSent += bytesToSend;
 
@@ -367,6 +376,7 @@ namespace Networking
                         //If there is a communication exception then we just write a connection
                         //closed message to the log window
                         // AddLineToLog("Failed to complete send as connection was closed.");
+                        UpdateLog("Failed to complete send as connection was closed");
                     }
                     catch (Exception ex)
                     {
@@ -376,6 +386,7 @@ namespace Networking
                         {
                             //AddLineToLog(ex.Message.ToString());
                             LogTools.LogException(ex, "SendFileError");
+                            UpdateLog(ex.Message);
                         }
                     }
                 }

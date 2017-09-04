@@ -32,3 +32,15 @@ D:\Projects\System\Updater\obj\Debug\Updater.csprojResolveAssemblyReference.cach
 D:\Projects\System\Updater\obj\Debug\Updater.MainForm.resources
 D:\Projects\System\Updater\obj\Debug\Updater.Properties.Resources.resources
 D:\Projects\System\Updater\obj\Debug\Updater.csproj.GenerateResource.Cache
+D:\Projects\TheSystem\Updater\bin\Debug\Updater.exe.config
+D:\Projects\TheSystem\Updater\obj\Debug\Updater.exe
+D:\Projects\TheSystem\Updater\obj\Debug\Updater.pdb
+D:\Projects\TheSystem\Updater\obj\Debug\Updater.csprojResolveAssemblyReference.cache
+D:\Projects\TheSystem\Updater\obj\Debug\Updater.MainForm.resources
+D:\Projects\TheSystem\Updater\obj\Debug\Updater.Properties.Resources.resources
+D:\Projects\TheSystem\Updater\obj\Debug\Updater.csproj.GenerateResource.Cache
+D:\Projects\TheSystem\Updater\bin\Debug\Updater.exe
+D:\Projects\TheSystem\Updater\bin\Debug\Updater.pdb
+D:\Projects\TheSystem\Updater\bin\Debug\NetworkCommsDotNet.dll
+D:\Projects\TheSystem\Updater\bin\Debug\protobuf-net.dll
+D:\Projects\TheSystem\Updater\bin\Debug\protobuf-net.xml

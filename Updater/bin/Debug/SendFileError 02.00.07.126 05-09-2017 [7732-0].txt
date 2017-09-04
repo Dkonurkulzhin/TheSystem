@@ -1,0 +1,11 @@
+Base Exception Type: System.IO.FileNotFoundException: Файл 'D:\Projects\TheSystem\Updater\bin\Debug\1.txt\' не найден.
+Имя файла: 'D:\Projects\TheSystem\Updater\bin\Debug\1.txt\'
+   в System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   в System.IO.FileStream.Init(String path, FileMode mode, FileAccess access, Int32 rights, Boolean useRights, FileShare share, Int32 bufferSize, FileOptions options, SECURITY_ATTRIBUTES secAttrs, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
+   в System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access)
+   в Networking.FileHandler.<>c__DisplayClass37_0.<SendFiles>b__0() в D:\Projects\TheSystem\Networking\FileHandler.cs:строка 332
+
+Stack Trace:    в System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   в System.IO.FileStream.Init(String path, FileMode mode, FileAccess access, Int32 rights, Boolean useRights, FileShare share, Int32 bufferSize, FileOptions options, SECURITY_ATTRIBUTES secAttrs, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
+   в System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access)
+   в Networking.FileHandler.<>c__DisplayClass37_0.<SendFiles>b__0() в D:\Projects\TheSystem\Networking\FileHandler.cs:строка 332
