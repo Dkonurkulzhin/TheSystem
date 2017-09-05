@@ -14,33 +14,39 @@ using NetworkCommsDotNet.Connections.UDP;
 
 namespace Networking
 {
-    public class UDPBroodcaster
+    public class UDPBroadcaster
     {
         Timer udpTimer;
         private int Interval, Port;
-        private string Header, Content;
-       
-        public UDPBroodcaster(int interval, int port, string header, string content)
+        private string Header;
+        object Content = null;
+        public UDPBroadcaster(int interval, int port)
         {
             Interval = interval;
-            Port = port;
+            Port = port; 
+        }
+
+        public void StartBroadcasting(string header, object content)
+        {
             Header = header;
             Content = content;
-
             udpTimer = new Timer(Interval);
             udpTimer.Elapsed += Tick;
             udpTimer.AutoReset = true;
             udpTimer.Start();
+
         }
 
         public void Stop()
         {
-            udpTimer.Stop();
+            if (udpTimer != null)
+                udpTimer.Stop();
         }
 
         public void Restart()
         {
-            udpTimer.Start();
+            if (udpTimer != null)
+                udpTimer.Start();
         }
 
         private void Tick(Object sender, ElapsedEventArgs e)

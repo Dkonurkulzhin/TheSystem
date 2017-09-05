@@ -29,7 +29,7 @@ namespace Updater
     public partial class MainForm : Form
     {
 
-        private UDPBroodcaster udpBroodcaster;
+        private UDPBroadcaster udpBroadcaster;
         private FileHandler fileHandler;
         public List<string> folder;
         public ClientSettings settings;
@@ -37,23 +37,35 @@ namespace Updater
         private Size AdvancedSize = new Size(420, 170);
         private Size StandartSize = new Size(420, 350);
         private bool AdvancedMode = false;
+
         public MainForm()
         {
             InitializeComponent();
         }
 
+        private void InitUI()
+        {
+            TopMost = true;
+
+        }
+
         private void MainForm_Load(object sender, EventArgs e)
         {
+
             LoadClientSettings();
-            udpBroodcaster = new UDPBroodcaster(1000, Constants.UDPBroodcastPort, 
-                Constants.RequestHeaders[Constants.Messages.RequestUpdate], "");
+            
+            InitUI();
+            udpBroadcaster = new UDPBroadcaster(1000, Constants.UDPBroodcastPort);
             fileHandler = new FileHandler();
             fileHandler.UpdateLog += AddLineToLog;
             fileHandler.UpdatePercent += UpdateSendProgress;
             fileHandler.UpdateStatus += UpdateStatus;
-            fileHandler.ConnectionEstablished += udpBroodcaster.Stop;
-            fileHandler.TransitionCompleted += UpdateCompleted;
-            fileHandler.StartListening();
+            fileHandler.ConnectionEstablished += udpBroadcaster.Stop;
+            fileHandler.ReceivingCompleted += UpdateCompleted;
+            udpBroadcaster.StartBroadcasting(Constants.RequestHeaders[Constants.Messages.RequestUpdate], fileHandler.StartListening());
+
+            UDPListener list = new UDPListener();
+            list.SendUpdate += SelectFilesToSend;
         }
 
         /// <summary>
@@ -63,7 +75,8 @@ namespace Updater
         /// <param name="e"></param>
         private void UpdateCompleted()
         {
-            fileHandler.SaveAllRecievedFiles(@"D:\Загрузки\");
+            fileHandler.SaveAllRecievedFiles(@"D:\Progs\");
+            UpdateStatus("Обновление завершено");
         }
 
 
@@ -79,7 +92,7 @@ namespace Updater
         {
             BeginInvoke(new Action(() =>
             {
-                progressBar1.Value = (int)percentComplete;
+                //progressBar1.Value = (int)percentComplete;
             }));
         }
 
@@ -98,57 +111,36 @@ namespace Updater
 
         private void button1_Click(object sender, EventArgs e)
         {
-            //Create an OpenFileDialog so that we can request the file to send
-            FolderBrowserDialog openDialog = new FolderBrowserDialog();
-        
-            //If a file was selected
-            if (openDialog.ShowDialog() == DialogResult.OK)
-            {
+            //Create an OpenFileDialog so that we can request the file to send         
                 //Disable the send and compression buttons
-                button1.Enabled = false;
-                
-
                 //Parse the necessary remote information
-                string path = openDialog.SelectedPath;
                 string remoteIP = textBox1.Text;
                 string remotePort = textBox2.Text;
-                DirectoryInfo dir = new DirectoryInfo(path);
-                UpdateStatus("sending files from: " + path);
-                Dictionary<string, string> fileDict = new Dictionary<string, string>();
-                string[] allfiles = Directory.GetFiles(path, "*.*", SearchOption.AllDirectories);
-                try
+
+                SelectFilesToSend(remoteIP, Int32.Parse(remotePort));
+
+        }
+
+        private void SelectFilesToSend(string ip, int port)
+        {
+            FolderBrowserDialog openDialog = new FolderBrowserDialog();
+            udpBroadcaster.Stop();
+            //If a file was selected
+            BeginInvoke(new Action(() =>
+            {
+                if (openDialog.ShowDialog() == DialogResult.OK)
                 {
-                    foreach (string file in allfiles)
-                    {
-                        string filename = Path.GetFileName(file);
-                        string relativeLocation = file.Substring(path.Length, file.Length - filename.Length - path.Length);
-                        fileDict.Add(filename, relativeLocation);
-                        //Console.WriteLine(filename + "directory: " + relativeLocation);
-                    }
+                    string path = openDialog.SelectedPath;
+                    AddLineToLog("sending files from: " + path);
+
+                    fileHandler.SendFiles(path + @"\", ip, port.ToString());
                 }
-                catch(Exception ex) { }
-
-                fileHandler.SendFiles(fileDict, remoteIP, remotePort, path + @"\");
-
-                //foreach (var file in dir.GetFiles())
-                //    filesToSend.Add(file.FullName);
-
-
-                //    //Once the send is finished reset the send progress bar
-                //    UpdateSendProgress(0);
-
-                //Once complete enable the send button again
-                button1.BeginInvoke(new Action(() =>
-                {
-                    button1.Enabled = true;
-                }));
-
-            }
+            }));
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            fileHandler.SaveAllRecievedFiles(@"D:\Загрузки\");
+            fileHandler.SaveAllRecievedFiles(@"D:\Progs\");
         }
 
         private void LoadClientSettings()
@@ -171,7 +163,8 @@ namespace Updater
         }
         private void ToggleAdvancedMode(bool toggle)
         {
-            this.Size = (toggle) ? AdvancedSize : StandartSize;
+            Size = (toggle) ? AdvancedSize : StandartSize;
+            FormBorderStyle = (toggle) ? FormBorderStyle.None : FormBorderStyle.FixedSingle;
             AdvancedMode = toggle;
         }
 
@@ -181,6 +174,12 @@ namespace Updater
             {
                 ToggleAdvancedMode(!AdvancedMode);
             }
+        }
+
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (AdvancedMode)
+             e.Cancel = true;
         }
     }
 }

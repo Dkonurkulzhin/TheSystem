@@ -48,8 +48,16 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="NetworkCommsDotNet, Version=3.0.0.0, Culture=neutral, PublicKeyToken=f58108eb6480f6ec, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\NetworkCommsDotNet.3.0.3\lib\NetworkCommsDotNet.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="protobuf-net, Version=2.3.2.0, Culture=neutral, PublicKeyToken=257b51d87d2e4d67, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\protobuf-net.2.3.2\lib\net40\protobuf-net.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -86,6 +94,7 @@
     <Compile Include="ConsoleSettingsForm.Designer.cs">
       <DependentUpon>ConsoleSettingsForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Network\ClientCommunicationManager.cs" />
     <Compile Include="UserAddForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -289,9 +298,7 @@
   <ItemGroup>
     <None Include="Resources\gamepad-icon-27.png" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Network\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="Resources\Ecommerce-Cash-Register-icon.png" />
   </ItemGroup>
@@ -322,6 +329,7 @@
       <DependentUpon>Database1.mdf</DependentUpon>
     </Content>
   </ItemGroup>
+  <Import Project="..\..\Networking\Networking.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

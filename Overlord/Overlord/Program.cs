@@ -19,7 +19,7 @@ namespace Overlord
         /// </summary>
         [STAThread]
 
-       
+        
         static void Main()
         {
             GlobalVars.LoadSettings();
@@ -30,12 +30,12 @@ namespace Overlord
             Application.SetCompatibleTextRenderingDefault(false);
             TelegramManager.InitBot();
             MachineManager.LoadMachines();
-
+            ClientCommunicationManager.Init();
             MainForm = new Form1();
             consoleForm = new ConsoleForm();
             consoleForm.Hide();
 
-
+        
             Application.Run(MainForm);
             
         }

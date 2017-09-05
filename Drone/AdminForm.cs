@@ -28,5 +28,10 @@ namespace Drone
             else
                 MessageBox.Show("Неверный пароль", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error); 
         }
+
+        private void AdminForm_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

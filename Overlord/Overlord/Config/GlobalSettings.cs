@@ -28,5 +28,7 @@ namespace Overlord
         public List<string> UserGroups = new List<string>();
         public long Machines_MaxAddTime = 1440;
 
+        public string UpdateFolder = "";
+
     }
 }

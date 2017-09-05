@@ -61,14 +61,18 @@ namespace Networking
         public delegate void UpdateLogEH(string message);
         public delegate void UpdatePercentEH(double percent);
         public delegate void ConnectionEstablishedEH();
-        public delegate void TransitionCompletedEH();
+        public delegate void ReceivingCompletedEH();
+        public delegate void TransitionCompletedEH(string ip);
 
         public event UpdateLogEH UpdateLog;
         public event UpdateLogEH UpdateStatus;
         public event UpdatePercentEH UpdatePercent;
         public event ConnectionEstablishedEH ConnectionEstablished;
+        public event ReceivingCompletedEH ReceivingCompleted;
         public event TransitionCompletedEH TransitionCompleted;
 
+        public int SucceedDatatTranslations = 0;
+        public bool HandlerIsBusy = false;
         private ConnectionInfo remoteInfo;
 
         public FileHandler()
@@ -77,10 +81,11 @@ namespace Networking
             UpdateStatus = null;
             UpdatePercent = null;
             ConnectionEstablished = null;
+            ReceivingCompleted = null;
             TransitionCompleted = null;
         }
 
-        public void StartListening()
+        public List<int> StartListening()
         {
             //Trigger IncomingPartialFileData method if we receive a packet of type 'PartialFileData'
             NetworkComms.AppendGlobalIncomingPacketHandler<byte[]>("PartialFileData", IncomingPartialFileData);
@@ -96,19 +101,26 @@ namespace Networking
             Connection.StartListening(ConnectionType.TCP, new IPEndPoint(IPAddress.Any, 0));
 
             //Write out some useful debugging information the log window
-            UpdateLog("Initialised WPF file transfer example. Accepting TCP connections on:");
+            UpdateLog?.Invoke("Initialised WPF file transfer example. Accepting TCP connections on:");
+            List<int> ports = new List<int>();
             foreach (IPEndPoint listenEndPoint in Connection.ExistingLocalListenEndPoints(ConnectionType.TCP))
             {
                 Console.WriteLine(listenEndPoint.Address + ":" + listenEndPoint.Port);
-                UpdateLog(listenEndPoint.Address + ":" + listenEndPoint.Port);
+                UpdateLog?.Invoke(listenEndPoint.Address + ":" + listenEndPoint.Port);
+                if (!listenEndPoint.Address.ToString().Contains("127.0.0.1"))
+                    ports.Add(listenEndPoint. Port);
+
             }
+
+            return (ports);
             //UpdateStatus("Подключение к серверу");
         }
 
         public void RecievengCompleted(PacketHeader header, Connection connection, bool Complete)
         {
-            UpdateStatus("Обновление завершено");
-            TransitionCompleted();
+            SucceedDatatTranslations++;
+            Console.WriteLine("Recieved files! " + SucceedDatatTranslations);
+            ReceivingCompleted?.Invoke();
         }
 
         private void CheckDirectory(string dir)
@@ -132,7 +144,7 @@ namespace Networking
                     //The header can also user defined parameters
                     long sequenceNumber = header.GetOption(PacketHeaderLongItems.PacketSequenceNumber);
                     ConnectionEstablished();
-                    UpdateStatus("Получение обновлений...");
+                    UpdateStatus?.Invoke("Получение обновлений...");
                     if (incomingDataInfoCache.ContainsKey(connection.ConnectionInfo) && incomingDataInfoCache[connection.ConnectionInfo].ContainsKey(sequenceNumber))
                     {
                         //We have the associated SendInfo so we can add this data directly to the file
@@ -182,8 +194,8 @@ namespace Networking
             catch (Exception ex)
             {
                 //If an exception occurs we write to the log window and also create an error file
-                UpdateLog("Exception - " + ex.ToString());
-                UpdateStatus("Ошибка обновления");
+                UpdateLog?.Invoke("Exception - " + ex.ToString());
+                UpdateStatus?.Invoke("Ошибка обновления");
                 LogTools.LogException(ex, "IncomingPartialFileDataError");
             }
         }
@@ -249,7 +261,7 @@ namespace Networking
             catch (Exception ex)
             {
                 //If an exception occurs we write to the log window and also create an error file
-                UpdateLog("Exception - " + ex.ToString());
+                UpdateLog?.Invoke("Exception - " + ex.ToString());
                 LogTools.LogException(ex, "IncomingPartialFileDataInfo");
             }
         }
@@ -293,14 +305,31 @@ namespace Networking
                 CheckDirectory(saveDir + file.RelativeDirectory);
                 file.SaveFileToDisk(saveDir + file.RelativeDirectory + file.Filename);
                 Console.WriteLine("Saving file: " + file.RelativeDirectory + file.Filename);
-                UpdateStatus("Saving: " + file.RelativeDirectory + file.Filename);
+                UpdateLog?.Invoke("Saving: " + file.RelativeDirectory + file.Filename);
             }
         }
 
-        public void SendFiles(Dictionary<string, string> filenames, string remoteIP, string remotePort, string path)
+        public void SendFiles(string path, string remoteIP, string remotePort)
         {
-            
-            
+           
+            DirectoryInfo dir = new DirectoryInfo(path);
+
+            Dictionary<string, string> filenames = new Dictionary<string, string>();
+            string[] allfiles = Directory.GetFiles(path, "*.*", SearchOption.AllDirectories);
+            try
+            {
+                foreach (string file in allfiles)
+                {
+                    string filename = Path.GetFileName(file);
+                    string relativeLocation = file.Substring(path.Length, file.Length - filename.Length - path.Length);
+                    filenames.Add(filename, relativeLocation);
+                    //Console.WriteLine(filename + "directory: " + relativeLocation);
+                }
+            }
+            catch (Exception ex)
+            {
+                UpdateLog?.Invoke(ex.Message);
+            }
             Task.Factory.StartNew(() =>
             {
                 //Parse the remote connectionInfo
@@ -310,7 +339,7 @@ namespace Networking
                 try
                 {
                     remoteInfo = new ConnectionInfo(remoteIP, int.Parse(remotePort));
-                    UpdateLog("Connected");
+                    UpdateLog?.Invoke("Connected");
                 }
                 catch (Exception)
                 {
@@ -368,7 +397,7 @@ namespace Networking
 
                         //Clean up any unused memory
                         GC.Collect();
-
+                        
                         //AddLineToLog("Completed file send to '" + connection.ConnectionInfo.ToString() + "'.");
                     }
                     catch (CommunicationException)
@@ -376,7 +405,7 @@ namespace Networking
                         //If there is a communication exception then we just write a connection
                         //closed message to the log window
                         // AddLineToLog("Failed to complete send as connection was closed.");
-                        UpdateLog("Failed to complete send as connection was closed");
+                        UpdateLog?.Invoke("Failed to complete send as connection was closed");
                     }
                     catch (Exception ex)
                     {
@@ -386,7 +415,7 @@ namespace Networking
                         {
                             //AddLineToLog(ex.Message.ToString());
                             LogTools.LogException(ex, "SendFileError");
-                            UpdateLog(ex.Message);
+                            UpdateLog?.Invoke(ex.Message);
                         }
                     }
                 }
@@ -395,7 +424,9 @@ namespace Networking
                 //UpdateSendProgress(0);
 
                 //Once complete enable the send button again
-              
+                connection.SendObject("FileDataCompleted", true, customOptions);
+                TransitionCompleted(remoteIP);
+                connection.CloseConnection(false);
             });
         }
 
