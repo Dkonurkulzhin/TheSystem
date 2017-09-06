@@ -95,6 +95,12 @@
       <DependentUpon>ConsoleSettingsForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Network\ClientCommunicationManager.cs" />
+    <Compile Include="UpdateSettingsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UpdateSettingsForm.Designer.cs">
+      <DependentUpon>UpdateSettingsForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="UserAddForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -262,6 +268,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Additional\TelegramSettingsForm.resx">
       <DependentUpon>TelegramSettingsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UpdateSettingsForm.resx">
+      <DependentUpon>UpdateSettingsForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserAddForm.resx">
       <DependentUpon>UserAddForm.cs</DependentUpon>

@@ -236,3 +236,7 @@ D:\Projects\System\TheSystem\Overlord\Overlord\bin\Debug\Telegram.Bot.xml
 D:\Projects\System\TheSystem\Overlord\Overlord\bin\Debug\NetworkCommsDotNet.dll
 D:\Projects\System\TheSystem\Overlord\Overlord\bin\Debug\protobuf-net.dll
 D:\Projects\System\TheSystem\Overlord\Overlord\bin\Debug\protobuf-net.xml
+D:\Projects\TheSystem\Overlord\Overlord\bin\Debug\NetworkCommsDotNet.dll
+D:\Projects\TheSystem\Overlord\Overlord\bin\Debug\protobuf-net.dll
+D:\Projects\TheSystem\Overlord\Overlord\bin\Debug\protobuf-net.xml
+D:\Projects\TheSystem\Overlord\Overlord\obj\Debug\Overlord.UpdateSettingsForm.resources

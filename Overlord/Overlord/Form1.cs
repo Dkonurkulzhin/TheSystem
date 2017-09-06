@@ -26,6 +26,7 @@ namespace Overlord
         public AddTimeDialog addTimeDialog;
         public ConsoleSettingsForm consoleSettingsForm;
         public UserSearchForm userSearchForm;
+        public UpdateSettingsForm updateSettingsForm;
         public Form1()
         {
             InitializeComponent();
@@ -42,19 +43,6 @@ namespace Overlord
             return 0;
         }
 
-     
-        //public struct Machine
-        //{
-        //   public enum MachineStatus { Ready = 0, Busy = 1, Offline = 2, Disabled = 3, Reserved = 4 };
-
-        //    public int index;
-        //    public string label;
-        //    public bool aviability;
-        //    public MachineStatus status;
-        //}
-
-
-
         private void tabPage2_Click(object sender, EventArgs e)
         {
             
@@ -62,16 +50,6 @@ namespace Overlord
 
         private void ProductButton_Click(object sender, EventArgs e)
         {
-            //if (Program.cashbox == null)
-            //    Program.cashbox = new Cashbox();
-            //Program.cashbox.AddFunds(500);
-            //this.Text = Program.cashbox.getCurrentCash().ToString();
-            //Program.xmlmanager.SerializeCashData(Program.cashbox);
-            //TelegramManager.SendMessageToChat("Лысый лох");
-            //Label PClabel = new Label();
-            //PClabel.Text = "PC1";
-            //tabControl1.TabPages[1].Controls.Add(PClabel);
-
             if (storeForm != null)
                 storeForm.Close();
             storeForm = new StoreForm();
@@ -112,8 +90,7 @@ namespace Overlord
             listView1.LargeImageList = GlobalVars.newMachineStatImageList(64);
             listView1.StateImageList = GlobalVars.newMachineStatImageList(16);
             listView1.SmallImageList = GlobalVars.newMachineStatImageList(16);
-            //string[] PCcolumns = {Номер, };
-            //listView1.Columns.Add("dd");
+
             switch (viewtype)
             {
                 case 0:
@@ -300,10 +277,7 @@ namespace Overlord
                                 Console.WriteLine(subItem.Text + " " + authority.ToString());
                             }
                         }
-                        //if (subItem.Text == GlobalVars.Settings.AuthorityMenuItems.Find(x => x.Contains(item.Text)))
-                        //{
-                        //    subItem.Available = authority;
-                        //}
+
                     }
                 }
             }
@@ -524,6 +498,14 @@ namespace Overlord
         private void statusStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
 
+        }
+
+        private void обновлениеКлиентовToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (updateSettingsForm != null)
+                updateSettingsForm.Close();
+            updateSettingsForm = new UpdateSettingsForm();
+            updateSettingsForm.Show();
         }
     }
 }

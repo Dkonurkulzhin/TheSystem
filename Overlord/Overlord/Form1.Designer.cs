@@ -76,6 +76,7 @@
             this.ConsoleControlButton = new System.Windows.Forms.Button();
             this.ProductButton = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.обновлениеКлиентовToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ReservedPCImg)).BeginInit();
@@ -306,7 +307,8 @@
             this.компьютерыToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.настройкиToolStripMenuItem,
             this.статистикаToolStripMenuItem,
-            this.информацияToolStripMenuItem});
+            this.информацияToolStripMenuItem,
+            this.обновлениеКлиентовToolStripMenuItem});
             this.компьютерыToolStripMenuItem.Name = "компьютерыToolStripMenuItem";
             this.компьютерыToolStripMenuItem.Size = new System.Drawing.Size(92, 20);
             this.компьютерыToolStripMenuItem.Text = "Компьютеры";
@@ -315,20 +317,20 @@
             // 
             this.настройкиToolStripMenuItem.Image = global::Overlord.Properties.Resources._lock;
             this.настройкиToolStripMenuItem.Name = "настройкиToolStripMenuItem";
-            this.настройкиToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
+            this.настройкиToolStripMenuItem.Size = new System.Drawing.Size(197, 22);
             this.настройкиToolStripMenuItem.Text = "Настройки";
             this.настройкиToolStripMenuItem.Click += new System.EventHandler(this.настройкиToolStripMenuItem_Click);
             // 
             // статистикаToolStripMenuItem
             // 
             this.статистикаToolStripMenuItem.Name = "статистикаToolStripMenuItem";
-            this.статистикаToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
+            this.статистикаToolStripMenuItem.Size = new System.Drawing.Size(197, 22);
             this.статистикаToolStripMenuItem.Text = "Статистика";
             // 
             // информацияToolStripMenuItem
             // 
             this.информацияToolStripMenuItem.Name = "информацияToolStripMenuItem";
-            this.информацияToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
+            this.информацияToolStripMenuItem.Size = new System.Drawing.Size(197, 22);
             this.информацияToolStripMenuItem.Text = "Диагностика";
             // 
             // пользователиToolStripMenuItem
@@ -496,6 +498,13 @@
             this.panel1.Size = new System.Drawing.Size(111, 587);
             this.panel1.TabIndex = 9;
             // 
+            // обновлениеКлиентовToolStripMenuItem
+            // 
+            this.обновлениеКлиентовToolStripMenuItem.Name = "обновлениеКлиентовToolStripMenuItem";
+            this.обновлениеКлиентовToolStripMenuItem.Size = new System.Drawing.Size(197, 22);
+            this.обновлениеКлиентовToolStripMenuItem.Text = "Обновление клиентов";
+            this.обновлениеКлиентовToolStripMenuItem.Click += new System.EventHandler(this.обновлениеКлиентовToolStripMenuItem_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -580,6 +589,7 @@
         private System.Windows.Forms.Label EnabledPCLabel;
         private System.Windows.Forms.PictureBox EnabledPCImg;
         private System.Windows.Forms.ToolStripMenuItem пользователиToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem обновлениеКлиентовToolStripMenuItem;
     }
 }
 
