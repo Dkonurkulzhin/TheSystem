@@ -82,9 +82,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\..\Shared\User.cs">
-      <Link>Shared\User.cs</Link>
-    </Compile>
     <Compile Include="AddTimeDialog.cs">
       <SubType>Form</SubType>
     </Compile>

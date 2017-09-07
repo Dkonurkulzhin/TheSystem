@@ -18,5 +18,7 @@ namespace Drone
         public string AppType;
         public string Category;
         public Image Picture;
+        
     }
+    
 }

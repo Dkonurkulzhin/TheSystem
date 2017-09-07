@@ -27,6 +27,7 @@ namespace Drone
             this.TopMost = false;
             this.FormBorderStyle = FormBorderStyle.None;
             this.WindowState = FormWindowState.Maximized;
+            PCLabel.Text = "PC" + GlobalVars.settings.pcNumber.ToString();
             SetUpUIPos();
            
         }
@@ -59,6 +60,14 @@ namespace Drone
             UsernameInput.Text = "";
             PasswordInput.Text = "";
 
+        }
+
+        public void LogIn(User user)
+        {
+            BeginInvoke(new Action(() =>
+            {
+                Program.LogIn(user);
+            }));
         }
 
 

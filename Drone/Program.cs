@@ -15,7 +15,7 @@ namespace Drone
         /// Главная точка входа для приложения.
         /// </summary>
         static public Form1 MainForm;
-        static public Form LobbyForm;
+        static public LogInForm LobbyForm;
         static public DebugForm DevForm;
         static public InitForm InitScreen;
         static public User CurrentUser;
@@ -69,6 +69,9 @@ namespace Drone
 
         static public void LogIn(User user)
         {
+            //MainForm.Invoke(new Action(MainForm.Show));
+            //MainForm.Invoke(new Action(MainForm.ShowUI));
+            //LobbyForm.Invoke(new Action(LobbyForm.Hide));
             MainForm.Show();
             MainForm.ShowUI();
             LobbyForm.Hide();

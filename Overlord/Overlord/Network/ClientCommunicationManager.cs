@@ -26,19 +26,12 @@ namespace Overlord
             Transitions = new Dictionary<string, FileHandler>();
             messageHanler = new MessageHandler();
             udpListener.SendUpdate += AddUpdateTransition;
-            messageHanler.StartServerListening(HandlerDict());
+            messageHanler.StartServerListening(SendUser);
         }
 
-        private static Dictionary<Constants.Messages, NetworkComms.PacketHandlerCallBackDelegate<object>> HandlerDict()
-        {
-            return new Dictionary<Constants.Messages, NetworkComms.PacketHandlerCallBackDelegate<object>>
-            {
-                {Constants.Messages.RequestUserData,  SendUser},
-              //  {Constants.Messages.Echo,  SendUser}
-            };
-        }
+        
 
-        public static void SendUser(PacketHeader header, Connection connection, object user)
+        public static void SendUser(PacketHeader header, Connection connection, User user)
         {
             User incommingUser = user as User;
             UserManager.FindUserByName(incommingUser.name);

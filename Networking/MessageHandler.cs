@@ -22,16 +22,14 @@ namespace Networking
         SendReceiveOptions customOptions = new SendReceiveOptions<ProtobufSerializer>();
         private ConnectionInfo remoteInfo;
 
-        public delegate void UserEH(object user);
+        public delegate void UserEH(User user);
         public event UserEH UserRecieved;
 
        
         public delegate void TimeoutEH(string message);
         public event TimeoutEH ConnectionTimeOut;
 
-        public Dictionary<Constants.Messages, NetworkComms.PacketHandlerCallBackDelegate<object>> ServerPacketHandlers;
-    
-
+        public NetworkComms.PacketHandlerCallBackDelegate<User> UserRequestHandler;
 
 
         public void SendObject(object obj, string header, string ip, int port)
@@ -51,9 +49,26 @@ namespace Networking
             }
         }
 
+        public void SendUserObject(User user, string header, string ip, int port)
+        {
+            remoteInfo = new ConnectionInfo(ip, port);
+            try
+            {
+                Connection connection = TCPConnection.GetConnection(remoteInfo);
+
+                connection.SendObject(header, user, customOptions);
+               
+            }
+            catch (Exception)
+            {
+
+            }
+        }
+
+
         #region ServerMethods
 
-        public bool StartServerListening(Dictionary<Constants.Messages, NetworkComms.PacketHandlerCallBackDelegate<object>> handlers)
+        public bool StartServerListening(NetworkComms.PacketHandlerCallBackDelegate<User> userRequesthandler)
         {
             try
             {
@@ -61,11 +76,11 @@ namespace Networking
                 Connection.StartListening(ConnectionType.TCP, new IPEndPoint(IPAddress.Any, Constants.ServerListenPort));
                 NetworkComms.AppendGlobalConnectionCloseHandler(OnServerConnectionClose);
 
-                ServerPacketHandlers = handlers;
-                foreach (Constants.Messages msg in handlers.Keys)
-                {
-                    NetworkComms.AppendGlobalIncomingPacketHandler<object>(Constants.RequestHeaders[msg], handlers[msg]);
-                }
+                UserRequestHandler = userRequesthandler;
+                
+                NetworkComms.AppendGlobalIncomingPacketHandler<User>(Constants.RequestHeaders[Constants.Messages.RequestUserData],
+                    userRequesthandler);
+                
                 
                 return true;
             }
@@ -79,13 +94,13 @@ namespace Networking
         public void OnServerConnectionClose(Connection conn)
         {
             conn.RemoveShutdownHandler(OnServerConnectionClose);
-            StartServerListening(ServerPacketHandlers);
+            StartServerListening(UserRequestHandler);
 
         }
 
-        public void SendUser(object user, string ip)
+        public void SendUser(User user, string ip)
         {
-            SendObject(user, Constants.RequestHeaders[Constants.Messages.UserData], ip, Constants.ClientListenPort); 
+            SendUserObject(user, Constants.RequestHeaders[Constants.Messages.UserData], ip, Constants.ClientListenPort); 
         }
       
 
@@ -121,24 +136,24 @@ namespace Networking
             StartClientListening(ServerIP);
         }
 
-        public void SendLogInRequest(object user, string serverIP)
+        public void SendLogInRequest(User user, string serverIP)
         {
-            SendObject(user, Constants.RequestHeaders[Constants.Messages.RequestUserData], serverIP, Constants.ServerListenPort);
-            NetworkComms.AppendGlobalIncomingPacketHandler<object>(Constants.RequestHeaders[Constants.Messages.UserData], GetUserOnClient);
+            SendUserObject(user, Constants.RequestHeaders[Constants.Messages.RequestUserData], serverIP, Constants.ServerListenPort);
+            NetworkComms.AppendGlobalIncomingPacketHandler<User>(Constants.RequestHeaders[Constants.Messages.UserData], GetUserOnClient);
             Timer timeout = new Timer(3000);
             timeout.Elapsed += UserRequestTimeOut;
             timeout.Start();
         }
 
-        public void GetUserOnClient(PacketHeader header, Connection connection, object user)
+        public void GetUserOnClient(PacketHeader header, Connection connection, User user)
         {
             UserRecieved?.Invoke(user);
-            NetworkComms.RemoveGlobalIncomingPacketHandler<object>(Constants.RequestHeaders[Constants.Messages.UserData], GetUserOnClient);
+            NetworkComms.RemoveGlobalIncomingPacketHandler<User>(Constants.RequestHeaders[Constants.Messages.UserData], GetUserOnClient);
         }
 
         public void UserRequestTimeOut(object sender, ElapsedEventArgs e)
         {
-            NetworkComms.RemoveGlobalIncomingPacketHandler<object>(Constants.RequestHeaders[Constants.Messages.UserData], GetUserOnClient);
+            NetworkComms.RemoveGlobalIncomingPacketHandler<User>(Constants.RequestHeaders[Constants.Messages.UserData], GetUserOnClient);
             (sender as Timer).Close();
             ConnectionTimeOut?.Invoke("Нет связи с сервером");
         }

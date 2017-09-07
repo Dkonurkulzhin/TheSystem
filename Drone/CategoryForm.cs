@@ -35,7 +35,8 @@ namespace Drone
             // this.Size = new Size(categories.Count*90 + 60, 90);
             for (int i = 0; i < categories.Count; i++)
             {
-                Labels[i].Text = categories[i];
+                if (i < Labels.Count)
+                    Labels[i].Text = categories[i];
             }
 
         }

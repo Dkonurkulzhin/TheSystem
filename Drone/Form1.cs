@@ -16,10 +16,13 @@ namespace Drone
 {
     public partial class Form1 : Form
     {
-        public UserForm UserStats;
+        public  UserForm UserStats;
         public CategoryForm categoryForm;
         public AppListForm appListForm;
-      
+        
+        public delegate void FormInitEH();
+        public event FormInitEH FormIsReady;
+
         [DllImport("user32.dll")]
         static extern bool SetWindowPos(IntPtr hWnd, IntPtr hWndInsertAfter, int X, int Y, int cx, int cy, uint uFlags);
 
@@ -80,6 +83,7 @@ namespace Drone
             
             TopmostUI(true);
             FormManager.SetBevel(this, false);
+            FormIsReady();
         }
         
         public void ShowUI()

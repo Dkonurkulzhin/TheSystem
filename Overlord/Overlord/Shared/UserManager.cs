@@ -24,8 +24,8 @@ namespace Overlord
 
         public static User FindUserByName(string name)
         {
+            return Program.uscon.DeserializeUser(name);
             
-            return null;
         }
 
         public static bool AddExp(User user, long exp)

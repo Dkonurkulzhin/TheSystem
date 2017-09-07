@@ -43,6 +43,8 @@ namespace Drone
             UserBalanceLabel.Text = "Текущий баланс: " + SessionManager.currentBalance.ToString();
             UserTimeLabel.Text = "Осталось времени: " + UIFunctions.FormatTime(SessionManager.secondsLeft);
             UserRatingLabel.Text = "Текущий тариф: " + SessionManager.GetCurrentRate(SessionManager.RateFormat.perHour) + " тг/час"; //SessionManager.currentRate.ToString()
+            UserNameLabel.Text = SessionManager.currentUser.name;
+            UserLevelLabel.Text = SessionManager.currentUser.level.ToString();
         }
     }
 }

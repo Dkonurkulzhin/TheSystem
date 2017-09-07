@@ -55,7 +55,7 @@ namespace Drone
             }
             else
             {
-                settings = new ClientSettings();
+                
                 return true;
             }
            

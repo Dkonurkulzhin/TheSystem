@@ -1,0 +1,26 @@
+Base Exception Type: System.InvalidOperationException: Type is not expected, and no contract can be inferred: System.Object
+   в ProtoBuf.Meta.TypeModel.ThrowUnexpectedType(Type type)
+   в ProtoBuf.Meta.TypeModel.TryDeserializeAuxiliaryType(ProtoReader reader, DataFormat format, Int32 tag, Type type, Object& value, Boolean skipOtherFields, Boolean asListItem, Boolean autoCreate, Boolean insideList, Object parentListOrType)
+   в ProtoBuf.Meta.TypeModel.DeserializeCore(ProtoReader reader, Type type, Object value, Boolean noAutoCreate)
+   в ProtoBuf.Meta.TypeModel.Deserialize(Stream source, Object value, Type type, SerializationContext context)
+   в ProtoBuf.Serializer.NonGeneric.Deserialize(Type type, Stream source)
+   в NetworkCommsDotNet.DPSBase.ProtobufSerializer.DeserialiseDataObjectInt(Stream inputStream, Type resultType, Dictionary`2 options) в C:\projects\rep\TheSystem\Networking\ProtobufSerializer.cs:строка 68
+   в NetworkCommsDotNet.DPSBase.DataSerializer.DeserialiseGeneralObject[T](MemoryStream receivedObjectStream, List`1 dataProcessors, Dictionary`2 options)
+   в NetworkCommsDotNet.DPSBase.DataSerializer.DeserialiseDataObject[T](MemoryStream receivedObjectStream, List`1 dataProcessors, Dictionary`2 options)
+   в NetworkCommsDotNet.Tools.PacketTypeHandlerDelegateWrapper`1.DeSerialize(MemoryStream incomingBytes, SendReceiveOptions options)
+   в NetworkCommsDotNet.NetworkComms.TriggerAllPacketHandlers(PacketHeader packetHeader, Connection connection, MemoryStream dataStream, SendReceiveOptions options, Boolean ignoreUnknownPacketTypeOverride)
+   в NetworkCommsDotNet.NetworkComms.TriggerAllPacketHandlers(PacketHeader packetHeader, Connection connection, MemoryStream dataStream, SendReceiveOptions options)
+   в NetworkCommsDotNet.NetworkComms.CompleteIncomingItemTask(Object priorityQueueItemObj)
+
+Stack Trace:    в ProtoBuf.Meta.TypeModel.ThrowUnexpectedType(Type type)
+   в ProtoBuf.Meta.TypeModel.TryDeserializeAuxiliaryType(ProtoReader reader, DataFormat format, Int32 tag, Type type, Object& value, Boolean skipOtherFields, Boolean asListItem, Boolean autoCreate, Boolean insideList, Object parentListOrType)
+   в ProtoBuf.Meta.TypeModel.DeserializeCore(ProtoReader reader, Type type, Object value, Boolean noAutoCreate)
+   в ProtoBuf.Meta.TypeModel.Deserialize(Stream source, Object value, Type type, SerializationContext context)
+   в ProtoBuf.Serializer.NonGeneric.Deserialize(Type type, Stream source)
+   в NetworkCommsDotNet.DPSBase.ProtobufSerializer.DeserialiseDataObjectInt(Stream inputStream, Type resultType, Dictionary`2 options) в C:\projects\rep\TheSystem\Networking\ProtobufSerializer.cs:строка 68
+   в NetworkCommsDotNet.DPSBase.DataSerializer.DeserialiseGeneralObject[T](MemoryStream receivedObjectStream, List`1 dataProcessors, Dictionary`2 options)
+   в NetworkCommsDotNet.DPSBase.DataSerializer.DeserialiseDataObject[T](MemoryStream receivedObjectStream, List`1 dataProcessors, Dictionary`2 options)
+   в NetworkCommsDotNet.Tools.PacketTypeHandlerDelegateWrapper`1.DeSerialize(MemoryStream incomingBytes, SendReceiveOptions options)
+   в NetworkCommsDotNet.NetworkComms.TriggerAllPacketHandlers(PacketHeader packetHeader, Connection connection, MemoryStream dataStream, SendReceiveOptions options, Boolean ignoreUnknownPacketTypeOverride)
+   в NetworkCommsDotNet.NetworkComms.TriggerAllPacketHandlers(PacketHeader packetHeader, Connection connection, MemoryStream dataStream, SendReceiveOptions options)
+   в NetworkCommsDotNet.NetworkComms.CompleteIncomingItemTask(Object priorityQueueItemObj)

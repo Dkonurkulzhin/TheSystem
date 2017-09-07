@@ -7,6 +7,8 @@ using System.Windows.Forms;
 using Networking;
 
 using NetworkCommsDotNet;
+
+
 namespace Drone
 {
     public static class NetworkManager
@@ -22,13 +24,13 @@ namespace Drone
 
         public static void sendLoginRequest(User user)
         {
-            messageHanlder.SendLogInRequest(user, "127.0.0.1"); //GlobalVars.settings.serverIP);
+            messageHanlder.SendLogInRequest(user, GlobalVars.settings.serverIP); //);
             messageHanlder.UserRecieved += CheckRequestedUser;   
         }
 
-        public static void CheckRequestedUser(object user)
+        public static void CheckRequestedUser(User user)
         {
-            if (user == null)
+            if (user == null || user.name == null || user.name == "")
             {
                 Console.WriteLine("Invalid USER!!!");
                 return;

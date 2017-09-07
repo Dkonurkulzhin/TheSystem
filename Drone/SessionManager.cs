@@ -20,13 +20,20 @@ namespace Drone
         public  enum RateFormat {perHour, perMinute, perSecond};
         private static TimeSpan lastTickTime;
 
-        public static bool OpenSession(User user)
+        public static void OpenSession(User user)
         {
-            
-            Program.LogIn(user);
-            lastTickTime = TimeSpan.Zero;
+
+            Program.LobbyForm.LogIn(user);
             currentUser = user;
             currentUser.balance = 100;
+            Program.MainForm.FormIsReady += StartSession;
+         
+
+        }
+
+        public static void StartSession()
+        {
+            lastTickTime = TimeSpan.Zero;
             SessionTimer = new Stopwatch();
             SessionTimer.Reset();
             SessionTimer.Start();
@@ -35,7 +42,7 @@ namespace Drone
             tick.AutoReset = true;
             tick.Enabled = true;
             tick.Elapsed += Program.MainForm.UserStats.UpdateStats;
-            return false;
+            
         }
 
         public static DateTime EndSession()
