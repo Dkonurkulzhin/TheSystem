@@ -28,6 +28,7 @@ namespace Drone
             this.FormBorderStyle = FormBorderStyle.None;
             this.WindowState = FormWindowState.Maximized;
             SetUpUIPos();
+           
         }
 
         private void SetUpUIPos()
@@ -52,9 +53,9 @@ namespace Drone
                 return;
             }   
             PasswordLabel.ForeColor = StandartForeColor;
+
+            NetworkManager.sendLoginRequest(new User(username, password));
             
-            
-            SessionManager.OpenSession(UsernameInput.Text, PasswordInput.Text);
             UsernameInput.Text = "";
             PasswordInput.Text = "";
 

@@ -44,7 +44,9 @@ namespace Networking
         {
             NetworkComms.AppendGlobalIncomingPacketHandler<List<int>>(Constants.RequestHeaders[Constants.Messages.RequestUpdate], 
                 UpdateHandler);
-            
+            NetworkComms.AppendGlobalIncomingPacketHandler<int>(Constants.RequestHeaders[Constants.Messages.Echo],
+                EchoHandler);
+
         }
 
         private void UpdateHandler(PacketHeader header, Connection connection, List<int> ports)
@@ -55,6 +57,7 @@ namespace Networking
                 {
                     if (!GetAddressFromEndPoint(connection.ConnectionInfo.RemoteEndPoint).Contains("127.0.0.1"))
                         SendUpdate?.Invoke(GetAddressFromEndPoint(connection.ConnectionInfo.RemoteEndPoint), port);
+                  
                     return;
                 }
                 catch (Exception ex)
@@ -66,7 +69,7 @@ namespace Networking
 
         private void EchoHandler(PacketHeader header, Connection connection, int machine)
         {
-
+            Console.WriteLine("Marco from Machine " + machine);
         }
 
         private string GetAddressFromEndPoint(EndPoint endPoint)

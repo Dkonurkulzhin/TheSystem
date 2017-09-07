@@ -3,9 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Net;
 
+
+using NetworkCommsDotNet;
+using NetworkCommsDotNet.Connections;
+using NetworkCommsDotNet.Connections.TCP;
 using Networking;
-
 namespace Overlord
 {
     public static class ClientCommunicationManager
@@ -13,13 +17,40 @@ namespace Overlord
         public static UDPListener udpListener;
         public static Dictionary<string, FileHandler> Transitions;
 
-      
+        public static MessageHandler messageHanler;
+       
 
         public static void Init()
         {
             udpListener = new UDPListener();
             Transitions = new Dictionary<string, FileHandler>();
+            messageHanler = new MessageHandler();
             udpListener.SendUpdate += AddUpdateTransition;
+            messageHanler.StartServerListening(HandlerDict());
+        }
+
+        private static Dictionary<Constants.Messages, NetworkComms.PacketHandlerCallBackDelegate<object>> HandlerDict()
+        {
+            return new Dictionary<Constants.Messages, NetworkComms.PacketHandlerCallBackDelegate<object>>
+            {
+                {Constants.Messages.RequestUserData,  SendUser},
+              //  {Constants.Messages.Echo,  SendUser}
+            };
+        }
+
+        public static void SendUser(PacketHeader header, Connection connection, object user)
+        {
+            User incommingUser = user as User;
+            UserManager.FindUserByName(incommingUser.name);
+
+            Console.WriteLine("Sending user data to " + Constants.GetAddressFromEndPoint(connection.ConnectionInfo.RemoteEndPoint));
+            messageHanler.SendUser(UserManager.FindUserByName(incommingUser.name), 
+                Constants.GetAddressFromEndPoint(connection.ConnectionInfo.RemoteEndPoint));
+        }
+
+        public static void UpdateStatus(PacketHeader header, Connection connection, object user)
+        {
+
         }
 
         public static void AddUpdateTransition(string ip, int port)

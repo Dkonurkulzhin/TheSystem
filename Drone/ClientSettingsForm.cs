@@ -22,7 +22,7 @@ namespace Drone
         private void ClientSettingsForm_Load(object sender, EventArgs e)
         {
             PCNumberNum.Value = GlobalVars.settings.pcNumber;
-            maskedTextBox1.Mask = "###.###.###.###";
+            //maskedTextBox1.Mask = "###.###.###.###";
             maskedTextBox1.ValidatingType = typeof(System.Net.IPAddress);
             maskedTextBox1.Text = GlobalVars.settings.serverIP;
 
@@ -69,6 +69,7 @@ namespace Drone
         private void maskedTextBox1_Validated(object sender, EventArgs e)
         {
             GlobalVars.settings.serverIP = maskedTextBox1.Text;
+            GlobalVars.SaveSettings();
             Console.WriteLine("new server IP: " + maskedTextBox1.Text);
         }
     }

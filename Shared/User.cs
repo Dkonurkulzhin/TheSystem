@@ -9,8 +9,9 @@ using System.Threading.Tasks;
     {
         public int ID;
         public string name;
+        public int level;
         public long exp;
-        public long balance;
+        public double balance;
         public DateTime regDate;
         public DateTime lastVisit;
         public string personalName;
@@ -21,12 +22,18 @@ using System.Threading.Tasks;
         public string password;
         public string usergroup = "Default";
         private long expToNextLvl;
+        
+        public User(string username = "", string userpassword ="")
+        {
+            name = username;
+            password = userpassword;
+        }
 
         public long GetExpToNextLevel()
         {
             return expToNextLvl;
 
-        }
+        } 
         public int GetLevel()
         {
             return 0; // Math.Round((float)exp);

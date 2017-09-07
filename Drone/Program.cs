@@ -34,7 +34,7 @@ namespace Drone
             DevForm = new DebugForm();
             DevForm.Show();
             DevForm.TopMost = true;
-
+            NetworkManager.InitNetwork();
             // MainForm.Hide();
             Application.DoEvents();
             InitScreen.Show();

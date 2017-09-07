@@ -53,7 +53,7 @@ namespace Updater
         {
 
             LoadClientSettings();
-            
+            TCPPortConfiguration.ReserveTCPPorts();
             InitUI();
             udpBroadcaster = new UDPBroadcaster(1000, Constants.UDPBroodcastPort);
             fileHandler = new FileHandler();

@@ -91,6 +91,7 @@ namespace Networking
             NetworkComms.AppendGlobalIncomingPacketHandler<byte[]>("PartialFileData", IncomingPartialFileData);
             //Trigger IncomingPartialFileDataInfo method if we receive a packet of type 'PartialFileDataInfo'
             NetworkComms.AppendGlobalIncomingPacketHandler<SendInfo>("PartialFileDataInfo", IncomingPartialFileDataInfo);
+           
             NetworkComms.AppendGlobalIncomingPacketHandler<bool>("FileDataCompleted", RecievengCompleted);
             //Trigger the method OnConnectionClose so that we can do some clean-up
             NetworkComms.AppendGlobalConnectionCloseHandler(OnConnectionClose);

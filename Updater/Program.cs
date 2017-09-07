@@ -21,6 +21,7 @@ namespace Updater
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             GlobalVars.LoadSettings();
+            
             Application.Run(new MainForm());
         }
 

@@ -19,6 +19,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Overlord", "Overlord\Overlo
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		Networking\Networking.projitems*{21d0d2ef-9c91-4caa-baea-8ec0bc42bc10}*SharedItemsImports = 4
 		Networking\Networking.projitems*{5404b601-0b68-4995-b8fe-f82001b9f1ef}*SharedItemsImports = 4
 		Networking\Networking.projitems*{5c5f5656-93e4-4177-9b73-76ae4dc3a2f9}*SharedItemsImports = 13
 		Networking\Networking.projitems*{9153ec88-be90-4dc2-916c-86ece7c6b7df}*SharedItemsImports = 4

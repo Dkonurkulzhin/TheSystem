@@ -82,6 +82,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\..\Shared\User.cs">
+      <Link>Shared\User.cs</Link>
+    </Compile>
     <Compile Include="AddTimeDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -205,7 +208,6 @@
       <DependentUpon>TelegramSettingsForm.cs</DependentUpon>
     </Compile>
     <Compile Include="TempUserControllu.cs" />
-    <Compile Include="Shared\User.cs" />
     <Compile Include="Shared\UserManager.cs" />
     <Compile Include="Shared\XMLManager.cs" />
     <Compile Include="UserSearchForm.cs">

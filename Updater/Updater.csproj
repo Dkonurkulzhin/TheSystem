@@ -105,7 +105,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="Properties\App.config" />
   </ItemGroup>
   <Import Project="..\Networking\Networking.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
