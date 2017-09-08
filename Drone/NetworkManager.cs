@@ -32,6 +32,7 @@ namespace Drone
         {
             if (user == null || user.name == null || user.name == "")
             {
+                Program.LobbyForm.SetErrorText("Неправльный пользователь или пароль");
                 Console.WriteLine("Invalid USER!!!");
                 return;
             }

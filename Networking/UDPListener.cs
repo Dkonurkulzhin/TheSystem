@@ -21,7 +21,7 @@ namespace Networking
             Start();
         }
 
-
+        
         public void Start()
         {
             Connection.StartListening(ConnectionType.UDP, new IPEndPoint(IPAddress.Any, Constants.UDPBroodcastPort));

@@ -32,11 +32,11 @@
             this.button1 = new System.Windows.Forms.Button();
             this.UsernameInput = new System.Windows.Forms.TextBox();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.PCLabel = new System.Windows.Forms.Label();
             this.ErrorLabel = new System.Windows.Forms.Label();
             this.PasswordLabel = new System.Windows.Forms.Label();
             this.UsernameLabel = new System.Windows.Forms.Label();
             this.PasswordInput = new System.Windows.Forms.TextBox();
-            this.PCLabel = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -80,13 +80,23 @@
             this.panel1.TabIndex = 3;
             this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
+            // PCLabel
+            // 
+            this.PCLabel.AutoSize = true;
+            this.PCLabel.ForeColor = System.Drawing.SystemColors.Control;
+            this.PCLabel.Location = new System.Drawing.Point(108, 14);
+            this.PCLabel.Name = "PCLabel";
+            this.PCLabel.Size = new System.Drawing.Size(39, 20);
+            this.PCLabel.TabIndex = 7;
+            this.PCLabel.Text = "PC0";
+            // 
             // ErrorLabel
             // 
-            this.ErrorLabel.AutoSize = true;
+            this.ErrorLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.ErrorLabel.ForeColor = System.Drawing.Color.Red;
-            this.ErrorLabel.Location = new System.Drawing.Point(20, 131);
+            this.ErrorLabel.Location = new System.Drawing.Point(20, 117);
             this.ErrorLabel.Name = "ErrorLabel";
-            this.ErrorLabel.Size = new System.Drawing.Size(0, 20);
+            this.ErrorLabel.Size = new System.Drawing.Size(219, 33);
             this.ErrorLabel.TabIndex = 6;
             // 
             // PasswordLabel
@@ -119,16 +129,6 @@
             this.PasswordInput.Size = new System.Drawing.Size(119, 26);
             this.PasswordInput.TabIndex = 3;
             this.PasswordInput.UseSystemPasswordChar = true;
-            // 
-            // PCLabel
-            // 
-            this.PCLabel.AutoSize = true;
-            this.PCLabel.ForeColor = System.Drawing.SystemColors.Control;
-            this.PCLabel.Location = new System.Drawing.Point(108, 14);
-            this.PCLabel.Name = "PCLabel";
-            this.PCLabel.Size = new System.Drawing.Size(39, 20);
-            this.PCLabel.TabIndex = 7;
-            this.PCLabel.Text = "PC0";
             // 
             // LogInForm
             // 

@@ -64,8 +64,6 @@ namespace Updater
             fileHandler.ReceivingCompleted += UpdateCompleted;
             udpBroadcaster.StartBroadcasting(Constants.RequestHeaders[Constants.Messages.RequestUpdate], fileHandler.StartListening());
 
-            UDPListener list = new UDPListener();
-            list.SendUpdate += SelectFilesToSend;
         }
 
         /// <summary>
@@ -75,7 +73,7 @@ namespace Updater
         /// <param name="e"></param>
         private void UpdateCompleted()
         {
-            fileHandler.SaveAllRecievedFiles(@"D:\Progs\");
+            fileHandler.SaveAllRecievedFiles(GlobalVars.settings.applicationDirectory);
             UpdateStatus("Обновление завершено");
         }
 

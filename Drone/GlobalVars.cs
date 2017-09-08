@@ -22,7 +22,7 @@ namespace Drone
         static public string InterfaceResPath = RootDirectory + @"Resources\";
         // пути к сторонним инструментам
         static public string UpdaterDirectory = RootDirectory + @"Updater\";
-
+        static public string UpdaterPath = UpdaterDirectory + "updater.exe";
         static public ClientSettings settings;
         static public bool isUpToDate = true;
         

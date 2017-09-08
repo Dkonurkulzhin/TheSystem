@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Timers;
 
 namespace Drone
 {
@@ -56,12 +57,37 @@ namespace Drone
             PasswordLabel.ForeColor = StandartForeColor;
 
             NetworkManager.sendLoginRequest(new User(username, password));
-            
-            UsernameInput.Text = "";
-            PasswordInput.Text = "";
+          
 
         }
 
+        public void SetErrorText(string message)
+        {
+            BeginInvoke(new Action(() =>
+            {
+                ErrorLabel.Text = message;
+            }));
+            if (message != null && message != "")
+            {
+                System.Timers.Timer FlushTimer = new System.Timers.Timer(2000);
+                FlushTimer.Elapsed += FlushErrorText;
+                FlushTimer.Start();
+                BeginInvoke(new Action(() =>
+                {
+                    button1.Enabled = false;
+                }));
+            }
+        }
+
+        private void FlushErrorText(object sender, ElapsedEventArgs e)
+        {
+            (sender as System.Timers.Timer).Close();
+            SetErrorText("");
+            BeginInvoke(new Action(() =>
+            {
+                button1.Enabled = true;
+            }));
+        }
         public void LogIn(User user)
         {
             BeginInvoke(new Action(() =>
