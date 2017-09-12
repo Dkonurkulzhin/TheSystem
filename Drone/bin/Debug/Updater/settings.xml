@@ -4,8 +4,28 @@
   <pcNumber>12</pcNumber>
   <serverIP>192.168.0.164</serverIP>
   <pcsAmount>0</pcsAmount>
-  <applicationDirectory>C:\projects\rep\TheSystem\Drone\bin\Debug\\</applicationDirectory>
+  <applicationDirectory>D:\Projects\System\TheSystem\Drone\bin\Debug\\</applicationDirectory>
   <AppCategories>
+    <string>Игры</string>
+    <string>Интернет</string>
+    <string>Офис</string>
+    <string>Настройки</string>
+    <string>Игры</string>
+    <string>Интернет</string>
+    <string>Офис</string>
+    <string>Настройки</string>
+    <string>Игры</string>
+    <string>Интернет</string>
+    <string>Офис</string>
+    <string>Настройки</string>
+    <string>Игры</string>
+    <string>Интернет</string>
+    <string>Офис</string>
+    <string>Настройки</string>
+    <string>Игры</string>
+    <string>Интернет</string>
+    <string>Офис</string>
+    <string>Настройки</string>
     <string>Игры</string>
     <string>Интернет</string>
     <string>Офис</string>

@@ -25,6 +25,9 @@ namespace Networking
         public delegate void UserEH(User user);
         public event UserEH UserRecieved;
 
+        public delegate void UpdateEH();
+        public event UpdateEH StartUpdate;
+
        
         public delegate void TimeoutEH(string message);
         public event TimeoutEH ConnectionTimeOut;
@@ -102,6 +105,11 @@ namespace Networking
         {
             SendUserObject(user, Constants.RequestHeaders[Constants.Messages.UserData], ip, Constants.ClientListenPort); 
         }
+
+        public void SendForceUpdate(string ip)
+        {
+            SendObject("update", Constants.RequestHeaders[Constants.Messages.ForceUpdate], ip, Constants.ClientListenPort);
+        }
       
 
         #endregion
@@ -115,6 +123,7 @@ namespace Networking
 
                 Connection.StartListening(ConnectionType.TCP, new IPEndPoint(IPAddress.Parse(serverIP), Constants.ClientListenPort));
                 ServerIP = serverIP;
+                NetworkComms.AppendGlobalIncomingPacketHandler<string>(Constants.RequestHeaders[Constants.Messages.ForceUpdate], GetUpdateMessage);
                 NetworkComms.AppendGlobalConnectionCloseHandler(OnCleintConnectionClose);
                 
                 return true;
@@ -156,6 +165,11 @@ namespace Networking
             NetworkComms.RemoveGlobalIncomingPacketHandler<User>(Constants.RequestHeaders[Constants.Messages.UserData], GetUserOnClient);
             (sender as Timer).Close();
             ConnectionTimeOut?.Invoke("Нет связи с сервером");
+        }
+
+        public void GetUpdateMessage(PacketHeader header, Connection connection, string message)
+        {
+            StartUpdate?.Invoke();
         }
 
         #endregion

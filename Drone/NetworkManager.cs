@@ -15,13 +15,22 @@ namespace Drone
     {
         public static MessageHandler messageHanlder = new MessageHandler();
         public static UDPBroadcaster broadcaster = new UDPBroadcaster(1000, Constants.UDPBroodcastPort);
-
+        public delegate void UpdateEchoMessageEH();
+       
         public static void InitNetwork()
         {
             messageHanlder.StartClientListening(GlobalVars.settings.serverIP);
-            broadcaster.StartBroadcasting(Constants.RequestHeaders[Constants.Messages.Echo], 32);
+            messageHanlder.StartUpdate += SetPendingUpdate;
+            broadcaster.StartBroadcasting(Constants.RequestHeaders[Constants.Messages.Echo], new MachineStatMessage(
+                GlobalVars.settings.pcNumber, false));
+            
         }
 
+        public static void UpdateEchoMessage()
+        {
+            broadcaster.Content = new MachineStatMessage(GlobalVars.settings.pcNumber,
+                (SessionManager.currentUser == null) ? false : true);
+        }
         public static void sendLoginRequest(User user)
         {
             messageHanlder.SendLogInRequest(user, GlobalVars.settings.serverIP); //);
@@ -39,6 +48,18 @@ namespace Drone
                 
             User incommingUser = user as User;
             SessionManager.OpenSession(incommingUser);
+        }
+
+        public static void SetPendingUpdate()
+        {
+            if (Program.CurrentUser == null)
+            {
+                Program.PerformUpdate();
+            }
+            else
+            {
+                Program.isPendingUpdate = true;
+            }
         }
 
     }

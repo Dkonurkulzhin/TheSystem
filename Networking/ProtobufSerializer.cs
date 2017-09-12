@@ -5,7 +5,6 @@ using ProtoBuf;
 using System.IO;
 using System.Runtime.InteropServices;
 using ProtoBuf.Meta;
-using ProtoBuf;
 #if ANDROID
 using PreserveAttribute = Android.Runtime.PreserveAttribute;
 #elif iOS

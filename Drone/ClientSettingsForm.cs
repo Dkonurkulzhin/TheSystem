@@ -72,5 +72,10 @@ namespace Drone
             GlobalVars.SaveSettings();
             Console.WriteLine("new server IP: " + maskedTextBox1.Text);
         }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            Program.PerformUpdate();
+        }
     }
 }

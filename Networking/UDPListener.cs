@@ -16,6 +16,9 @@ namespace Networking
         public delegate void SendUpdateEH(string ip, int port);
         public event SendUpdateEH SendUpdate;
 
+        public delegate void EchoEH(int machine, string machineIP);
+        public event EchoEH GotEcho;
+
         public UDPListener()
         {
             Start();
@@ -44,7 +47,7 @@ namespace Networking
         {
             NetworkComms.AppendGlobalIncomingPacketHandler<List<int>>(Constants.RequestHeaders[Constants.Messages.RequestUpdate], 
                 UpdateHandler);
-            NetworkComms.AppendGlobalIncomingPacketHandler<int>(Constants.RequestHeaders[Constants.Messages.Echo],
+            NetworkComms.AppendGlobalIncomingPacketHandler<MachineStatMessage>(Constants.RequestHeaders[Constants.Messages.Echo],
                 EchoHandler);
 
         }
@@ -67,9 +70,15 @@ namespace Networking
             }
         }
 
-        private void EchoHandler(PacketHeader header, Connection connection, int machine)
+        private void EchoHandler(PacketHeader header, Connection connection, MachineStatMessage machineMessage)
         {
-            Console.WriteLine("Marco from Machine " + machine);
+            string ip = Constants.GetAddressFromEndPoint(connection.ConnectionInfo.RemoteEndPoint);
+
+            if (ip != "127.0.0.1")
+            {
+                GotEcho?.Invoke(machineMessage.Index, ip);
+                Console.WriteLine("Marco from Machine " + machineMessage.Index + ": " + ip);
+            }
         }
 
         private string GetAddressFromEndPoint(EndPoint endPoint)

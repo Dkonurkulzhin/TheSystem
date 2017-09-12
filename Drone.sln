@@ -10,6 +10,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{23E1C4AB-9998-4D6D-9875-217284324CA2}"
 	ProjectSection(SolutionItems) = preProject
 		Shared\AppUnit.cs = Shared\AppUnit.cs
+		MachineStatMessage.cs = MachineStatMessage.cs
 		Shared\User.cs = Shared\User.cs
 	EndProjectSection
 EndProject

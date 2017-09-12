@@ -19,7 +19,7 @@ namespace Networking
         Timer udpTimer;
         private int Interval, Port;
         private string Header;
-        object Content = null;
+        public object Content = null;
         public UDPBroadcaster(int interval, int port)
         {
             Interval = interval;

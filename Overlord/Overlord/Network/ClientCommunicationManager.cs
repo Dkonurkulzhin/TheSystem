@@ -26,6 +26,7 @@ namespace Overlord
             Transitions = new Dictionary<string, FileHandler>();
             messageHanler = new MessageHandler();
             udpListener.SendUpdate += AddUpdateTransition;
+
             messageHanler.StartServerListening(SendUser);
         }
 

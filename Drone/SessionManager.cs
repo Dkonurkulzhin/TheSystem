@@ -53,7 +53,7 @@ namespace Drone
             tick.Close();
             SessionTimer.Reset();
             SessionTimer.Stop();
-            
+            currentUser = null;
             Program.LogOut();
             return DateTime.Now;
         }

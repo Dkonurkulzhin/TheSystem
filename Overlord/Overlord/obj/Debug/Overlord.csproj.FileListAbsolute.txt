@@ -278,3 +278,4 @@ C:\projects\rep\TheSystem\Overlord\Overlord\obj\Debug\Overlord.UserAddForm.resou
 C:\projects\rep\TheSystem\Overlord\Overlord\obj\Debug\Overlord.UserConfigForm.resources
 C:\projects\rep\TheSystem\Overlord\Overlord\obj\Debug\Overlord.UserSearchForm.resources
 C:\projects\rep\TheSystem\Overlord\Overlord\obj\Debug\Overlord.csproj.GenerateResource.Cache
+D:\Projects\System\TheSystem\Overlord\Overlord\obj\Debug\Overlord.UpdateSettingsForm.resources
