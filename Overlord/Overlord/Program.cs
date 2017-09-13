@@ -29,7 +29,7 @@ namespace Overlord
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             TelegramManager.InitBot();
-            MachineManager.LoadMachines();
+            MachineManager.Init();
             ClientCommunicationManager.Init();
             MainForm = new Form1();
             consoleForm = new ConsoleForm();

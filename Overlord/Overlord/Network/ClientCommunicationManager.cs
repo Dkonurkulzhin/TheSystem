@@ -10,6 +10,7 @@ using NetworkCommsDotNet;
 using NetworkCommsDotNet.Connections;
 using NetworkCommsDotNet.Connections.TCP;
 using Networking;
+
 namespace Overlord
 {
     public static class ClientCommunicationManager
@@ -26,10 +27,11 @@ namespace Overlord
             Transitions = new Dictionary<string, FileHandler>();
             messageHanler = new MessageHandler();
             udpListener.SendUpdate += AddUpdateTransition;
-
+            udpListener.GotEcho += MachineManager.GotEchoPacket;
             messageHanler.StartServerListening(SendUser);
         }
 
+        
         
 
         public static void SendUser(PacketHeader header, Connection connection, User user)

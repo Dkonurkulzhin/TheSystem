@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
+using System.Timers;
 
 namespace Overlord
 {
@@ -13,17 +13,27 @@ namespace Overlord
         public enum MachineStatus { Ready = 0, Busy = 1, Offline = 2, Disabled = 3, Reserved = 4, Unavailable = 5 };
 
         public static Machine[] Machines = new Machine[GlobalVars.Settings.PC_amount];
-
+        private static System.Timers.Timer[] StatUpdateTimers = new System.Timers.Timer[GlobalVars.Settings.PC_amount];
+        
         public static Dictionary<MachineManager.MachineStatus, string> StatusLabels = new Dictionary<MachineManager.MachineStatus, string>() {
             {MachineManager.MachineStatus.Ready, "свободен" },
             {MachineManager.MachineStatus.Busy, "занят"},
             {MachineManager.MachineStatus.Reserved,  "забронирован"},
             {MachineManager.MachineStatus.Disabled,  "отключен"},
-            {MachineManager.MachineStatus.Unavailable,  "неисправен"}
+            {MachineManager.MachineStatus.Unavailable,  "неисправен"},
+            {MachineManager.MachineStatus.Offline,  "вне сети" }
         };
 
         public static Dictionary<string, int> GroupMultiplier;
 
+        public static void Init()
+        {
+            for(int i = 0; i < GlobalVars.Settings.PC_amount; i++)
+            {
+                UpdateStatTimer(i);
+            }
+            LoadMachines();
+        }
 
         public static bool LogInUser(int machineID, User user)
         {
@@ -212,6 +222,34 @@ namespace Overlord
             //    }
         }
 
+        public static void GotEchoPacket(int index, string ip, bool isOccupied)
+        {
+            if (index <= Machines.Length)
+            {
+                Machines[index-1].status = isOccupied ? MachineStatus.Busy : MachineStatus.Ready;
+                UpdateStatTimer(index-1);
+            }
+
+        }
+
+        public static void OnStatTimerElapsed(object sender, ElapsedEventArgs e)
+        {
+            System.Timers.Timer timer = sender as System.Timers.Timer;
+            int index = Array.IndexOf(StatUpdateTimers, timer);
+            if (index <= Machines.Length && index >= 0)
+            {
+                Machines[index].status = MachineStatus.Disabled;
+                //SaveMachine(Machines[index]);
+            }
+            timer.Dispose();
+        }
+
+        public static void UpdateStatTimer(int index)
+        {
+            StatUpdateTimers[index] = new System.Timers.Timer(5000);
+            StatUpdateTimers[index].Elapsed += OnStatTimerElapsed;
+            StatUpdateTimers[index].Start();
+        }
 
     }
 }

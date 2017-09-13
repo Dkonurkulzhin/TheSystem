@@ -1,11 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ClientSettings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <adminPassword>admin</adminPassword>
-  <pcNumber>12</pcNumber>
-  <serverIP>192.168.0.164</serverIP>
+  <pcNumber>16</pcNumber>
+  <serverIP>192.168.2.201</serverIP>
   <pcsAmount>0</pcsAmount>
   <applicationDirectory>D:\Projects\System\TheSystem\Drone\bin\Debug\\</applicationDirectory>
   <AppCategories>
+    <string>Игры</string>
+    <string>Интернет</string>
+    <string>Офис</string>
+    <string>Настройки</string>
+    <string>Игры</string>
+    <string>Интернет</string>
+    <string>Офис</string>
+    <string>Настройки</string>
+    <string>Игры</string>
+    <string>Интернет</string>
+    <string>Офис</string>
+    <string>Настройки</string>
+    <string>Игры</string>
+    <string>Интернет</string>
+    <string>Офис</string>
+    <string>Настройки</string>
+    <string>Игры</string>
+    <string>Интернет</string>
+    <string>Офис</string>
+    <string>Настройки</string>
+    <string>Игры</string>
+    <string>Интернет</string>
+    <string>Офис</string>
+    <string>Настройки</string>
+    <string>Игры</string>
+    <string>Интернет</string>
+    <string>Офис</string>
+    <string>Настройки</string>
     <string>Игры</string>
     <string>Интернет</string>
     <string>Офис</string>
