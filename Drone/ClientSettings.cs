@@ -13,6 +13,6 @@ namespace Drone
         public string serverIP = "127.0.0.1";
         public int pcsAmount = 0;
         public string applicationDirectory;
-        public List<string> AppCategories = new List<string>(new string[] { "Игры", "Интернет", "Офис", "Настройки" });
+        public string[] AppCategories = { "Игры", "Интернет", "Офис", "Настройки" };
     }
 }

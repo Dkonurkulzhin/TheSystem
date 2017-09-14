@@ -20,7 +20,7 @@ namespace Drone
         public static void InitNetwork()
         {
             messageHanlder.StartClientListening(GlobalVars.settings.serverIP);
-            messageHanlder.StartUpdate += SetPendingUpdate;
+            messageHanlder.NotifyUpdate += SetPendingUpdate;
             broadcaster.StartBroadcasting(Constants.RequestHeaders[Constants.Messages.Echo], new MachineStatMessage(
                 GlobalVars.settings.pcNumber, false));
             
@@ -52,7 +52,7 @@ namespace Drone
 
         public static void SetPendingUpdate()
         {
-            if (Program.CurrentUser == null)
+            if (SessionManager.currentUser == null)
             {
                 Program.PerformUpdate();
             }

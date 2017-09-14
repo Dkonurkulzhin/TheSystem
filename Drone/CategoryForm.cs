@@ -14,7 +14,7 @@ namespace Drone
     {
         private Form1 MainForm;
         private List<PictureBox> CatButtons = new List<PictureBox>();
-        private List<string> categories;
+        private string[]categories;
         public static List<PictureBox> Pictures;
         public static List<Label> Labels;
         private AppListForm appList;
@@ -33,7 +33,7 @@ namespace Drone
             categories = GlobalVars.settings.AppCategories;
             UIGraphical.LoadUILists();
             // this.Size = new Size(categories.Count*90 + 60, 90);
-            for (int i = 0; i < categories.Count; i++)
+            for (int i = 0; i < categories.Length; i++)
             {
                 if (i < Labels.Count)
                     Labels[i].Text = categories[i];

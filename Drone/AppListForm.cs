@@ -48,7 +48,13 @@ namespace Drone
                     ShownApps.Add(app);
                 }
             }
-             ShowApplications();
+            ShowApplications();
+            string apps = "";
+            foreach (string cat in GlobalVars.settings.AppCategories)
+            {
+                apps += cat;
+            } 
+            Console.WriteLine("app categories: " + apps);
 
         }
         private bool ApplicationsHasPictures(List<AppUnit> apps)

@@ -226,7 +226,9 @@ namespace Overlord
         {
             if (index <= Machines.Length)
             {
-                Machines[index-1].status = isOccupied ? MachineStatus.Busy : MachineStatus.Ready;
+                Machines[index - 1].status = isOccupied ? MachineStatus.Busy : MachineStatus.Ready;
+                Machines[index - 1].IP = ip;
+
                 UpdateStatTimer(index-1);
             }
 
@@ -239,7 +241,7 @@ namespace Overlord
             if (index <= Machines.Length && index >= 0)
             {
                 Machines[index].status = MachineStatus.Disabled;
-                //SaveMachine(Machines[index]);
+                Machines[index].IP = "";
             }
             timer.Dispose();
         }

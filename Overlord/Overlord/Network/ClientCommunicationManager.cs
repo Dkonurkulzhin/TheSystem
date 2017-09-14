@@ -19,7 +19,7 @@ namespace Overlord
         public static Dictionary<string, FileHandler> Transitions;
 
         public static MessageHandler messageHanler;
-       
+        public static int ClientListenPort = Constants.ClientListenPort;
 
         public static void Init()
         {
@@ -31,8 +31,13 @@ namespace Overlord
             messageHanler.StartServerListening(SendUser);
         }
 
-        
-        
+        public static void SendForceUpdate(Machine machine)
+        {
+            if (machine.IP != null && machine.IP != "")
+                messageHanler.SendObject("update", Constants.RequestHeaders[Constants.Messages.ForceUpdate], 
+                    machine.IP, ClientListenPort);
+        }
+
 
         public static void SendUser(PacketHeader header, Connection connection, User user)
         {

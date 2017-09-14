@@ -83,7 +83,7 @@ namespace Drone
             
             TopmostUI(true);
             FormManager.SetBevel(this, false);
-            FormIsReady();
+            FormIsReady?.Invoke();
         }
         
         public void ShowUI()

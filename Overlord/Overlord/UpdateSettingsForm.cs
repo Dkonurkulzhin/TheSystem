@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 
+
 namespace Overlord
 {
     public partial class UpdateSettingsForm : Form
@@ -23,6 +24,7 @@ namespace Overlord
         {
             targetFolder = GlobalVars.Settings.UpdateFolder;
             UpdateElements();
+            UpdateMachineList();
         }
 
         private void UpdateElements()
@@ -30,6 +32,20 @@ namespace Overlord
            
             label1.Text = FolderInfo(targetFolder);
             textBox1.Text = targetFolder;
+
+        }
+
+        private void UpdateMachineList()
+        {
+            listBox1.Items.Clear();
+            foreach(Machine machine in MachineManager.Machines)
+            {
+
+                listBox1.Items.Add(machine.label + " (" + machine.index.ToString() + "), " + 
+                    ((machine.status != MachineManager.MachineStatus.Disabled) ? machine.IP : "offline" ));
+               
+                
+            }
         }
 
         private string FolderInfo(string path)
@@ -66,6 +82,27 @@ namespace Overlord
         {
             GlobalVars.Settings.UpdateFolder = targetFolder;
             GlobalVars.SaveSettings();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            UpdateMachineList();
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            foreach (Machine machine in MachineManager.Machines)
+            {
+                if (machine.IP != null && machine.IP != "")
+                {
+                    ClientCommunicationManager.SendForceUpdate(machine);
+                }
+            }
         }
     }
 }

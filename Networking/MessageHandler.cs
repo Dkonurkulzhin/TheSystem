@@ -26,9 +26,9 @@ namespace Networking
         public event UserEH UserRecieved;
 
         public delegate void UpdateEH();
-        public event UpdateEH StartUpdate;
+        public event UpdateEH NotifyUpdate;
 
-       
+        
         public delegate void TimeoutEH(string message);
         public event TimeoutEH ConnectionTimeOut;
 
@@ -57,10 +57,8 @@ namespace Networking
             remoteInfo = new ConnectionInfo(ip, port);
             try
             {
-                Connection connection = TCPConnection.GetConnection(remoteInfo);
+                SendObject(user, header, ip, port);
 
-                connection.SendObject(header, user, customOptions);
-               
             }
             catch (Exception)
             {
@@ -83,8 +81,7 @@ namespace Networking
                 
                 NetworkComms.AppendGlobalIncomingPacketHandler<User>(Constants.RequestHeaders[Constants.Messages.RequestUserData],
                     userRequesthandler);
-                
-                
+       
                 return true;
             }
             catch (Exception ex)
@@ -125,7 +122,7 @@ namespace Networking
                 ServerIP = serverIP;
                 NetworkComms.AppendGlobalIncomingPacketHandler<string>(Constants.RequestHeaders[Constants.Messages.ForceUpdate], GetUpdateMessage);
                 NetworkComms.AppendGlobalConnectionCloseHandler(OnCleintConnectionClose);
-                
+                NetworkComms.AppendGlobalIncomingPacketHandler<User>(Constants.RequestHeaders[Constants.Messages.UserData], GetUserOnClient);
                 return true;
             }
             catch (Exception ex)
@@ -148,16 +145,14 @@ namespace Networking
         public void SendLogInRequest(User user, string serverIP)
         {
             SendUserObject(user, Constants.RequestHeaders[Constants.Messages.RequestUserData], serverIP, Constants.ServerListenPort);
-            NetworkComms.AppendGlobalIncomingPacketHandler<User>(Constants.RequestHeaders[Constants.Messages.UserData], GetUserOnClient);
-            Timer timeout = new Timer(3000);
-            timeout.Elapsed += UserRequestTimeOut;
-            timeout.Start();
+            
         }
 
         public void GetUserOnClient(PacketHeader header, Connection connection, User user)
         {
             UserRecieved?.Invoke(user);
-            NetworkComms.RemoveGlobalIncomingPacketHandler<User>(Constants.RequestHeaders[Constants.Messages.UserData], GetUserOnClient);
+            NetworkComms.RemoveGlobalIncomingPacketHandler<User>(Constants.RequestHeaders[Constants.Messages.UserData], 
+                GetUserOnClient);
         }
 
         public void UserRequestTimeOut(object sender, ElapsedEventArgs e)
@@ -169,7 +164,7 @@ namespace Networking
 
         public void GetUpdateMessage(PacketHeader header, Connection connection, string message)
         {
-            StartUpdate?.Invoke();
+            NotifyUpdate?.Invoke();
         }
 
         #endregion
