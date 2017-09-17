@@ -22,9 +22,20 @@ namespace Overlord
             return true;
         }
 
-        public static User FindUserByName(string name)
+        public static User FindUserByName(string name, string password)
         {
-            return Program.uscon.DeserializeUser(name);
+            User UserToSend = Program.uscon.DeserializeUser(name);
+            if (UserToSend != null) //если пользовтель найден проверяем пароль
+            {
+                if (UserToSend.password == null || UserToSend.password == "") //если пароль не выставлен отправляем пользователя
+                    return UserToSend;
+
+                if (UserToSend.password == password) // если пароли совпадают, отправляем пользователя 
+                    return UserToSend;
+                else            
+                    return null;      //иначе отправляем null
+            }
+            return UserToSend;
             
         }
 

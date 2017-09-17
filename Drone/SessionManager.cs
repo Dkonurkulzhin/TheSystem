@@ -25,7 +25,7 @@ namespace Drone
 
             Program.LobbyForm.LogIn(user);
             currentUser = user;
-            currentUser.balance = 100;
+            //currentUser.balance = 100;
             Program.MainForm.FormIsReady += StartSession;
          
 

@@ -16,7 +16,7 @@ namespace Networking
         public delegate void SendUpdateEH(string ip, int port);
         public event SendUpdateEH SendUpdate;
 
-        public delegate void EchoEH(int machine, string machineIP, bool isOccupied);
+        public delegate void EchoEH(int machine, string machineIP, bool isOccupied, string username = "guest", long balance = 0, long minutesLeft = 0);
         public event EchoEH GotEcho;
 
         public UDPListener()
@@ -76,7 +76,8 @@ namespace Networking
 
             if (ip != "127.0.0.1")
             {
-                GotEcho?.Invoke(machineMessage.Index, ip, machineMessage.IsOccupied);
+                GotEcho?.Invoke(machineMessage.Index, ip, machineMessage.IsOccupied, machineMessage.Username, 
+                    machineMessage.Balance, machineMessage.MinutesLeft);
                 Console.WriteLine("Marco from Machine " + machineMessage.Index + ": " + ip);
             }
         }

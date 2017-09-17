@@ -69,16 +69,18 @@ namespace Overlord
 
         private void LogInUser(string username)
         {
-            User user = GetUserByName(username);
+            User user = Program.uscon.LoadUser(username);
             if (user == null)
                 return;
-            if (MachineManager.LogInUser(MachineID, GetUserByName(username)))
+
+            if (MachineManager.LogInUser(MachineID, GetUserByName(user.name)))
             {
                DialogResult res =  MessageBox.Show("Пополнить счет?", "Недостаточно средств", 
                     MessageBoxButtons.YesNo, MessageBoxIcon.Question);
              
             }
-            MessageBox.Show("User found:" + username);
+            ClientCommunicationManager.SendUserObject(user, MachineManager.Machines[MachineID].IP);
+            MessageBox.Show("User found:" + user.name);
             Program.MainForm.UpdatePCList();
             this.Close();
             

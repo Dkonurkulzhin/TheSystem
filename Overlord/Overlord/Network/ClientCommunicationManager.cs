@@ -15,11 +15,11 @@ namespace Overlord
 {
     public static class ClientCommunicationManager
     {
-        public static UDPListener udpListener;
-        public static Dictionary<string, FileHandler> Transitions;
+        private static UDPListener udpListener;
+        private static Dictionary<string, FileHandler> Transitions;
 
-        public static MessageHandler messageHanler;
-        public static int ClientListenPort = Constants.ClientListenPort;
+        private static MessageHandler messageHanler;
+        private static int ClientListenPort = Constants.ClientListenPort;
 
         public static void Init()
         {
@@ -28,7 +28,7 @@ namespace Overlord
             messageHanler = new MessageHandler();
             udpListener.SendUpdate += AddUpdateTransition;
             udpListener.GotEcho += MachineManager.GotEchoPacket;
-            messageHanler.StartServerListening(SendUser);
+            messageHanler.StartServerListening(SendUserOnRequest);
         }
 
         public static void SendForceUpdate(Machine machine)
@@ -39,14 +39,21 @@ namespace Overlord
         }
 
 
-        public static void SendUser(PacketHeader header, Connection connection, User user)
+        public static void SendUserOnRequest(PacketHeader header, Connection connection, User user)
         {
             User incommingUser = user as User;
-            UserManager.FindUserByName(incommingUser.name);
+            incommingUser = UserManager.FindUserByName(incommingUser.name, incommingUser.password);
 
-            Console.WriteLine("Sending user data to " + Constants.GetAddressFromEndPoint(connection.ConnectionInfo.RemoteEndPoint));
-            messageHanler.SendUser(UserManager.FindUserByName(incommingUser.name), 
+            Console.WriteLine("Sending user data to " + Constants.GetAddressFromEndPoint(connection.ConnectionInfo.RemoteEndPoint) + 
+                " " + incommingUser.name + ", " + incommingUser.password);
+            SendUserObject(incommingUser,
                 Constants.GetAddressFromEndPoint(connection.ConnectionInfo.RemoteEndPoint));
+        }
+
+        public static void SendUserObject(User user, string ip)
+        {
+            messageHanler.SendUser(user, ip);
+      
         }
 
         public static void UpdateStatus(PacketHeader header, Connection connection, object user)

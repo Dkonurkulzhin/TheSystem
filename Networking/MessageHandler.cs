@@ -54,6 +54,14 @@ namespace Networking
 
         public void SendUserObject(User user, string header, string ip, int port)
         {
+            try
+            {
+                IPAddress address = IPAddress.Parse(ip);
+            }
+            catch (Exception ex)
+            {
+                return;
+            }
             remoteInfo = new ConnectionInfo(ip, port);
             try
             {
@@ -151,13 +159,13 @@ namespace Networking
         public void GetUserOnClient(PacketHeader header, Connection connection, User user)
         {
             UserRecieved?.Invoke(user);
-            NetworkComms.RemoveGlobalIncomingPacketHandler<User>(Constants.RequestHeaders[Constants.Messages.UserData], 
-                GetUserOnClient);
+           // NetworkComms.RemoveGlobalIncomingPacketHandler<User>(Constants.RequestHeaders[Constants.Messages.UserData], 
+            //    GetUserOnClient);
         }
 
         public void UserRequestTimeOut(object sender, ElapsedEventArgs e)
         {
-            NetworkComms.RemoveGlobalIncomingPacketHandler<User>(Constants.RequestHeaders[Constants.Messages.UserData], GetUserOnClient);
+            //NetworkComms.RemoveGlobalIncomingPacketHandler<User>(Constants.RequestHeaders[Constants.Messages.UserData], GetUserOnClient);
             (sender as Timer).Close();
             ConnectionTimeOut?.Invoke("Нет связи с сервером");
         }

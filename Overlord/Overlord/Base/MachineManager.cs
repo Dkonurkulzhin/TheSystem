@@ -222,13 +222,15 @@ namespace Overlord
             //    }
         }
 
-        public static void GotEchoPacket(int index, string ip, bool isOccupied)
+        public static void GotEchoPacket(int index, string ip, bool isOccupied, string username, long balance, long minutesLeft)
         {
             if (index <= Machines.Length)
             {
                 Machines[index - 1].status = isOccupied ? MachineStatus.Busy : MachineStatus.Ready;
                 Machines[index - 1].IP = ip;
-
+                Machines[index - 1].username = username;
+                Machines[index - 1].balance = balance;
+                Machines[index - 1].time = minutesLeft;
                 UpdateStatTimer(index-1);
             }
 

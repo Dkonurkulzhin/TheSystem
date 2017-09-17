@@ -22,14 +22,15 @@ namespace Drone
             messageHanlder.StartClientListening(GlobalVars.settings.serverIP);
             messageHanlder.NotifyUpdate += SetPendingUpdate;
             broadcaster.StartBroadcasting(Constants.RequestHeaders[Constants.Messages.Echo], new MachineStatMessage(
-                GlobalVars.settings.pcNumber, false));
+                GlobalVars.settings.pcNumber, false, "", 0 ,0 ));
             
         }
 
         public static void UpdateEchoMessage()
         {
             broadcaster.Content = new MachineStatMessage(GlobalVars.settings.pcNumber,
-                (SessionManager.currentUser == null) ? false : true);
+                (SessionManager.currentUser == null) ? false : true, SessionManager.currentUser.name, 
+                (long) SessionManager.currentBalance, SessionManager.secondsLeft);
         }
         public static void sendLoginRequest(User user)
         {
