@@ -279,3 +279,6 @@ C:\projects\rep\TheSystem\Overlord\Overlord\obj\Debug\Overlord.UserConfigForm.re
 C:\projects\rep\TheSystem\Overlord\Overlord\obj\Debug\Overlord.UserSearchForm.resources
 C:\projects\rep\TheSystem\Overlord\Overlord\obj\Debug\Overlord.csproj.GenerateResource.Cache
 D:\Projects\System\TheSystem\Overlord\Overlord\obj\Debug\Overlord.UpdateSettingsForm.resources
+D:\Projects\System\TheSystem - refacotory\Overlord\Overlord\bin\Debug\Overlord.exe.config
+D:\Projects\System\TheSystem - refacotory\Overlord\Overlord\obj\Debug\Overlord.exe
+D:\Projects\System\TheSystem - refacotory\Overlord\Overlord\obj\Debug\Overlord.pdb

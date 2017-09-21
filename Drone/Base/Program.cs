@@ -14,72 +14,60 @@ namespace Drone
         /// <summary>
         /// Главная точка входа для приложения.
         /// </summary>
-        static public Form1 MainForm;
-        static public LogInForm LobbyForm;
-        static public DebugForm DevForm;
-        static public InitForm InitScreen;
-        static public User CurrentUser;
+       
         static public ProcessManager ProcMNG = new ProcessManager();
-
+       
         static public bool isPendingUpdate = false;
+
         [STAThread]
         
         static void Main()
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-
+            
             GlobalVars.LoadSettings();
             GlobalVars.CreateSystemFolders();
-            MainForm = new Form1();
-            InitScreen = new InitForm();
-            DevForm = new DebugForm();
-            DevForm.Show();
-            DevForm.TopMost = true;
-            NetworkManager.InitNetwork();
+            InitManagers();
+            Application.Run();
+            
+          
             // MainForm.Hide();
             Application.DoEvents();
-            InitScreen.Show();
-            Application.DoEvents();
-            LobbyForm = new LogInForm();
+           
             ProcMNG.AdjustWinShell(false);
             //   MainForm.Hide();  
-            Application.Run(LobbyForm);
-            Application.DoEvents();
-            InitScreen.Hide();
-            
-            if (GlobalVars.debug)
-            {
-            }
-            //FileSystemAccessManager.SetDirRights("Users", @"D:\", true);  
-            //RegistryManager.HideDrive("8");
-            // MainForm.Show();
-            Application.DoEvents();
            
-           
+        }
+
+        public static void InitManagers()
+        {
+            NetworkManager.Initialize();
+            SessionManager.Initialize();
+            UIManager.Initialize();
         }
 
         static public void LogOut()
         {
-            LobbyForm.Invoke(new Action(LobbyForm.Show));
-            //MainForm.Invoke(new Action(MainForm.ShowUI(false)));
-            MainForm.Invoke(new Action(MainForm.ShowUI));
-            MainForm.Invoke(new Action(MainForm.Hide));
-            //MainForm.Hide();
-            CurrentUser = null;
-            NetworkManager.UpdateEchoMessage();
-            if (isPendingUpdate)
-                PerformUpdate();
+            //LobbyForm.Invoke(new Action(LobbyForm.Show));
+            ////MainForm.Invoke(new Action(MainForm.ShowUI(false)));
+            //MainForm.Invoke(new Action(MainForm.ShowUI));
+            //MainForm.Invoke(new Action(MainForm.Hide));
+            ////MainForm.Hide();
+            //CurrentUser = null;
+            //NetworkManager.UpdateEchoMessage();
+            //if (isPendingUpdate)
+            //    PerformUpdate();
         }
 
         static public void LogIn(User user)
         {
           
-            MainForm.Show();
-            MainForm.ShowUI();
-            LobbyForm.Hide();
-            CurrentUser = user;
-            NetworkManager.UpdateEchoMessage();
+            //MainForm.Show();
+            //MainForm.ShowUI();
+            //LobbyForm.Hide();
+            //CurrentUser = user;
+            //NetworkManager.UpdateEchoMessage();
         }
 
         static public void ShutDownApp(bool enableShell = true)
@@ -87,8 +75,6 @@ namespace Drone
             
             ProcMNG.AdjustWinShell(enableShell);
             GlobalVars.StopApplyingRights = enableShell;
-            MainForm.Hide();
-            InitScreen.Show();
             RegistryManager.SetTaskManager(enableShell);
             
             Application.Exit();

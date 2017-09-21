@@ -47,11 +47,11 @@ namespace Drone
             DriveInfo[] allDrives = DriveInfo.GetDrives();
             foreach (DriveInfo drive in allDrives)
             {
-                Program.DevForm.PrintToLog(drive.Name +", " + drive.IsReady.ToString());
-                if (drive.IsReady)
-                    foreach (string dir in Directory.GetDirectories(drive.Name))
-                        if (Directory.Exists(dir))
-                            Program.DevForm.PrintToLog("Found Dir: " + dir);
+                //Program.DevForm.PrintToLog(drive.Name +", " + drive.IsReady.ToString());
+                //if (drive.IsReady)
+                //    foreach (string dir in Directory.GetDirectories(drive.Name))
+                //        if (Directory.Exists(dir))
+                //            Program.DevForm.PrintToLog("Found Dir: " + dir);
             }
             this.Close();
 

@@ -13,11 +13,31 @@ namespace Drone
 {
     public static class NetworkManager
     {
-        public static MessageHandler messageHanlder = new MessageHandler();
-        public static UDPBroadcaster broadcaster = new UDPBroadcaster(1000, Constants.UDPBroodcastPort);
+        private static MessageHandler messageHanlder = new MessageHandler();
+        private static UDPBroadcaster broadcaster = new UDPBroadcaster(1000, Constants.UDPBroodcastPort);
+
         public delegate void UpdateEchoMessageEH();
-       
-        public static void InitNetwork()
+        public delegate void EmptyMessageDelegate();
+        public delegate void NumericMessageDelegate(int num);
+        public delegate void StringMessageDelegate(string message);
+        public delegate void UserMessageDelegate(User user);
+
+        public static event UserMessageDelegate OnUserRecieve; // вызывается при получении пользователя с сервера
+        public static event EmptyMessageDelegate OnLogoutRequest; // вызывается при запросе об окончании ссесси с сервера
+        public static event NumericMessageDelegate OnPenalty; // вызывается при получении штрафа
+        public static event StringMessageDelegate OnMessage; // вызывается при получении текстового сообщения с сервера
+
+
+
+
+
+        static NetworkManager()
+        {
+            Console.WriteLine("Network manager has been initialized");
+        }
+
+
+        public static void Initialize()
         {
             messageHanlder.StartClientListening(GlobalVars.settings.serverIP);
             messageHanlder.NotifyUpdate += SetPendingUpdate;
@@ -42,7 +62,7 @@ namespace Drone
         {
             if (user == null || user.name == null || user.name == "")
             {
-                Program.LobbyForm.SetErrorText("Неправльный пользователь или пароль");
+               // Program.LobbyForm.SetErrorText("Неправльный пользователь или пароль");
                 Console.WriteLine("Invalid USER!!!");
                 return;
             }

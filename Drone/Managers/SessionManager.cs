@@ -20,45 +20,102 @@ namespace Drone
         public  enum RateFormat {perHour, perMinute, perSecond};
         private static TimeSpan lastTickTime;
 
-        public static void OpenSession(User user)
+        public delegate void EmptySessionDelegate();
+        public delegate void UserSessionDelegate(User user);
+        public delegate void TextSessionDelegate(string message);
+        public delegate void NumericSessionDelegate(int num);
+
+        public static event EmptySessionDelegate OnLogIn;
+        public static event EmptySessionDelegate OnLogOut;
+        public static event EmptySessionDelegate OnInvalidUser;
+        public static event EmptySessionDelegate OnRejectedSession;
+        public static event UserSessionDelegate OnUserStatsUpdated;
+        public static event NumericSessionDelegate OnPenaltyApplied;
+
+        static SessionManager()
         {
-
-            Program.LobbyForm.LogIn(user);
-            currentUser = user;
-            //currentUser.balance = 100;
-            Program.MainForm.FormIsReady += StartSession;
-         
-
+           
+            Console.WriteLine("Session manager has been initialized");
         }
 
-        public static void StartSession()
+        public static void Initialize()
+        {
+            NetworkManager.OnUserRecieve += TryOpenSession;
+            NetworkManager.OnPenalty += ApplyPenalty;
+        }
+
+        private static void SessionTick(object sender, ElapsedEventArgs e)
+        {
+            OnUserStatsUpdated?.Invoke(currentUser);
+            UserProcess();
+        }
+
+         
+
+        public static void TryOpenSession(User user)
+        {
+           if (user != null && user.name != null && user.name != "")
+           {
+                if (user.balance >= 0)
+                {
+                    OnLogIn?.Invoke(); // открываем сессию при получении валидных данных о пользователе с сервера
+                    OpenSession(user);     
+                }
+                else
+                    OnRejectedSession?.Invoke(); 
+           }
+           else
+           {
+                OnInvalidUser?.Invoke();
+           }
+        }
+
+        public static void OpenSession(User user)
+        {
+            currentUser = user;
+            StartSession();
+         
+        }
+
+        private static void StartSession()
         {
             lastTickTime = TimeSpan.Zero;
+
             SessionTimer = new Stopwatch();
             SessionTimer.Reset();
             SessionTimer.Start();
+
             tick = new Timer(1000);
-            tick.Elapsed += UserProcess;
             tick.AutoReset = true;
             tick.Enabled = true;
-            tick.Elapsed += Program.MainForm.UserStats.UpdateStats;
+            tick.Elapsed += SessionTick;
             
         }
 
         public static DateTime EndSession()
         {
-            tick.Elapsed -= UserProcess;
-            tick.Elapsed -= Program.MainForm.UserStats.UpdateStats;
+            tick.Elapsed -= SessionTick;
             tick.Stop();
             tick.Close();
+
             SessionTimer.Reset();
             SessionTimer.Stop();
+
             currentUser = null;
             Program.LogOut();
             return DateTime.Now;
         }
 
-        public static void UserProcess(Object source, ElapsedEventArgs e)
+
+        public static void ApplyPenalty(int penalty)
+        {
+            OnPenaltyApplied?.Invoke(penalty);
+        }
+
+
+        #region Методы вызываемые в тике
+
+        private static void UserProcess()
         {
 
             double interval = SessionTimer.Elapsed.TotalSeconds - lastTickTime.TotalSeconds;
@@ -67,11 +124,15 @@ namespace Drone
             GetStats();
             if (currentUser.balance <= 0)
             {
-                EndSession(); 
+                EndSession();
+                OnLogOut.Invoke();
             }
             Console.WriteLine("Time left " + SessionTimer.Elapsed.TotalSeconds.ToString() + " CurrentBalance " + currentUser.balance.ToString());
 
         }
+        #endregion
+
+        #region "Get" Методы
 
         public static float GetCurrentRate(RateFormat rateFormat = RateFormat.perSecond)
         {
@@ -97,6 +158,8 @@ namespace Drone
             currentRate =  GetCurrentRate();
             secondsLeft = (int) (currentBalance / currentRate);
         }
-        
+
+        #endregion
+
     }
 }
