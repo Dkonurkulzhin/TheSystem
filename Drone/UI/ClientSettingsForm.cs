@@ -30,12 +30,12 @@ namespace Drone
 
         private void button2_Click(object sender, EventArgs e)
         {
-            Program.ShutDownApp();
+            UIManager.ExitShell();
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
-            Program.ShutDownApp();
+            UIManager.ExitShell();
         }
 
         private void button1_Click(object sender, EventArgs e)

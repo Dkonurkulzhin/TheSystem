@@ -129,7 +129,7 @@ namespace Drone
 
         private void RunApp(Object sender, EventArgs e, AppUnit app)
         {
-            Program.ProcMNG.RunApp(app.AppPath);
+   
             Console.WriteLine(app.AppName);
         }
 

@@ -12,7 +12,7 @@ namespace Drone
 {
      public partial class DebugForm : Form
     {
-        ProcessManager ProcManager = new ProcessManager();
+      
 
         public  DebugForm()
         {
@@ -35,7 +35,7 @@ namespace Drone
         private void ViewProcBtn_Click(object sender, EventArgs e)
         {
             ProcessList.Items.Clear();
-            foreach (string pname in ProcManager.ViewProcesses())
+            foreach (string pname in WinSystem.ProcessHandler.ViewProcesses())
             {
                 ProcessList.Items.Add(pname);
 
@@ -44,9 +44,9 @@ namespace Drone
 
         private void KillProcBtn_Click(object sender, EventArgs e)
         {
-            ProcManager.KillAllActive(GlobalVars.ProcessExceptions);
+            WinSystem.ProcessHandler.KillAllActive(GlobalVars.ProcessExceptions);
             ProcessList.Items.Clear();
-            foreach (string pname in ProcManager.ViewProcesses()) ProcessList.Items.Add(pname);
+            foreach (string pname in WinSystem.ProcessHandler.ViewProcesses()) ProcessList.Items.Add(pname);
 
         }
     }

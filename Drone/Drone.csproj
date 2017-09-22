@@ -75,8 +75,10 @@
     <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Managers\GroupPolicyHandler.cs" />
     <Compile Include="Managers\SecurityManager.cs" />
     <Compile Include="Managers\UIManager.cs" />
+    <Compile Include="Managers\WindowsSystemHandler.cs" />
     <Compile Include="UI\AdminForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -127,7 +129,7 @@
     </Compile>
     <Compile Include="UI\MDIClientSupport.cs" />
     <Compile Include="RateSettings.cs" />
-    <Compile Include="Managers\RegistryManager.cs" />
+    <Compile Include="Managers\RegistryHandler.cs" />
     <Compile Include="Managers\SessionManager.cs" />
     <Compile Include="Legacy\TCPManager.cs" />
     <Compile Include="UI\UIFunctions.cs" />
@@ -145,7 +147,7 @@
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="Global\GlobalVars.cs" />
-    <Compile Include="Managers\ProcessManager.cs" />
+    <Compile Include="Managers\ProcessHandler.cs" />
     <Compile Include="Base\Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UI\UserForm.cs">

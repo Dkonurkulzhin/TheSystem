@@ -119,9 +119,9 @@ namespace Drone
                 adminForm.TopMost = true;
                 adminForm.Show();
             }
-            if (e.Modifiers == Keys.Control && e.KeyCode == Keys.Escape && GlobalVars.debug)
+            if (e.Modifiers == Keys.Control && e.KeyCode == Keys.Escape) // && GlobalVars.debug
             {
-                Program.ShutDownApp();
+                UIManager.ExitShell();
             }
         }
 

@@ -15,7 +15,6 @@ namespace Drone
         /// Главная точка входа для приложения.
         /// </summary>
        
-        static public ProcessManager ProcMNG = new ProcessManager();
        
         static public bool isPendingUpdate = false;
 
@@ -34,8 +33,6 @@ namespace Drone
           
             // MainForm.Hide();
             Application.DoEvents();
-           
-            ProcMNG.AdjustWinShell(false);
             //   MainForm.Hide();  
            
         }
@@ -72,11 +69,8 @@ namespace Drone
 
         static public void ShutDownApp(bool enableShell = true)
         {
-            
-            ProcMNG.AdjustWinShell(enableShell);
-            GlobalVars.StopApplyingRights = enableShell;
-            RegistryManager.SetTaskManager(enableShell);
-            
+
+            GlobalVars.StopApplyingRights = enableShell; 
             Application.Exit();
         }
 
@@ -89,7 +83,6 @@ namespace Drone
         {
             try
             {
-                ProcMNG.RunApp(GlobalVars.UpdaterPath);
                 ShutDownApp();
             }
             catch (Exception ex)

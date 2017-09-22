@@ -13,7 +13,7 @@ namespace Drone
 {
     public partial class InitForm : Form
     {
-        ProcessManager ProcMNG = new ProcessManager();
+        
         public InitForm()
         {
             InitializeComponent();
@@ -38,7 +38,7 @@ namespace Drone
             string[] DirExceptions = new string[] {@"D:\\Work", @"C:\\Users", @"C:\\Windows"};
             FileSystemAccessManager.Authority = true;
             //FileSystemAccessManager.ApplyFilesystemPremissions("Dias", DirExceptions, true);
-            RegistryManager.SetTaskManager(false);
+         
            //FileSystemAccessManager.ApplyFilesystemPremissions("Dias", DirExceptions, true);
 
             // if (!ProcMNG.DisableWinShell())

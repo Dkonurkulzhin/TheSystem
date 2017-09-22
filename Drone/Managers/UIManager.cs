@@ -4,16 +4,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using System.Windows.Forms;
+
+
 namespace Drone
 {
     public static class UIManager
     {
-        static public Form1 MainForm;
-        static public LogInForm LobbyForm;
-        static public DebugForm DevForm;
-        static public InitForm InitScreen;
-       
+        static Form1 MainForm;
+        static LogInForm LobbyForm;
+        static DebugForm DevForm;
+        static InitForm InitScreen;
 
+        static Form[] AppForms = { MainForm, LobbyForm, DevForm, InitScreen };
         static UIManager()
         {
             
@@ -21,17 +24,21 @@ namespace Drone
             Console.WriteLine("UI manager has been initialized");
         }
 
-        static public void Initialize()
+        static public void Initialize(bool ReplaceWinShell = true)
         {
             MainForm = new Form1();
             InitScreen = new InitForm();
             LobbyForm = new LogInForm();
             //
             //InitScreen.Show();
-            
+            ShowLobbyForm();
             DevForm = new DebugForm();
             DevForm.TopMost = true;
             DevForm.Show();
+            if (ReplaceWinShell)
+            {
+                SecurityManager.ToggleWindowsShell(false);
+            }
         }
 
         static void ShowMainForm()
@@ -40,9 +47,17 @@ namespace Drone
             MainForm.Show();
             LobbyForm.TopMost = false;
             LobbyForm.Hide();
-            
+        }
 
-           
+        public static void ExitShell()
+        {
+            foreach (Form form in AppForms)
+            {
+                if (form != null)
+                    form.Close();
+            }
+            Program.ShutDownApp();
+            SecurityManager.ToggleWindowsShell(true);
         }
 
         static void ShowLobbyForm()
