@@ -13,6 +13,7 @@ namespace Drone
         public string serverIP = "127.0.0.1";
         public int pcsAmount = 0;
         public string applicationDirectory;
+        public int broadcastPeriod = 5000;
         public string[] AppCategories = { "Игры", "Интернет", "Офис", "Настройки" };
     }
 }

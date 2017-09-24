@@ -1,0 +1,8 @@
+Base Exception Type: System.NullReferenceException: Ссылка на объект не указывает на экземпляр объекта.
+   в Overlord.ClientCommunicationManager.SendUserOnRequest(PacketHeader header, Connection connection, User user) в D:\Projects\System\TheSystem\Overlord\Overlord\Network\ClientCommunicationManager.cs:строка 47
+   в NetworkCommsDotNet.Tools.PacketTypeHandlerDelegateWrapper`1.Process(PacketHeader packetHeader, Connection connection, Object obj)
+   в NetworkCommsDotNet.NetworkComms.TriggerGlobalPacketHandlers(PacketHeader packetHeader, Connection connection, Object returnObject, Boolean ignoreUnknownPacketTypeOverride)
+
+Stack Trace:    в Overlord.ClientCommunicationManager.SendUserOnRequest(PacketHeader header, Connection connection, User user) в D:\Projects\System\TheSystem\Overlord\Overlord\Network\ClientCommunicationManager.cs:строка 47
+   в NetworkCommsDotNet.Tools.PacketTypeHandlerDelegateWrapper`1.Process(PacketHeader packetHeader, Connection connection, Object obj)
+   в NetworkCommsDotNet.NetworkComms.TriggerGlobalPacketHandlers(PacketHeader packetHeader, Connection connection, Object returnObject, Boolean ignoreUnknownPacketTypeOverride)

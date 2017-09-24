@@ -40,9 +40,7 @@ namespace Drone
 
         private void button1_Click(object sender, EventArgs e)
         {
-            User admin = new User();
-            admin.name = "Администратор";
-            Program.LogIn(admin);
+            UIManager.ExecuteAdminLogIn();
         }
 
         private void PCNumberNum_ValueChanged(object sender, EventArgs e)

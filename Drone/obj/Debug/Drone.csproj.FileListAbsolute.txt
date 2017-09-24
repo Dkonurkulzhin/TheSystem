@@ -208,3 +208,4 @@ D:\Projects\System\TheSystem - refacotory\Drone\obj\Debug\Drone.LogInForm.resour
 D:\Projects\System\TheSystem - refacotory\Drone\obj\Debug\Drone.Properties.Resources.resources
 D:\Projects\System\TheSystem - refacotory\Drone\obj\Debug\Drone.UserForm.resources
 D:\Projects\System\TheSystem - refacotory\Drone\obj\Debug\Drone.csproj.GenerateResource.Cache
+D:\Projects\System\TheSystem\Drone\obj\Debug\Drone.Managers.MessageForm.resources

@@ -2,9 +2,11 @@
 <Machine xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <index>15</index>
   <label>PC16</label>
+  <username />
   <aviability>false</aviability>
-  <status>Disabled</status>
+  <status>Ready</status>
   <time>0</time>
   <balance>0</balance>
   <group>Default</group>
+  <IP>192.168.2.201</IP>
 </Machine>

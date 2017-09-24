@@ -27,8 +27,7 @@ namespace Drone
 
         public static event EmptySessionDelegate OnLogIn;
         public static event EmptySessionDelegate OnLogOut;
-        public static event EmptySessionDelegate OnInvalidUser;
-        public static event EmptySessionDelegate OnRejectedSession;
+        public static event TextSessionDelegate OnRejectedSession;
         public static event UserSessionDelegate OnUserStatsUpdated;
         public static event NumericSessionDelegate OnPenaltyApplied;
 
@@ -56,25 +55,26 @@ namespace Drone
         {
            if (user != null && user.name != null && user.name != "")
            {
-                if (user.balance >= 0)
+                if (user.balance >= -1000)
                 {
-                    OnLogIn?.Invoke(); // открываем сессию при получении валидных данных о пользователе с сервера
+                   
                     OpenSession(user);     
                 }
                 else
-                    OnRejectedSession?.Invoke(); 
+                    OnRejectedSession?.Invoke("недостаточно средсвт на аккаунте"); 
            }
            else
            {
-                OnInvalidUser?.Invoke();
+                OnRejectedSession?.Invoke("неправильный пользователь или пароль");
            }
+        
         }
 
         public static void OpenSession(User user)
         {
             currentUser = user;
             StartSession();
-         
+            
         }
 
         private static void StartSession()
@@ -89,7 +89,16 @@ namespace Drone
             tick.AutoReset = true;
             tick.Enabled = true;
             tick.Elapsed += SessionTick;
-            
+            OnLogIn?.Invoke(); // открываем сессию при получении валидных данных о пользователе с сервера
+        }
+
+        public static void CloseSession()
+        {
+            if (currentUser != null)
+            {
+                currentUser = null;
+                EndSession();
+            }
         }
 
         public static DateTime EndSession()
@@ -101,8 +110,7 @@ namespace Drone
             SessionTimer.Reset();
             SessionTimer.Stop();
 
-            currentUser = null;
-            Program.LogOut();
+            OnLogOut?.Invoke();
             return DateTime.Now;
         }
 
@@ -110,6 +118,10 @@ namespace Drone
         public static void ApplyPenalty(int penalty)
         {
             OnPenaltyApplied?.Invoke(penalty);
+            if (currentUser != null)
+            {
+                currentUser.balance -= penalty;
+            }
         }
 
 
@@ -121,7 +133,7 @@ namespace Drone
             double interval = SessionTimer.Elapsed.TotalSeconds - lastTickTime.TotalSeconds;
             lastTickTime = SessionTimer.Elapsed;
             currentUser.balance -= interval*GetCurrentRate();
-            GetStats();
+            CalculateStats();
             if (currentUser.balance <= 0)
             {
                 EndSession();
@@ -152,7 +164,7 @@ namespace Drone
             return (float) 200/3600; //currentUser.exp;
         }
 
-        private static void GetStats()
+        private static void CalculateStats()
         {
             currentBalance =(float) currentUser.balance;
             currentRate =  GetCurrentRate();

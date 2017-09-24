@@ -14,7 +14,8 @@ namespace Drone
     public static class NetworkManager
     {
         private static MessageHandler messageHanlder = new MessageHandler();
-        private static UDPBroadcaster broadcaster = new UDPBroadcaster(1000, Constants.UDPBroodcastPort);
+        private static UDPBroadcaster broadcaster = new UDPBroadcaster(GlobalVars.settings.broadcastPeriod,
+             Constants.UDPBroodcastPort);
 
         public delegate void UpdateEchoMessageEH();
         public delegate void EmptyMessageDelegate();
@@ -52,6 +53,8 @@ namespace Drone
                 (SessionManager.currentUser == null) ? false : true, SessionManager.currentUser.name, 
                 (long) SessionManager.currentBalance, SessionManager.secondsLeft);
         }
+
+
         public static void sendLoginRequest(User user)
         {
             messageHanlder.SendLogInRequest(user, GlobalVars.settings.serverIP); //);
@@ -66,9 +69,8 @@ namespace Drone
                 Console.WriteLine("Invalid USER!!!");
                 return;
             }
-                
-            User incommingUser = user as User;
-            SessionManager.OpenSession(incommingUser);
+
+            OnUserRecieve(user);
         }
 
         public static void SetPendingUpdate()

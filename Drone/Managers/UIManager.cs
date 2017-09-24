@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Drawing;
 
 using System.Windows.Forms;
-
+using Drone.Managers;
 
 namespace Drone
 {
@@ -17,10 +18,18 @@ namespace Drone
         static InitForm InitScreen;
 
         static Form[] AppForms = { MainForm, LobbyForm, DevForm, InitScreen };
+
+
+        public delegate void MessageDelegate(string message);
+        public delegate void UserDelegate(User user);
+
+        public static event MessageDelegate OnInvalidUserAuthorization;
+        public static event UserDelegate OnUserStatsUpdated;
+
         static UIManager()
         {
             
-            SessionManager.OnLogIn += ShowMainForm;
+            
             Console.WriteLine("UI manager has been initialized");
         }
 
@@ -31,6 +40,8 @@ namespace Drone
             LobbyForm = new LogInForm();
             //
             //InitScreen.Show();
+            MainForm.Show();
+            MainForm.Hide();
             ShowLobbyForm();
             DevForm = new DebugForm();
             DevForm.TopMost = true;
@@ -39,15 +50,39 @@ namespace Drone
             {
                 SecurityManager.ToggleWindowsShell(false);
             }
+
+            // бинд ивентов
+            SessionManager.OnPenaltyApplied += ShowPenaltyMessage;
+            SessionManager.OnRejectedSession += ShowInvalidUserMessage;
+            SessionManager.OnLogIn += ShowMainForm;
+            SessionManager.OnLogOut += ShowLobbyForm;
+            SessionManager.OnUserStatsUpdated += UpdateUserStats;
         }
 
-        static void ShowMainForm()
+        #region Базовая логика интерфейса
+
+
+        private static void ShowMainForm()
         {
-            LobbyForm.TopMost = true;
-            MainForm.Show();
-            LobbyForm.TopMost = false;
-            LobbyForm.Hide();
+            //LobbyForm.TopMost = true;
+            LobbyForm.Invoke(new Action(delegate () { LobbyForm.Hide(); }));
+            MainForm.Invoke(new Action(delegate () { MainForm.Show(); }));
+
+            
         }
+
+        private static void ShowLobbyForm()
+        {
+            MainForm.Hide();
+            LobbyForm.Show();
+            LobbyForm.TopMost = false;
+        }
+
+        private static void UpdateUserStats(User user)
+        {
+            OnUserStatsUpdated?.Invoke(user);
+        }
+
 
         public static void ExitShell()
         {
@@ -60,11 +95,42 @@ namespace Drone
             SecurityManager.ToggleWindowsShell(true);
         }
 
-        static void ShowLobbyForm()
+        public static void ExecuteAdminLogIn()
         {
-            
-            //MainForm.Hide();
-            LobbyForm.Show();
+            ShowMainForm();
+            SessionManager.currentUser = new User("Administrator", "");
         }
+        
+
+        #endregion
+
+
+        #region Вывод сообщений с сервера
+
+        static void ShowPenaltyMessage(int penalty)
+        {
+            ShowGenericMessage("Штраф " + penalty.ToString() + " - за нарушение правил заведения", Color.Red);
+        }
+
+        static void ShowInvalidUserMessage(string message)
+        {
+            OnInvalidUserAuthorization?.Invoke(message);
+        }
+
+        static void ShowWarningMessage(string message)
+        {
+            ShowGenericMessage(message, Color.White);
+        }
+
+
+        static void ShowGenericMessage(string message, Color messageColor)
+        {
+            MessageForm msgForm = new MessageForm(message, messageColor);
+            msgForm.StartPosition = FormStartPosition.CenterScreen;
+            msgForm.Show();
+            msgForm.TopMost = true;
+                  
+        }
+        #endregion
     }
 }

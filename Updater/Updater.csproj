@@ -57,20 +57,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\Drone\ClientSettings.cs">
+    <Compile Include="..\Drone\Global\ClientSettings.cs">
       <Link>Shared\ClientSettings.cs</Link>
     </Compile>
-    <Compile Include="..\Drone\GlobalVars.cs">
+    <Compile Include="..\Drone\Global\GlobalVars.cs">
       <Link>Shared\GlobalVars.cs</Link>
+    </Compile>
+    <Compile Include="..\Drone\Global\XMLManager.cs">
+      <Link>Shared\XMLManager.cs</Link>
     </Compile>
     <Compile Include="..\Drone\RateSettings.cs">
       <Link>Shared\RateSettings.cs</Link>
     </Compile>
     <Compile Include="..\Drone\Shared\AppUnit.cs">
       <Link>Shared\AppUnit.cs</Link>
-    </Compile>
-    <Compile Include="..\Drone\XMLManager.cs">
-      <Link>Shared\XMLManager.cs</Link>
     </Compile>
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>

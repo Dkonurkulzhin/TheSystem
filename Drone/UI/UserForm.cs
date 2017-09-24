@@ -19,7 +19,7 @@ namespace Drone
 
         private void UserForm_Load(object sender, EventArgs e)
         {
-           
+            UIManager.OnUserStatsUpdated += SendUpdateUserStats;
         }
 
         private void UserAvatar_Click(object sender, EventArgs e)
@@ -34,17 +34,23 @@ namespace Drone
 
         public void UpdateStats(object sender, EventArgs e)
         {
-            Invoke(new Action(UpdateBalance));
+            //Invoke(new Action(UpdateUserStats));
            
         }
 
-        private void UpdateBalance()
+        private void SendUpdateUserStats(User user)
         {
-            UserBalanceLabel.Text = "Текущий баланс: " + SessionManager.currentBalance.ToString();
+            Invoke(new Action(delegate () { UpdateUserStats(user); }));
+
+        }
+
+        private void UpdateUserStats(User user)
+        {
+            UserBalanceLabel.Text = "Текущий баланс: " + user.balance.ToString();
             UserTimeLabel.Text = "Осталось времени: " + UIFunctions.FormatTime(SessionManager.secondsLeft);
             UserRatingLabel.Text = "Текущий тариф: " + SessionManager.GetCurrentRate(SessionManager.RateFormat.perHour) + " тг/час"; //SessionManager.currentRate.ToString()
-            UserNameLabel.Text = SessionManager.currentUser.name;
-            UserLevelLabel.Text = SessionManager.currentUser.level.ToString();
+            UserNameLabel.Text = user.name;
+            UserLevelLabel.Text = user.level.ToString();
         }
     }
 }

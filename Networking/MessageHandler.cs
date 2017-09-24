@@ -159,6 +159,7 @@ namespace Networking
         public void GetUserOnClient(PacketHeader header, Connection connection, User user)
         {
             UserRecieved?.Invoke(user);
+            Console.WriteLine("Recieved User: " + user.name);
            // NetworkComms.RemoveGlobalIncomingPacketHandler<User>(Constants.RequestHeaders[Constants.Messages.UserData], 
             //    GetUserOnClient);
         }

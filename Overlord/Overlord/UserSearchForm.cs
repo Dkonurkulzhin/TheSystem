@@ -80,7 +80,7 @@ namespace Overlord
              
             }
             ClientCommunicationManager.SendUserObject(user, MachineManager.Machines[MachineID].IP);
-            MessageBox.Show("User found:" + user.name);
+            MessageBox.Show("User found:" + user.name + " sending user to " + MachineManager.Machines[MachineID].IP);
             Program.MainForm.UpdatePCList();
             this.Close();
             

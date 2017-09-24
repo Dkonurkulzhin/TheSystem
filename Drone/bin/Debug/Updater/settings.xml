@@ -5,6 +5,7 @@
   <serverIP>192.168.2.201</serverIP>
   <pcsAmount>0</pcsAmount>
   <applicationDirectory>D:\Projects\System\TheSystem\Drone\bin\Debug\\</applicationDirectory>
+  <broadcastPeriod>5000</broadcastPeriod>
   <AppCategories>
     <string>Игры</string>
     <string>Интернет</string>

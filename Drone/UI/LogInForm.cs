@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Timers;
+using Drone.Managers;
 
 namespace Drone
 {
@@ -20,6 +21,7 @@ namespace Drone
         public LogInForm()
         {
             InitializeComponent();
+
         }
 
         private void LogInForm_Load(object sender, EventArgs e)
@@ -30,7 +32,17 @@ namespace Drone
             this.WindowState = FormWindowState.Maximized;
             PCLabel.Text = "PC" + GlobalVars.settings.pcNumber.ToString();
             SetUpUIPos();
-           
+
+            // бинд ивентов
+            UIManager.OnInvalidUserAuthorization += ViewLogInError;
+
+
+
+        }
+
+        private void ViewLogInError(string message)
+        {
+            SetErrorText(message);
         }
 
         private void SetUpUIPos()

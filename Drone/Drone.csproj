@@ -76,6 +76,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Managers\GroupPolicyHandler.cs" />
+    <Compile Include="Managers\MessageForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Managers\MessageForm.Designer.cs">
+      <DependentUpon>MessageForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Managers\SecurityManager.cs" />
     <Compile Include="Managers\UIManager.cs" />
     <Compile Include="Managers\WindowsSystemHandler.cs" />
@@ -157,6 +163,9 @@
       <DependentUpon>UserForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Global\XMLManager.cs" />
+    <EmbeddedResource Include="Managers\MessageForm.resx">
+      <DependentUpon>MessageForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\AdminForm.resx">
       <DependentUpon>AdminForm.cs</DependentUpon>
     </EmbeddedResource>
