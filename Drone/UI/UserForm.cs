@@ -29,7 +29,7 @@ namespace Drone
 
         private void UserLogoutButton_Click(object sender, EventArgs e)
         {
-            Program.LogOut();
+            UIManager.PerformLogOut();
         }
 
         public void UpdateStats(object sender, EventArgs e)

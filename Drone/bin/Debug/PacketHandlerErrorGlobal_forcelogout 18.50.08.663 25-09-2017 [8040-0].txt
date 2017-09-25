@@ -1,0 +1,26 @@
+Base Exception Type: System.InvalidOperationException: Недопустимая операция в нескольких потоках: попытка доступа к элементу управления 'Form1' не из того потока, в котором он был создан.
+   в System.Windows.Forms.Control.get_Handle()
+   в System.Windows.Forms.Control.SetVisibleCore(Boolean value)
+   в System.Windows.Forms.Form.SetVisibleCore(Boolean value)
+   в System.Windows.Forms.Control.Hide()
+   в Drone.UIManager.ShowLobbyForm() в D:\Projects\System\TheSystem\Drone\Managers\UIManager.cs:строка 109
+   в Drone.SessionManager.EndSession() в D:\Projects\System\TheSystem\Drone\Managers\SessionManager.cs:строка 118
+   в Drone.SessionManager.CloseSession() в D:\Projects\System\TheSystem\Drone\Managers\SessionManager.cs:строка 103
+   в Drone.SessionManager.TryCloseSessionOnCommand(String message) в D:\Projects\System\TheSystem\Drone\Managers\SessionManager.cs:строка 125
+   в Drone.NetworkManager.ProcessLogOutCommand(String message) в D:\Projects\System\TheSystem\Drone\Base\NetworkManager.cs:строка 81
+   в Networking.MessageHandler.GetLogOutCommand(PacketHeader header, Connection connection, String message) в D:\Projects\System\TheSystem\Networking\MessageHandler.cs:строка 169
+   в NetworkCommsDotNet.Tools.PacketTypeHandlerDelegateWrapper`1.Process(PacketHeader packetHeader, Connection connection, Object obj)
+   в NetworkCommsDotNet.NetworkComms.TriggerGlobalPacketHandlers(PacketHeader packetHeader, Connection connection, Object returnObject, Boolean ignoreUnknownPacketTypeOverride)
+
+Stack Trace:    в System.Windows.Forms.Control.get_Handle()
+   в System.Windows.Forms.Control.SetVisibleCore(Boolean value)
+   в System.Windows.Forms.Form.SetVisibleCore(Boolean value)
+   в System.Windows.Forms.Control.Hide()
+   в Drone.UIManager.ShowLobbyForm() в D:\Projects\System\TheSystem\Drone\Managers\UIManager.cs:строка 109
+   в Drone.SessionManager.EndSession() в D:\Projects\System\TheSystem\Drone\Managers\SessionManager.cs:строка 118
+   в Drone.SessionManager.CloseSession() в D:\Projects\System\TheSystem\Drone\Managers\SessionManager.cs:строка 103
+   в Drone.SessionManager.TryCloseSessionOnCommand(String message) в D:\Projects\System\TheSystem\Drone\Managers\SessionManager.cs:строка 125
+   в Drone.NetworkManager.ProcessLogOutCommand(String message) в D:\Projects\System\TheSystem\Drone\Base\NetworkManager.cs:строка 81
+   в Networking.MessageHandler.GetLogOutCommand(PacketHeader header, Connection connection, String message) в D:\Projects\System\TheSystem\Networking\MessageHandler.cs:строка 169
+   в NetworkCommsDotNet.Tools.PacketTypeHandlerDelegateWrapper`1.Process(PacketHeader packetHeader, Connection connection, Object obj)
+   в NetworkCommsDotNet.NetworkComms.TriggerGlobalPacketHandlers(PacketHeader packetHeader, Connection connection, Object returnObject, Boolean ignoreUnknownPacketTypeOverride)

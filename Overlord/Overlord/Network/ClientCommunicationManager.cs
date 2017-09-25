@@ -61,6 +61,13 @@ namespace Overlord
 
         }
 
+        public static void SendForceLogOutCommand(Machine machine)
+        {
+            string ip = machine.IP;
+            if (ip != null && ip != "")
+                messageHanler.SendForceLogOut(ip);
+        }
+
         public static void AddUpdateTransition(string ip, int port)
         {
             if (Transitions.Keys.Contains(ip))

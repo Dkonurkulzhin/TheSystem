@@ -28,8 +28,6 @@ namespace Drone
 
         static UIManager()
         {
-            
-            
             Console.WriteLine("UI manager has been initialized");
         }
 
@@ -42,7 +40,8 @@ namespace Drone
             //InitScreen.Show();
             MainForm.Show();
             MainForm.Hide();
-            ShowLobbyForm();
+            LobbyForm.Show();
+          
             DevForm = new DebugForm();
             DevForm.TopMost = true;
             DevForm.Show();
@@ -59,30 +58,7 @@ namespace Drone
             SessionManager.OnUserStatsUpdated += UpdateUserStats;
         }
 
-        #region Базовая логика интерфейса
-
-
-        private static void ShowMainForm()
-        {
-            //LobbyForm.TopMost = true;
-            LobbyForm.Invoke(new Action(delegate () { LobbyForm.Hide(); }));
-            MainForm.Invoke(new Action(delegate () { MainForm.Show(); }));
-
-            
-        }
-
-        private static void ShowLobbyForm()
-        {
-            MainForm.Hide();
-            LobbyForm.Show();
-            LobbyForm.TopMost = false;
-        }
-
-        private static void UpdateUserStats(User user)
-        {
-            OnUserStatsUpdated?.Invoke(user);
-        }
-
+        #region Внешние методы
 
         public static void ExitShell()
         {
@@ -100,9 +76,49 @@ namespace Drone
             ShowMainForm();
             SessionManager.currentUser = new User("Administrator", "");
         }
-        
 
+        public static void PerformLogOut()
+        {
+            if (SessionManager.currentUser != null)
+            {
+                SessionManager.CloseSession();
+                ShowLobbyForm();
+            }
+        }
+
+        public static void PerformLogIn(User user)
+        {
+            if (SessionManager.currentUser == null)
+            {
+                SessionManager.SendOpenSessionReqest(user);
+            }
+        }
         #endregion
+
+
+        #region Базовая логика интерфейса
+
+        private static void ShowMainForm()
+        {
+            //LobbyForm.TopMost = true;
+            LobbyForm.Invoke(new Action(delegate () { LobbyForm.Hide(); }));
+            MainForm.Invoke(new Action(delegate () { MainForm.Show(); }));
+        }
+
+        private static void ShowLobbyForm()
+        {
+            MainForm.Invoke(new Action(delegate () { MainForm.Hide(); }));
+            LobbyForm.Invoke(new Action(delegate () { LobbyForm.Show(); }));
+            LobbyForm.Invoke(new Action(delegate () { LobbyForm.TopMost = false; }));
+        }
+
+        private static void UpdateUserStats(User user)
+        {
+            if (user != null)
+                OnUserStatsUpdated?.Invoke(user);
+        }
+        #endregion
+       
 
 
         #region Вывод сообщений с сервера

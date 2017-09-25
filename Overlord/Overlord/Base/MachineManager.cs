@@ -14,8 +14,8 @@ namespace Overlord
 
         public static Machine[] Machines = new Machine[GlobalVars.Settings.PC_amount];
         private static System.Timers.Timer[] StatUpdateTimers = new System.Timers.Timer[GlobalVars.Settings.PC_amount];
-        
-        public static Dictionary<MachineManager.MachineStatus, string> StatusLabels = new Dictionary<MachineManager.MachineStatus, string>() {
+
+        private static Dictionary<MachineManager.MachineStatus, string> statusLabels = new Dictionary<MachineManager.MachineStatus, string>() {
             {MachineManager.MachineStatus.Ready, "свободен" },
             {MachineManager.MachineStatus.Busy, "занят"},
             {MachineManager.MachineStatus.Reserved,  "забронирован"},
@@ -25,6 +25,19 @@ namespace Overlord
         };
 
         public static Dictionary<string, int> GroupMultiplier;
+
+        public static Dictionary<MachineStatus, string> StatusLabels
+        {
+            get
+            {
+                return statusLabels;
+            }
+
+            set
+            {
+                statusLabels = value;
+            }
+        }
 
         public static void Init()
         {
@@ -133,7 +146,12 @@ namespace Overlord
                 {
                     pcs += id.ToString() + ", ";
                 }
-                Program.MainForm.ShowYesNoDialog("Завершить сессию на компьютерах: " + pcs.Substring(0, pcs.Length - 2) + "?");
+                if (!Program.MainForm.ShowYesNoDialog("Завершить сессию на компьютерах: " + pcs.Substring(0, pcs.Length - 2) + "?"))
+                    return;
+            }
+            foreach(int id in ids)
+            { 
+                ClientCommunicationManager.SendForceLogOutCommand(Machines[id]);
             }
         }
 

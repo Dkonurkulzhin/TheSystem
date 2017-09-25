@@ -41,14 +41,15 @@ namespace Drone
         {
             NetworkManager.OnUserRecieve += TryOpenSession;
             NetworkManager.OnPenalty += ApplyPenalty;
+            NetworkManager.OnLogOutCommand += TryCloseSessionOnCommand; 
         }
 
-        private static void SessionTick(object sender, ElapsedEventArgs e)
+        #region Открытие/закрытие сесии 
+
+        public static void SendOpenSessionReqest(User user)
         {
-            OnUserStatsUpdated?.Invoke(currentUser);
-            UserProcess();
+            NetworkManager.sendLoginRequest(user);
         }
-
          
 
         public static void TryOpenSession(User user)
@@ -72,8 +73,11 @@ namespace Drone
 
         public static void OpenSession(User user)
         {
-            currentUser = user;
-            StartSession();
+            if (currentUser == null)
+            {
+                currentUser = user;
+                StartSession();
+            }
             
         }
 
@@ -96,12 +100,13 @@ namespace Drone
         {
             if (currentUser != null)
             {
-                currentUser = null;
                 EndSession();
+                currentUser = null;
+                
             }
         }
 
-        public static DateTime EndSession()
+        private static DateTime EndSession()
         {
             tick.Elapsed -= SessionTick;
             tick.Stop();
@@ -113,9 +118,15 @@ namespace Drone
             OnLogOut?.Invoke();
             return DateTime.Now;
         }
+        #endregion
 
+        private static void TryCloseSessionOnCommand(string message)
+        {
+            CloseSession();
+            //
+        }
 
-        public static void ApplyPenalty(int penalty)
+        private static void ApplyPenalty(int penalty)
         {
             OnPenaltyApplied?.Invoke(penalty);
             if (currentUser != null)
@@ -126,6 +137,12 @@ namespace Drone
 
 
         #region Методы вызываемые в тике
+
+        private static void SessionTick(object sender, ElapsedEventArgs e)
+        {
+            OnUserStatsUpdated?.Invoke(currentUser);
+            UserProcess();
+        }
 
         private static void UserProcess()
         {

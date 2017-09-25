@@ -61,14 +61,14 @@ namespace Drone
                 return;
             }
             UsernameLabel.ForeColor = StandartForeColor;
-            if (password == "")
-            {
-                PasswordLabel.ForeColor = ErrorColor;
-                return;
-            }   
-            PasswordLabel.ForeColor = StandartForeColor;
-
-            NetworkManager.sendLoginRequest(new User(username, password));
+            //if (password == "")
+            //{
+            //    PasswordLabel.ForeColor = ErrorColor;
+            //    return;
+            //}   
+            //PasswordLabel.ForeColor = StandartForeColor;
+            UIManager.PerformLogIn(new User(username, password));
+            
           
 
         }

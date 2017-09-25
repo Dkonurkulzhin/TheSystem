@@ -25,6 +25,9 @@ namespace Networking
         public delegate void UserEH(User user);
         public event UserEH UserRecieved;
 
+        public delegate void LogoutEH(string message);
+        public event LogoutEH LogOutCommand;
+
         public delegate void UpdateEH();
         public event UpdateEH NotifyUpdate;
 
@@ -116,6 +119,10 @@ namespace Networking
             SendObject("update", Constants.RequestHeaders[Constants.Messages.ForceUpdate], ip, Constants.ClientListenPort);
         }
       
+        public void SendForceLogOut(string ip, string message = "logoutnow")
+        {
+            SendObject(message, Constants.RequestHeaders[Constants.Messages.ForceLogOut], ip, Constants.ClientListenPort);
+        }
 
         #endregion
 
@@ -131,6 +138,7 @@ namespace Networking
                 NetworkComms.AppendGlobalIncomingPacketHandler<string>(Constants.RequestHeaders[Constants.Messages.ForceUpdate], GetUpdateMessage);
                 NetworkComms.AppendGlobalConnectionCloseHandler(OnCleintConnectionClose);
                 NetworkComms.AppendGlobalIncomingPacketHandler<User>(Constants.RequestHeaders[Constants.Messages.UserData], GetUserOnClient);
+                NetworkComms.AppendGlobalIncomingPacketHandler<string>(Constants.RequestHeaders[Constants.Messages.ForceLogOut], GetLogOutCommand);
                 return true;
             }
             catch (Exception ex)
@@ -154,6 +162,12 @@ namespace Networking
         {
             SendUserObject(user, Constants.RequestHeaders[Constants.Messages.RequestUserData], serverIP, Constants.ServerListenPort);
             
+        }
+
+        private void GetLogOutCommand(PacketHeader header, Connection connection, string message)
+        {
+            LogOutCommand?.Invoke(message);
+            Console.WriteLine("Recieved Logout command");
         }
 
         public void GetUserOnClient(PacketHeader header, Connection connection, User user)

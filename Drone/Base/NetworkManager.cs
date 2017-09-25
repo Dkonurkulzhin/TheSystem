@@ -24,6 +24,7 @@ namespace Drone
         public delegate void UserMessageDelegate(User user);
 
         public static event UserMessageDelegate OnUserRecieve; // вызывается при получении пользователя с сервера
+        public static event StringMessageDelegate OnLogOutCommand;
         public static event EmptyMessageDelegate OnLogoutRequest; // вызывается при запросе об окончании ссесси с сервера
         public static event NumericMessageDelegate OnPenalty; // вызывается при получении штрафа
         public static event StringMessageDelegate OnMessage; // вызывается при получении текстового сообщения с сервера
@@ -42,6 +43,8 @@ namespace Drone
         {
             messageHanlder.StartClientListening(GlobalVars.settings.serverIP);
             messageHanlder.NotifyUpdate += SetPendingUpdate;
+            messageHanlder.UserRecieved += CheckRequestedUser;
+            messageHanlder.LogOutCommand += ProcessLogOutCommand;
             broadcaster.StartBroadcasting(Constants.RequestHeaders[Constants.Messages.Echo], new MachineStatMessage(
                 GlobalVars.settings.pcNumber, false, "", 0 ,0 ));
             
@@ -58,10 +61,10 @@ namespace Drone
         public static void sendLoginRequest(User user)
         {
             messageHanlder.SendLogInRequest(user, GlobalVars.settings.serverIP); //);
-            messageHanlder.UserRecieved += CheckRequestedUser;   
+            
         }
 
-        public static void CheckRequestedUser(User user)
+        private static void CheckRequestedUser(User user)
         {
             if (user == null || user.name == null || user.name == "")
             {
@@ -70,10 +73,15 @@ namespace Drone
                 return;
             }
 
-            OnUserRecieve(user);
+            OnUserRecieve?.Invoke(user);
         }
 
-        public static void SetPendingUpdate()
+        private static void ProcessLogOutCommand(string message)
+        {
+            OnLogOutCommand?.Invoke(message);
+        }
+
+        private static void SetPendingUpdate()
         {
             if (SessionManager.currentUser == null)
             {
