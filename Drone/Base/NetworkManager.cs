@@ -43,36 +43,30 @@ namespace Drone
         {
             messageHanlder.StartClientListening(GlobalVars.settings.serverIP);
             messageHanlder.NotifyUpdate += SetPendingUpdate;
-            messageHanlder.UserRecieved += CheckRequestedUser;
+            messageHanlder.UserRecieved += ProcessRequestedUser;
             messageHanlder.LogOutCommand += ProcessLogOutCommand;
             broadcaster.StartBroadcasting(Constants.RequestHeaders[Constants.Messages.Echo], new MachineStatMessage(
-                GlobalVars.settings.pcNumber, false, "", 0 ,0 ));
-            
+                GlobalVars.settings.pcNumber, false, "", 0, 0));
+
         }
 
         public static void UpdateEchoMessage()
         {
             broadcaster.Content = new MachineStatMessage(GlobalVars.settings.pcNumber,
-                (SessionManager.currentUser == null) ? false : true, SessionManager.currentUser.name, 
-                (long) SessionManager.currentBalance, SessionManager.secondsLeft);
+                (SessionManager.currentUser == null) ? false : true, SessionManager.currentUser.name,
+                (long)SessionManager.currentBalance, SessionManager.secondsLeft);
         }
 
 
         public static void sendLoginRequest(User user)
         {
             messageHanlder.SendLogInRequest(user, GlobalVars.settings.serverIP); //);
-            
+
         }
 
-        private static void CheckRequestedUser(User user)
+        private static void ProcessRequestedUser(User user)
         {
-            if (user == null || user.name == null || user.name == "")
-            {
-               // Program.LobbyForm.SetErrorText("Неправльный пользователь или пароль");
-                Console.WriteLine("Invalid USER!!!");
-                return;
-            }
-
+            
             OnUserRecieve?.Invoke(user);
         }
 

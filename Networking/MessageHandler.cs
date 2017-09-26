@@ -47,7 +47,7 @@ namespace Networking
 
                 connection.SendObject(header, obj, customOptions);
                 GC.Collect();
-                connection.CloseConnection(false);
+                
             }
             catch (Exception)
             {

@@ -56,6 +56,7 @@ namespace Drone
             SessionManager.OnLogIn += ShowMainForm;
             SessionManager.OnLogOut += ShowLobbyForm;
             SessionManager.OnUserStatsUpdated += UpdateUserStats;
+     
         }
 
         #region Внешние методы

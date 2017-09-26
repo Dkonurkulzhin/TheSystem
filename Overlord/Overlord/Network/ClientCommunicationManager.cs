@@ -43,7 +43,8 @@ namespace Overlord
         {
             User incommingUser = user as User;
             incommingUser = UserManager.FindUserByName(incommingUser.name, incommingUser.password);
-
+            if (incommingUser == null)
+                incommingUser = new User();
             Console.WriteLine("Sending user data to " + Constants.GetAddressFromEndPoint(connection.ConnectionInfo.RemoteEndPoint) + 
                 " " + incommingUser.name + ", " + incommingUser.password);
             SendUserObject(incommingUser,

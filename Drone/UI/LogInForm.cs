@@ -30,14 +30,12 @@ namespace Drone
             this.TopMost = false;
             this.FormBorderStyle = FormBorderStyle.None;
             this.WindowState = FormWindowState.Maximized;
+
             PCLabel.Text = "PC" + GlobalVars.settings.pcNumber.ToString();
             SetUpUIPos();
 
             // бинд ивентов
             UIManager.OnInvalidUserAuthorization += ViewLogInError;
-
-
-
         }
 
         private void ViewLogInError(string message)
@@ -61,12 +59,6 @@ namespace Drone
                 return;
             }
             UsernameLabel.ForeColor = StandartForeColor;
-            //if (password == "")
-            //{
-            //    PasswordLabel.ForeColor = ErrorColor;
-            //    return;
-            //}   
-            //PasswordLabel.ForeColor = StandartForeColor;
             UIManager.PerformLogIn(new User(username, password));
             
           
