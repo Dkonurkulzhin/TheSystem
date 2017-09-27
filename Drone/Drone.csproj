@@ -103,7 +103,7 @@
     <Compile Include="UI\AppListForm.Designer.cs">
       <DependentUpon>AppListForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Applications\AppManager.cs" />
+    <Compile Include="Managers\AppManager.cs" />
     <Compile Include="Base\NetworkManager.cs" />
     <Compile Include="Shared\AppUnit.cs" />
     <Compile Include="UI\CategoryForm.cs">

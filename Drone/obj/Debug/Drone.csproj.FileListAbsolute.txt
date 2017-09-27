@@ -209,3 +209,30 @@ D:\Projects\System\TheSystem - refacotory\Drone\obj\Debug\Drone.Properties.Resou
 D:\Projects\System\TheSystem - refacotory\Drone\obj\Debug\Drone.UserForm.resources
 D:\Projects\System\TheSystem - refacotory\Drone\obj\Debug\Drone.csproj.GenerateResource.Cache
 D:\Projects\System\TheSystem\Drone\obj\Debug\Drone.Managers.MessageForm.resources
+E:\projects\TheSystem\Drone\bin\Debug\Drone.exe.config
+E:\projects\TheSystem\Drone\obj\Debug\Interop.IWshRuntimeLibrary.dll
+E:\projects\TheSystem\Drone\obj\Debug\Drone.csproj.ResolveComReference.cache
+E:\projects\TheSystem\Drone\obj\Debug\Drone.exe
+E:\projects\TheSystem\Drone\obj\Debug\Drone.pdb
+E:\projects\TheSystem\Drone\bin\Debug\Drone.exe
+E:\projects\TheSystem\Drone\bin\Debug\Drone.pdb
+E:\projects\TheSystem\Drone\bin\Debug\MetroFramework.Design.dll
+E:\projects\TheSystem\Drone\bin\Debug\MetroFramework.dll
+E:\projects\TheSystem\Drone\bin\Debug\MetroFramework.Fonts.dll
+E:\projects\TheSystem\Drone\bin\Debug\NetworkCommsDotNet.dll
+E:\projects\TheSystem\Drone\bin\Debug\protobuf-net.dll
+E:\projects\TheSystem\Drone\bin\Debug\protobuf-net.xml
+E:\projects\TheSystem\Drone\obj\Debug\Drone.csprojResolveAssemblyReference.cache
+E:\projects\TheSystem\Drone\obj\Debug\Drone.Managers.MessageForm.resources
+E:\projects\TheSystem\Drone\obj\Debug\Drone.AdminForm.resources
+E:\projects\TheSystem\Drone\obj\Debug\Drone.AppForm.resources
+E:\projects\TheSystem\Drone\obj\Debug\Drone.AppListForm.resources
+E:\projects\TheSystem\Drone\obj\Debug\Drone.CategoryForm.resources
+E:\projects\TheSystem\Drone\obj\Debug\Drone.ClientSettingsForm.resources
+E:\projects\TheSystem\Drone\obj\Debug\Drone.DebugForm.resources
+E:\projects\TheSystem\Drone\obj\Debug\Drone.Form1.resources
+E:\projects\TheSystem\Drone\obj\Debug\Drone.InitForm.resources
+E:\projects\TheSystem\Drone\obj\Debug\Drone.LogInForm.resources
+E:\projects\TheSystem\Drone\obj\Debug\Drone.Properties.Resources.resources
+E:\projects\TheSystem\Drone\obj\Debug\Drone.UserForm.resources
+E:\projects\TheSystem\Drone\obj\Debug\Drone.csproj.GenerateResource.Cache

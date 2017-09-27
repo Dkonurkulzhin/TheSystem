@@ -282,3 +282,41 @@ D:\Projects\System\TheSystem\Overlord\Overlord\obj\Debug\Overlord.UpdateSettings
 D:\Projects\System\TheSystem - refacotory\Overlord\Overlord\bin\Debug\Overlord.exe.config
 D:\Projects\System\TheSystem - refacotory\Overlord\Overlord\obj\Debug\Overlord.exe
 D:\Projects\System\TheSystem - refacotory\Overlord\Overlord\obj\Debug\Overlord.pdb
+E:\projects\TheSystem\Overlord\Overlord\bin\Debug\Overlord.exe.config
+E:\projects\TheSystem\Overlord\Overlord\obj\Debug\Overlord.exe
+E:\projects\TheSystem\Overlord\Overlord\obj\Debug\Overlord.pdb
+E:\projects\TheSystem\Overlord\Overlord\bin\Debug\Database1.mdf
+E:\projects\TheSystem\Overlord\Overlord\bin\Debug\Database1_log.ldf
+E:\projects\TheSystem\Overlord\Overlord\bin\Debug\Overlord.exe
+E:\projects\TheSystem\Overlord\Overlord\bin\Debug\Overlord.pdb
+E:\projects\TheSystem\Overlord\Overlord\bin\Debug\NetworkCommsDotNet.dll
+E:\projects\TheSystem\Overlord\Overlord\bin\Debug\Newtonsoft.Json.dll
+E:\projects\TheSystem\Overlord\Overlord\bin\Debug\protobuf-net.dll
+E:\projects\TheSystem\Overlord\Overlord\bin\Debug\System.Net.Http.Formatting.dll
+E:\projects\TheSystem\Overlord\Overlord\bin\Debug\Telegram.Bot.dll
+E:\projects\TheSystem\Overlord\Overlord\bin\Debug\Newtonsoft.Json.xml
+E:\projects\TheSystem\Overlord\Overlord\bin\Debug\protobuf-net.xml
+E:\projects\TheSystem\Overlord\Overlord\bin\Debug\System.Net.Http.Formatting.xml
+E:\projects\TheSystem\Overlord\Overlord\bin\Debug\Telegram.Bot.xml
+E:\projects\TheSystem\Overlord\Overlord\obj\Debug\Overlord.csprojResolveAssemblyReference.cache
+E:\projects\TheSystem\Overlord\Overlord\obj\Debug\Overlord.AddTimeDialog.resources
+E:\projects\TheSystem\Overlord\Overlord\obj\Debug\Overlord.AuthorityCheckForm.resources
+E:\projects\TheSystem\Overlord\Overlord\obj\Debug\Overlord.ConsoleSettingsForm.resources
+E:\projects\TheSystem\Overlord\Overlord\obj\Debug\Overlord.CashBoxControlForm.resources
+E:\projects\TheSystem\Overlord\Overlord\obj\Debug\Overlord.CashBoxSettingsForm.resources
+E:\projects\TheSystem\Overlord\Overlord\obj\Debug\Overlord.ConsoleForm.resources
+E:\projects\TheSystem\Overlord\Overlord\obj\Debug\Overlord.ConsoleTimerForm.resources
+E:\projects\TheSystem\Overlord\Overlord\obj\Debug\Overlord.Form1.resources
+E:\projects\TheSystem\Overlord\Overlord\obj\Debug\Overlord.MachineConfigForm.resources
+E:\projects\TheSystem\Overlord\Overlord\obj\Debug\Overlord.MachineEditForm.resources
+E:\projects\TheSystem\Overlord\Overlord\obj\Debug\Overlord.ProductAddForm.resources
+E:\projects\TheSystem\Overlord\Overlord\obj\Debug\Overlord.ProductManagmentForm.resources
+E:\projects\TheSystem\Overlord\Overlord\obj\Debug\Overlord.Properties.Resources.resources
+E:\projects\TheSystem\Overlord\Overlord\obj\Debug\Overlord.StockControlForm.resources
+E:\projects\TheSystem\Overlord\Overlord\obj\Debug\Overlord.StoreForm.resources
+E:\projects\TheSystem\Overlord\Overlord\obj\Debug\Overlord.TelegramSettingsForm.resources
+E:\projects\TheSystem\Overlord\Overlord\obj\Debug\Overlord.UpdateSettingsForm.resources
+E:\projects\TheSystem\Overlord\Overlord\obj\Debug\Overlord.UserAddForm.resources
+E:\projects\TheSystem\Overlord\Overlord\obj\Debug\Overlord.UserConfigForm.resources
+E:\projects\TheSystem\Overlord\Overlord\obj\Debug\Overlord.UserSearchForm.resources
+E:\projects\TheSystem\Overlord\Overlord\obj\Debug\Overlord.csproj.GenerateResource.Cache

@@ -12,7 +12,7 @@ using System.Runtime.InteropServices;
 
 namespace Drone.WinSystem
 {
-    static class ProcessHandler
+    public static class ProcessHandler
     {
         static List<Process> SessionProcesses = new List<Process>();
         [DllImport("user32.dll")]

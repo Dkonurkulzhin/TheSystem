@@ -34,7 +34,6 @@
             this.UserSettingButton = new System.Windows.Forms.Button();
             this.UserLogoutButton = new System.Windows.Forms.Button();
             this.UserLevelProgressbar = new System.Windows.Forms.ProgressBar();
-            this.UserAchivmentsButton = new System.Windows.Forms.Button();
             this.UserFinancialPanel = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
             this.UserBalanceLabel = new System.Windows.Forms.Label();
@@ -57,12 +56,12 @@
             // UserNameLabel
             // 
             this.UserNameLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.UserNameLabel.Location = new System.Drawing.Point(7, 9);
+            this.UserNameLabel.Location = new System.Drawing.Point(12, 7);
             this.UserNameLabel.Name = "UserNameLabel";
-            this.UserNameLabel.Size = new System.Drawing.Size(136, 23);
+            this.UserNameLabel.Size = new System.Drawing.Size(341, 23);
             this.UserNameLabel.TabIndex = 1;
             this.UserNameLabel.Text = "User";
-            this.UserNameLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.UserNameLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // UserLevelLabel
             // 
@@ -97,18 +96,9 @@
             // 
             this.UserLevelProgressbar.Location = new System.Drawing.Point(155, 66);
             this.UserLevelProgressbar.Name = "UserLevelProgressbar";
-            this.UserLevelProgressbar.Size = new System.Drawing.Size(292, 23);
+            this.UserLevelProgressbar.Size = new System.Drawing.Size(394, 23);
             this.UserLevelProgressbar.TabIndex = 5;
             this.UserLevelProgressbar.Value = 50;
-            // 
-            // UserAchivmentsButton
-            // 
-            this.UserAchivmentsButton.Location = new System.Drawing.Point(462, 12);
-            this.UserAchivmentsButton.Name = "UserAchivmentsButton";
-            this.UserAchivmentsButton.Size = new System.Drawing.Size(110, 151);
-            this.UserAchivmentsButton.TabIndex = 6;
-            this.UserAchivmentsButton.Text = "Achivmets";
-            this.UserAchivmentsButton.UseVisualStyleBackColor = true;
             // 
             // UserFinancialPanel
             // 
@@ -164,7 +154,6 @@
             this.ClientSize = new System.Drawing.Size(904, 178);
             this.Controls.Add(this.UserRatingLabel);
             this.Controls.Add(this.UserFinancialPanel);
-            this.Controls.Add(this.UserAchivmentsButton);
             this.Controls.Add(this.UserSettingButton);
             this.Controls.Add(this.UserLevelProgressbar);
             this.Controls.Add(this.UserLogoutButton);
@@ -192,7 +181,6 @@
         private System.Windows.Forms.Button UserSettingButton;
         private System.Windows.Forms.Button UserLogoutButton;
         private System.Windows.Forms.ProgressBar UserLevelProgressbar;
-        private System.Windows.Forms.Button UserAchivmentsButton;
         private System.Windows.Forms.Panel UserFinancialPanel;
         private System.Windows.Forms.Label UserBalanceLabel;
         private System.Windows.Forms.Label UserTimeLabel;

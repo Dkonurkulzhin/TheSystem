@@ -42,6 +42,7 @@ namespace Drone
             NetworkManager.Initialize();
             SessionManager.Initialize();
             UIManager.Initialize();
+            AppManager.Initialize();
         }
 
         static public void LogOut()

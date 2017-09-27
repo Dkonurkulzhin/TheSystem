@@ -7,6 +7,7 @@ using System.Drawing;
 
 using System.Windows.Forms;
 using Drone.Managers;
+using Drone.WinSystem;
 
 namespace Drone
 {
@@ -16,16 +17,16 @@ namespace Drone
         static LogInForm LobbyForm;
         static DebugForm DevForm;
         static InitForm InitScreen;
-
-        static Form[] AppForms = { MainForm, LobbyForm, DevForm, InitScreen };
-
+        public static string[] AppCategories;
+      
+        static Form[] AppForms = { MainForm, LobbyForm, DevForm, InitScreen }; // основные формы интерфейса
 
         public delegate void MessageDelegate(string message);
         public delegate void UserDelegate(User user);
 
         public static event MessageDelegate OnInvalidUserAuthorization;
         public static event UserDelegate OnUserStatsUpdated;
-
+        
         static UIManager()
         {
             Console.WriteLine("UI manager has been initialized");
@@ -33,6 +34,8 @@ namespace Drone
 
         static public void Initialize(bool ReplaceWinShell = true)
         {
+
+            AppCategories = GlobalVars.settings.AppCategories;
             MainForm = new Form1();
             InitScreen = new InitForm();
             LobbyForm = new LogInForm();
@@ -41,7 +44,7 @@ namespace Drone
             MainForm.Show();
             MainForm.Hide();
             LobbyForm.Show();
-          
+            
             DevForm = new DebugForm();
             DevForm.TopMost = true;
             DevForm.Show();
@@ -49,7 +52,7 @@ namespace Drone
             {
                 SecurityManager.ToggleWindowsShell(false);
             }
-
+            
             // бинд ивентов
             SessionManager.OnPenaltyApplied += ShowPenaltyMessage;
             SessionManager.OnRejectedSession += ShowInvalidUserMessage;
@@ -68,14 +71,23 @@ namespace Drone
                 if (form != null)
                     form.Close();
             }
-            Program.ShutDownApp();
             SecurityManager.ToggleWindowsShell(true);
+            Program.ShutDownApp();
+            
+        }
+
+        public static void PerformUpdate()
+        {
+            ProcessHandler.RunApp(GlobalVars.UpdaterPath);
+            Program.ShutDownApp();
         }
 
         public static void ExecuteAdminLogIn()
         {
-            ShowMainForm();
-            SessionManager.currentUser = new User("Administrator", "");
+            User admin = new User("Administrator");
+            admin.balance = 200;
+            SessionManager.OpenSession(admin);
+           
         }
 
         public static void PerformLogOut()
@@ -94,6 +106,17 @@ namespace Drone
                 SessionManager.SendOpenSessionReqest(user);
             }
         }
+
+        public static void LaunchApplication(AppUnit app)
+        {
+            ProcessHandler.RunApp(app.AppPath, app.AppComLineParams);
+        }
+
+        public static List<AppUnit> GetAllApplications()
+        {
+            return AppManager.Apps;
+        }
+
         #endregion
 
 
@@ -120,7 +143,6 @@ namespace Drone
         }
         #endregion
        
-
 
         #region Вывод сообщений с сервера
 

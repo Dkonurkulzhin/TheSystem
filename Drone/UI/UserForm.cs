@@ -52,5 +52,7 @@ namespace Drone
             UserNameLabel.Text = user.name;
             UserLevelLabel.Text = user.level.ToString();
         }
+
+       
     }
 }

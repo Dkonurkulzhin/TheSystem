@@ -41,7 +41,7 @@ namespace Drone
         {
             
             ShownApps.Clear();
-            foreach (AppUnit app in AppManager.Apps)
+            foreach (AppUnit app in UIManager.GetAllApplications())
             {
                 if (app.Category == ActiveCategory)
                 {
@@ -50,7 +50,7 @@ namespace Drone
             }
             ShowApplications();
             string apps = "";
-            foreach (string cat in GlobalVars.settings.AppCategories)
+            foreach (string cat in UIManager.AppCategories)
             {
                 apps += cat;
             } 
@@ -129,7 +129,7 @@ namespace Drone
 
         private void RunApp(Object sender, EventArgs e, AppUnit app)
         {
-   
+            UIManager.LaunchApplication(app);
             Console.WriteLine(app.AppName);
         }
 

@@ -113,7 +113,7 @@ namespace Drone
             this.WindowState = FormWindowState.Maximized;
             this.BackColor = Color.White;
             this.TransparencyKey = Color.White;
-            AppManager.LoadLinkPathes();
+           
             InitUI();
             
             //FileSystemAccessManager.SetDirRights("Dias",@"D:\Games", false);

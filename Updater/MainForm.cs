@@ -51,7 +51,7 @@ namespace Updater
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-
+            
             LoadClientSettings();
             TCPPortConfiguration.ReserveTCPPorts();
             InitUI();
