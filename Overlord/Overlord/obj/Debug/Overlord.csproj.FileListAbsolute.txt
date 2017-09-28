@@ -320,3 +320,4 @@ E:\projects\TheSystem\Overlord\Overlord\obj\Debug\Overlord.UserAddForm.resources
 E:\projects\TheSystem\Overlord\Overlord\obj\Debug\Overlord.UserConfigForm.resources
 E:\projects\TheSystem\Overlord\Overlord\obj\Debug\Overlord.UserSearchForm.resources
 E:\projects\TheSystem\Overlord\Overlord\obj\Debug\Overlord.csproj.GenerateResource.Cache
+D:\Projects\System\TheSystem\Overlord\Overlord\obj\Debug\Overlord.DebugLog.resources

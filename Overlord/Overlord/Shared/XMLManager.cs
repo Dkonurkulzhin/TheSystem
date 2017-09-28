@@ -8,17 +8,17 @@ using System.IO;
 
 namespace Overlord
 {
-    class XMLManager
+    public static class XMLManager
     {
         // Логика сериализации и десереализации объектова в и из XML
         // Для сервера и клиента
-        private string AppDataPath; //=GlobalVars.AppDataName;
-        private string DataPath = GlobalVars.DataPath;
-        private string FinancialPath = GlobalVars.FinancialPath;
-        private string Xmldot = ".xml";
+        private static string AppDataPath; //=GlobalVars.AppDataName;
+        private static string DataPath = GlobalVars.DataPath;
+        private static string FinancialPath = GlobalVars.FinancialPath;
+        private static string Xmldot = ".xml";
         
 
-        public void SerializeAppData(AppUnit App, int AppID)
+        public static void SerializeAppData(AppUnit App, int AppID)
         {
             
             XmlSerializer AppXS = new XmlSerializer(typeof(AppUnit));
@@ -33,7 +33,7 @@ namespace Overlord
             AppXS.Serialize(AppTW, App);
         }
 
-        public AppUnit DeserializeAppData(int AppID)
+        public static AppUnit DeserializeAppData(int AppID)
         {
             XmlSerializer AppXS = new XmlSerializer(typeof(AppUnit));
             string CurrentAppDataPath = AppDataPath + AppID.ToString() + Xmldot;
@@ -45,7 +45,7 @@ namespace Overlord
             }
             
         }
-        public void SerializeCashData(Cashbox cashbox)
+        public static void SerializeCashData(Cashbox cashbox)
         {
             XmlSerializer cashXS = new XmlSerializer(typeof(Cashbox));
             string CurrentDataPath = FinancialPath + "cashbox" + Xmldot;
@@ -61,7 +61,7 @@ namespace Overlord
            
         }
 
-        public Cashbox DeserializeCashData()
+        public static Cashbox DeserializeCashData()
         {
             XmlSerializer cashXS = new XmlSerializer(typeof(Cashbox));
             string CurrentDataPath = FinancialPath + "cashbox" + Xmldot;
@@ -86,7 +86,7 @@ namespace Overlord
         }
 
 
-        public void SerializeProductData(Product item, string productname)
+        public static void SerializeProductData(Product item, string productname)
         {
             XmlSerializer productXS = new XmlSerializer(typeof(Product));
             string CurrentDataPath = GlobalVars.ProductPath + productname + Xmldot;
@@ -103,7 +103,7 @@ namespace Overlord
             productTW.Close();
         }
 
-        public Product DeserializeProductData(string productname)
+        public static Product DeserializeProductData(string productname)
         {
             XmlSerializer productXS = new XmlSerializer(typeof(Product));
             string CurrentDataPath = GlobalVars.ProductPath + productname + Xmldot;
@@ -131,7 +131,7 @@ namespace Overlord
 
         }
 
-        public bool DeleteProductData(string productname)
+        public static bool DeleteProductData(string productname)
         {
             string currentPath = GlobalVars.ProductPath + productname + ".xml";
             if (!File.Exists(@currentPath))
@@ -149,7 +149,7 @@ namespace Overlord
             }
            
         }
-        protected virtual bool IsFileLocked(string filename)
+        static bool IsFileLocked(string filename)
         {
 
             FileInfo file = new FileInfo(filename);
@@ -178,7 +178,7 @@ namespace Overlord
             return false;
         }
 
-        public void SerializeGlobalSettings(GlobalSettings settings)
+        public static void SerializeGlobalSettings(GlobalSettings settings)
         {
             XmlSerializer globalXS = new XmlSerializer(typeof(GlobalSettings));
             string CurrentDataPath = DataPath + "global" + Xmldot;
@@ -194,7 +194,7 @@ namespace Overlord
 
         }
 
-        public GlobalSettings DeserializeGlobalSettings()
+        public static GlobalSettings DeserializeGlobalSettings()
         {
             XmlSerializer globalXS = new XmlSerializer(typeof(GlobalSettings));
             string CurrentDataPath = DataPath + "global" + Xmldot;
@@ -218,7 +218,7 @@ namespace Overlord
             }
         }
 
-        public void SerializeMachines(Machine machine)
+        public static void SerializeMachines(Machine machine)
         {
             XmlSerializer machineXS = new XmlSerializer(typeof(Machine));
             string CurrentDataPath = GlobalVars.MachinePath + GlobalVars.MachineInnerLabel + machine.index.ToString() + Xmldot;
@@ -235,7 +235,7 @@ namespace Overlord
             machineTW.Close();
         }
 
-        public Machine DeserializeMachine(int machineID)
+        public static Machine DeserializeMachine(int machineID)
         {
             XmlSerializer machineXS = new XmlSerializer(typeof(Machine));
             string CurrentDataPath = GlobalVars.MachinePath + GlobalVars.MachineInnerLabel + machineID + Xmldot;

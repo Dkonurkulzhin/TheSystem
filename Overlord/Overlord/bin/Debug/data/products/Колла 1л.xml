@@ -4,7 +4,7 @@
   <price>350</price>
   <cost>100</cost>
   <fee>0</fee>
-  <imgPath />
+  <imgPath>C:\Users\Dias\Pictures\704120.png</imgPath>
   <stock>0</stock>
   <notifyWhenLow>true</notifyWhenLow>
 </Product>
