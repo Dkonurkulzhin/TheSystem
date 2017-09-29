@@ -45,6 +45,7 @@ namespace Drone
             AppManager.Initialize();
         }
 
+
         static public void LogOut()
         {
             //LobbyForm.Invoke(new Action(LobbyForm.Show));

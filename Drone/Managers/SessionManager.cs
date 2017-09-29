@@ -118,13 +118,16 @@ namespace Drone
             OnLogOut?.Invoke();
             return DateTime.Now;
         }
-        #endregion
 
         private static void TryCloseSessionOnCommand(string message)
         {
+            //Метод вызывается при команде закрытия сессии с сервера
             CloseSession();
-            //
+            
         }
+
+        #endregion
+
 
         private static void ApplyPenalty(int penalty)
         {

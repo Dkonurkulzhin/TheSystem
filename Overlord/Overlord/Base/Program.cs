@@ -19,7 +19,7 @@ namespace Overlord
         static void Main()
         {
             GlobalVars.LoadSettings();
-  
+
             ProductManager.UpdateProductList();
             GlobalVars.InitDataPathes();
             Application.EnableVisualStyles();
@@ -41,7 +41,6 @@ namespace Overlord
             FinancialManager.Initialize();
             ProductManager.Initialize();
             TelegramManager.InitBot();
-
             DebugManager.Initialize();
         }
 

@@ -20,6 +20,10 @@ namespace Networking
         private int Interval, Port;
         private string Header;
         public object Content = null;
+
+        public delegate void TickHandler(string packetHeader);
+        public event TickHandler OnBroadcastTick;
+
         public UDPBroadcaster(int interval, int port)
         {
             Interval = interval;
@@ -52,6 +56,7 @@ namespace Networking
         private void Tick(Object sender, ElapsedEventArgs e)
         {
             UDPConnection.SendObject(Header, Content, new IPEndPoint(IPAddress.Broadcast, Port));
+            OnBroadcastTick?.Invoke(Header + ":" + Port.ToString());
         }
     }
 

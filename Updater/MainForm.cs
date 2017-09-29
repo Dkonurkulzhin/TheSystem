@@ -55,7 +55,7 @@ namespace Updater
             LoadClientSettings();
             TCPPortConfiguration.ReserveTCPPorts();
             InitUI();
-            udpBroadcaster = new UDPBroadcaster(1000, Constants.UDPBroodcastPort);
+            udpBroadcaster = new UDPBroadcaster(10000, Constants.UDPBroodcastPort);
             fileHandler = new FileHandler();
             fileHandler.UpdateLog += AddLineToLog;
             fileHandler.UpdatePercent += UpdateSendProgress;
@@ -63,7 +63,7 @@ namespace Updater
             fileHandler.ConnectionEstablished += udpBroadcaster.Stop;
             fileHandler.ReceivingCompleted += UpdateCompleted;
             udpBroadcaster.StartBroadcasting(Constants.RequestHeaders[Constants.Messages.RequestUpdate], fileHandler.StartListening());
-
+            udpBroadcaster.OnBroadcastTick += AddLineToLog;
         }
 
         /// <summary>
@@ -81,11 +81,11 @@ namespace Updater
         private void AddLineToLog(string line)
         {
             BeginInvoke(new Action(() =>
-                {
+            {
                     listBox1.Items.Add(line);
-                }));
+            }));
         }
-
+        
         private void UpdateSendProgress(double percentComplete)
         {
             BeginInvoke(new Action(() =>
@@ -102,6 +102,7 @@ namespace Updater
                 label1.Text = status;
             }));
         }
+
         private void fileSystemWatcher1_Changed(object sender, FileSystemEventArgs e)
         {
 
@@ -157,8 +158,8 @@ namespace Updater
                 AddLineToLog("Файл конфига не найден :(");
                 ToggleAdvancedMode(false);
             }
-            
         }
+
         private void ToggleAdvancedMode(bool toggle)
         {
             Size = (toggle) ? AdvancedSize : StandartSize;

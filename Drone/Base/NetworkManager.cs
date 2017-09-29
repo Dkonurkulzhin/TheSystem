@@ -30,9 +30,6 @@ namespace Drone
         public static event StringMessageDelegate OnMessage; // вызывается при получении текстового сообщения с сервера
 
 
-
-
-
         static NetworkManager()
         {
             Console.WriteLine("Network manager has been initialized");
