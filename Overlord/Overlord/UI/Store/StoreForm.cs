@@ -155,7 +155,12 @@ namespace Overlord
 
         private void button1_Click(object sender, EventArgs e)
         {
-            CloseTransaction();
+            if (productsToSale.Count > 0)
+                return;
+            if (numericUpDown1.Value >= total)
+                CloseTransaction();
+            else
+                MessageBox.Show("Внесена меньшая сумма чем итоговая", "Ошибка!", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
         private void UpdateProductInfo()
@@ -204,6 +209,41 @@ namespace Overlord
         private void numericUpDown1_ValueChanged(object sender, EventArgs e)
         {
             textBox2.Text = (numericUpDown1.Value - total).ToString();
+        }
+
+        private void cash200_Click(object sender, EventArgs e)
+        {
+            AddCash(200);
+        }
+
+        private void AddCash(int cash)
+        {
+            numericUpDown1.Value += cash;
+        }
+
+        private void cash500_Click(object sender, EventArgs e)
+        {
+            AddCash(500);
+        }
+
+        private void cash1000_Click(object sender, EventArgs e)
+        {
+            AddCash(1000);
+        }
+
+        private void cash2000_Click(object sender, EventArgs e)
+        {
+            AddCash(2000);
+        }
+
+        private void cash5000_Click(object sender, EventArgs e)
+        {
+            AddCash(5000);
+        }
+
+        private void cash10000_Click(object sender, EventArgs e)
+        {
+            AddCash(10000);
         }
     }
 }

@@ -28,6 +28,7 @@ namespace Overlord
             messageHanler = new MessageHandler();
             udpListener.SendUpdate += AddUpdateTransition;
             udpListener.GotEcho += MachineManager.GotEchoPacket;
+            udpListener.Start();
             messageHanler.StartServerListening(SendUserOnRequest);
         }
 

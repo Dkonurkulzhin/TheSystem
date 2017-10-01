@@ -15,25 +15,29 @@ namespace Networking
     {
         public delegate void SendUpdateEH(string ip, int port);
         public event SendUpdateEH SendUpdate;
-
+        private bool ListenerEnabled = false;
         public delegate void EchoEH(int machine, string machineIP, bool isOccupied, string username = "guest", long balance = 0, long minutesLeft = 0);
         public event EchoEH GotEcho;
 
         public UDPListener()
         {
-            Start();
+           // Start();
         }
        
         
         public void Start()
         {
-            Connection.StartListening(ConnectionType.UDP, new IPEndPoint(IPAddress.Any, Constants.UDPBroodcastPort));
-            NetworkComms.AppendGlobalConnectionCloseHandler(OnConnectionClose);
-            AppendHandlers();
-            Console.WriteLine("Starting udp listener");
-            foreach (IPEndPoint listenEndPoint in Connection.ExistingLocalListenEndPoints(ConnectionType.UDP))
+            if (!ListenerEnabled)
             {
-                Console.WriteLine(listenEndPoint.Address + ":" + listenEndPoint.Port);
+                Connection.StartListening(ConnectionType.UDP, new IPEndPoint(IPAddress.Any, Constants.UDPBroodcastPort));
+                NetworkComms.AppendGlobalConnectionCloseHandler(OnConnectionClose);
+                AppendHandlers();
+                Console.WriteLine("Starting udp listener");
+                foreach (IPEndPoint listenEndPoint in Connection.ExistingLocalListenEndPoints(ConnectionType.UDP))
+                {
+                    Console.WriteLine(listenEndPoint.Address + ":" + listenEndPoint.Port);
+                }
+                ListenerEnabled = true;
             }
         }
 

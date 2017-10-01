@@ -57,6 +57,20 @@ namespace Drone.WinSystem
             }
         }
 
+        public static void EndSessionProcesses()
+        {
+            foreach (Process process in SessionProcesses)
+                if (process != null)
+                    try
+                    {
+                        process.Kill();
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine(ex.Message);
+                    }
+        }
+
         public static void RunWinShellProcess()
         {
             Process.Start(Path.Combine(Environment.GetEnvironmentVariable("windir"), "explorer.exe"));

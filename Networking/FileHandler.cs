@@ -426,8 +426,8 @@ namespace Networking
 
                 //Once complete enable the send button again
                 connection.SendObject("FileDataCompleted", true, customOptions);
-                TransitionCompleted(remoteIP);
-                connection.CloseConnection(false);
+                TransitionCompleted?.Invoke(remoteIP);
+               // connection.CloseConnection(false);
             });
         }
 

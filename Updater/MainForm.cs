@@ -11,6 +11,8 @@ using System.IO;
 using System.Net;
 using Microsoft.Win32;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
+using System.Timers;
 
 using NetworkCommsDotNet;
 using NetworkCommsDotNet.DPSBase;
@@ -31,13 +33,13 @@ namespace Updater
 
         private UDPBroadcaster udpBroadcaster;
         private FileHandler fileHandler;
-        public List<string> folder;
+
         public ClientSettings settings;
         private XMLManager xmlManager = new XMLManager();
         private Size AdvancedSize = new Size(420, 170);
         private Size StandartSize = new Size(420, 350);
         private bool AdvancedMode = false;
-
+        private bool UpdateFinished = false;
         public MainForm()
         {
             InitializeComponent();
@@ -75,6 +77,38 @@ namespace Updater
         {
             fileHandler.SaveAllRecievedFiles(GlobalVars.settings.applicationDirectory);
             UpdateStatus("Обновление завершено");
+            UpdateFinished = true;
+            System.Timers.Timer OnUpdateProcessFinished = new System.Timers.Timer(1000);
+            OnUpdateProcessFinished.Start();
+            OnUpdateProcessFinished.Elapsed += OnUpdateProcessFinishedTimer;
+            
+
+        }
+
+        private void OnUpdateProcessFinishedTimer(object sender, ElapsedEventArgs e)
+        {
+            System.Timers.Timer timer = sender as System.Timers.Timer;
+            timer.Stop();
+            timer.Dispose();
+            ExitUpdater();
+            
+        }
+
+        private void ExitUpdater()
+        { 
+            Application.Exit();
+            try
+            {
+                ProcessStartInfo info = new ProcessStartInfo(GlobalVars.settings.applicationDirectory + "drone.exe");
+                info.UseShellExecute = true;
+                info.Verb = "runas";
+                Process.Start(info);
+            }
+            catch (Exception ex)
+            {
+
+            }
+           
         }
 
 
@@ -179,6 +213,11 @@ namespace Updater
         {
             if (AdvancedMode)
              e.Cancel = true;
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            ExitUpdater();
         }
     }
 }
