@@ -32,8 +32,8 @@
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.UserBalanceLabel = new System.Windows.Forms.Label();
             this.UserLevelLabel = new System.Windows.Forms.Label();
+            this.UserBalanceLabel = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -60,7 +60,7 @@
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(68, 24);
             this.button1.TabIndex = 2;
-            this.button1.Text = "Добавить";
+            this.button1.Text = "OK";
             this.button1.UseVisualStyleBackColor = true;
             // 
             // groupBox1
@@ -74,15 +74,6 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Информация";
             // 
-            // UserBalanceLabel
-            // 
-            this.UserBalanceLabel.AutoSize = true;
-            this.UserBalanceLabel.Location = new System.Drawing.Point(9, 30);
-            this.UserBalanceLabel.Name = "UserBalanceLabel";
-            this.UserBalanceLabel.Size = new System.Drawing.Size(50, 13);
-            this.UserBalanceLabel.TabIndex = 0;
-            this.UserBalanceLabel.Text = "Баланс: ";
-            // 
             // UserLevelLabel
             // 
             this.UserLevelLabel.AutoSize = true;
@@ -91,6 +82,15 @@
             this.UserLevelLabel.Size = new System.Drawing.Size(57, 13);
             this.UserLevelLabel.TabIndex = 1;
             this.UserLevelLabel.Text = "Уровень: ";
+            // 
+            // UserBalanceLabel
+            // 
+            this.UserBalanceLabel.AutoSize = true;
+            this.UserBalanceLabel.Location = new System.Drawing.Point(9, 30);
+            this.UserBalanceLabel.Name = "UserBalanceLabel";
+            this.UserBalanceLabel.Size = new System.Drawing.Size(50, 13);
+            this.UserBalanceLabel.TabIndex = 0;
+            this.UserBalanceLabel.Text = "Баланс: ";
             // 
             // UserSearchForm
             // 

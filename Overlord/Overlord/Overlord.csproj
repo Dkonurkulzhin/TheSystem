@@ -93,6 +93,12 @@
     </Compile>
     <Compile Include="Debug\DebugManager.cs" />
     <Compile Include="Elements\MachineStatUpdater.cs" />
+    <Compile Include="UI\User\AddUserCashForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\User\AddUserCashForm.Designer.cs">
+      <DependentUpon>AddUserCashForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\User\AddTimeDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -283,6 +289,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Machines\UpdateSettingsForm.resx">
       <DependentUpon>UpdateSettingsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\User\AddUserCashForm.resx">
+      <DependentUpon>AddUserCashForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\User\UserAddForm.resx">
       <DependentUpon>UserAddForm.cs</DependentUpon>

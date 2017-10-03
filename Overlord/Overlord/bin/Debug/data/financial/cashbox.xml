@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Cashbox xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <CurrentCash>3200</CurrentCash>
+  <CurrentCash>-1000</CurrentCash>
   <Currency>tg</Currency>
 </Cashbox>

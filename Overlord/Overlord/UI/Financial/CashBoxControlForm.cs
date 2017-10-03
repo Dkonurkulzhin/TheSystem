@@ -41,6 +41,7 @@ namespace Overlord
             }
             else
                 MessageBox.Show("Уажите сумму и причину снятия денег");
+            this.Close();
         }
 
         private void updateForm()

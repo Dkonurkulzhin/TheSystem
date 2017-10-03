@@ -28,6 +28,7 @@ namespace Overlord
         public UserSearchForm userSearchForm;
         public UpdateSettingsForm updateSettingsForm;
         public UserConfigForm userConfigForm;
+        public AddUserCashForm addUserCashForm;
         private int ViewType = 0;
         public Form1()
         {
@@ -522,6 +523,20 @@ namespace Overlord
             userConfigForm = new UserConfigForm();
             userConfigForm.Show();
 
+        }
+
+        private void NewUserButton_Click(object sender, EventArgs e)
+        {
+            UserAddForm userAddForm = new UserAddForm();
+            userAddForm.Show();
+        }
+
+        private void AddCashButton_Click(object sender, EventArgs e)
+        {
+            if (addUserCashForm != null)
+                addUserCashForm.Close();
+            addUserCashForm = new AddUserCashForm();
+            addUserCashForm.Show();
         }
     }
 

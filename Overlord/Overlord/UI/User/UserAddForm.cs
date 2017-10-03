@@ -17,7 +17,7 @@ namespace Overlord
         bool UserIsNew;
         UserConfigForm ParentForm;
 
-        public UserAddForm(UserConfigForm parentForm, User user = null)
+        public UserAddForm(UserConfigForm parentForm = null, User user = null)
         {
             UserToEdit = user;
             ParentForm = parentForm;

@@ -110,7 +110,7 @@ namespace Overlord
 
         private void listView1_DoubleClick(object sender, EventArgs e)
         {
-            if (listView1.SelectedItems != null)
+            if (listView1.SelectedItems.Count > 0)
                 LogInUser(listView1.SelectedItems[0].Text);
                
         }

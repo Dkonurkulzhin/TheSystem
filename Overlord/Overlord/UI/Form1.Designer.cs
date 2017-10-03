@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.ReservedPCLabel = new System.Windows.Forms.Label();
@@ -65,11 +66,14 @@
             this.StatusRefreshTimer = new System.Windows.Forms.Timer(this.components);
             this.MachineContexMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.panel1 = new System.Windows.Forms.Panel();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.AddCashButton = new System.Windows.Forms.Button();
+            this.NewUserButton = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.ProductButton = new System.Windows.Forms.Button();
             this.ConsoleControlButton = new System.Windows.Forms.Button();
@@ -89,6 +93,7 @@
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
+            this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ReservedPCImg)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.EnabledPCImg)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.freePCImg)).BeginInit();
@@ -98,10 +103,10 @@
             // 
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Location = new System.Drawing.Point(123, 27);
+            this.tabControl1.Location = new System.Drawing.Point(123, 81);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(707, 587);
+            this.tabControl1.Size = new System.Drawing.Size(707, 564);
             this.tabControl1.TabIndex = 2;
             // 
             // tabPage1
@@ -119,7 +124,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(699, 561);
+            this.tabPage1.Size = new System.Drawing.Size(699, 538);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Таблица";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -155,7 +160,7 @@
             // ViewTypeLabel
             // 
             this.ViewTypeLabel.AutoSize = true;
-            this.ViewTypeLabel.Location = new System.Drawing.Point(198, 535);
+            this.ViewTypeLabel.Location = new System.Drawing.Point(202, 512);
             this.ViewTypeLabel.Name = "ViewTypeLabel";
             this.ViewTypeLabel.Size = new System.Drawing.Size(50, 13);
             this.ViewTypeLabel.TabIndex = 3;
@@ -166,7 +171,7 @@
             // 
             this.ViewBar.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.ViewBar.LargeChange = 3;
-            this.ViewBar.Location = new System.Drawing.Point(100, 531);
+            this.ViewBar.Location = new System.Drawing.Point(104, 508);
             this.ViewBar.Maximum = 3;
             this.ViewBar.Name = "ViewBar";
             this.ViewBar.Size = new System.Drawing.Size(103, 45);
@@ -178,7 +183,7 @@
             this.checkBox1.AutoSize = true;
             this.checkBox1.Checked = true;
             this.checkBox1.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox1.Location = new System.Drawing.Point(3, 535);
+            this.checkBox1.Location = new System.Drawing.Point(7, 512);
             this.checkBox1.Name = "checkBox1";
             this.checkBox1.Size = new System.Drawing.Size(91, 17);
             this.checkBox1.TabIndex = 1;
@@ -197,9 +202,9 @@
             this.time,
             this.balance});
             this.listView1.HoverSelection = true;
-            this.listView1.Location = new System.Drawing.Point(7, 6);
+            this.listView1.Location = new System.Drawing.Point(7, 0);
             this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(559, 523);
+            this.listView1.Size = new System.Drawing.Size(559, 506);
             this.listView1.TabIndex = 0;
             this.listView1.UseCompatibleStateImageBehavior = false;
             this.listView1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.listView1_MouseClick);
@@ -234,7 +239,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(699, 561);
+            this.tabPage2.Size = new System.Drawing.Size(699, 525);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Расположение";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -251,7 +256,7 @@
             this.дополнительноToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(830, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(826, 24);
             this.menuStrip1.TabIndex = 3;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -361,9 +366,9 @@
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabel1,
             this.toolStripStatusLabel2});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 628);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 646);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(830, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(826, 22);
             this.statusStrip1.TabIndex = 5;
             this.statusStrip1.Text = "statusStrip1";
             this.statusStrip1.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.statusStrip1_ItemClicked);
@@ -405,35 +410,17 @@
             this.panel1.Controls.Add(this.button1);
             this.panel1.Location = new System.Drawing.Point(6, 27);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(111, 587);
+            this.panel1.Size = new System.Drawing.Size(111, 609);
             this.panel1.TabIndex = 9;
             // 
-            // label1
+            // label5
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(5, 87);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(51, 13);
-            this.label1.TabIndex = 10;
-            this.label1.Text = "Магазин";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(5, 189);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(50, 13);
-            this.label2.TabIndex = 11;
-            this.label2.Text = "Консоли";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(5, 291);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(74, 13);
-            this.label3.TabIndex = 12;
-            this.label3.Text = "Ползователи";
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(5, 503);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(42, 13);
+            this.label5.TabIndex = 14;
+            this.label5.Text = "Смены";
             // 
             // label4
             // 
@@ -444,14 +431,63 @@
             this.label4.TabIndex = 13;
             this.label4.Text = "Касса";
             // 
-            // label5
+            // label3
             // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(5, 503);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(42, 13);
-            this.label5.TabIndex = 14;
-            this.label5.Text = "Смены";
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(5, 291);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(74, 13);
+            this.label3.TabIndex = 12;
+            this.label3.Text = "Ползователи";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(5, 189);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(50, 13);
+            this.label2.TabIndex = 11;
+            this.label2.Text = "Консоли";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(5, 87);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(51, 13);
+            this.label1.TabIndex = 10;
+            this.label1.Text = "Магазин";
+            // 
+            // panel2
+            // 
+            this.panel2.BackColor = System.Drawing.Color.White;
+            this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel2.Controls.Add(this.AddCashButton);
+            this.panel2.Controls.Add(this.NewUserButton);
+            this.panel2.Location = new System.Drawing.Point(123, 27);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(703, 52);
+            this.panel2.TabIndex = 10;
+            // 
+            // AddCashButton
+            // 
+            this.AddCashButton.Image = ((System.Drawing.Image)(resources.GetObject("AddCashButton.Image")));
+            this.AddCashButton.Location = new System.Drawing.Point(60, 3);
+            this.AddCashButton.Name = "AddCashButton";
+            this.AddCashButton.Size = new System.Drawing.Size(44, 44);
+            this.AddCashButton.TabIndex = 1;
+            this.AddCashButton.UseVisualStyleBackColor = true;
+            this.AddCashButton.Click += new System.EventHandler(this.AddCashButton_Click);
+            // 
+            // NewUserButton
+            // 
+            this.NewUserButton.Image = global::Overlord.Properties.Resources.adduser;
+            this.NewUserButton.Location = new System.Drawing.Point(8, 3);
+            this.NewUserButton.Name = "NewUserButton";
+            this.NewUserButton.Size = new System.Drawing.Size(44, 44);
+            this.NewUserButton.TabIndex = 0;
+            this.NewUserButton.UseVisualStyleBackColor = true;
+            this.NewUserButton.Click += new System.EventHandler(this.NewUserButton_Click);
             // 
             // button3
             // 
@@ -578,10 +614,11 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.ClientSize = new System.Drawing.Size(830, 650);
+            this.ClientSize = new System.Drawing.Size(826, 668);
+            this.Controls.Add(this.panel2);
+            this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.statusStrip1);
-            this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.menuStrip1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MainMenuStrip = this.menuStrip1;
@@ -601,6 +638,7 @@
             this.statusStrip1.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            this.panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.ReservedPCImg)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.EnabledPCImg)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.freePCImg)).EndInit();
@@ -664,6 +702,9 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Button AddCashButton;
+        private System.Windows.Forms.Button NewUserButton;
     }
 }
 
