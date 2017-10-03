@@ -18,5 +18,7 @@ namespace Overlord
         public string group = GlobalVars.DefaultMachineGroup;
         public string IP;
         public string MAC_ADDRESS;
+        public long CleintVersion;
+        public User user;
     }
 }

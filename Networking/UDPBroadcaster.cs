@@ -53,7 +53,7 @@ namespace Networking
                 udpTimer.Start();
         }
 
-        private void Tick(Object sender, ElapsedEventArgs e)
+        private void Tick(object sender, ElapsedEventArgs e)
         {
             UDPConnection.SendObject(Header, Content, new IPEndPoint(IPAddress.Broadcast, Port));
             OnBroadcastTick?.Invoke(Header + ":" + Port.ToString());

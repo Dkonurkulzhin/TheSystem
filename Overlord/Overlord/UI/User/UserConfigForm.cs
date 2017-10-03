@@ -47,6 +47,18 @@ namespace Overlord
 
         }
 
+        public void UpdateInfo(User user)
+        {
+            if (user == null)
+                return;
+            NameLabel.Text = user.name;
+            BalanceLabel.Text = "Баланс: " + user.balance.ToString();
+            LevelLabel.Text = "Уровень: " + user.level.ToString();
+            ExpLabel.Text = "Опыт: " + user.exp.ToString();
+            RateLabel.Text = "Тариф: " + UserManager.GetCurrentRate(user, UserManager.RateFormat.perHour).ToString() + "в час";
+        }
+
+
         private void button1_Click(object sender, EventArgs e)
         {
             listView1.Clear();
@@ -192,6 +204,22 @@ namespace Overlord
                 //}
 
                 // groupMenu.Show(this, new Point(e.X, e.Y + listBox1.Location.Y));
+            }
+        }
+
+        private void groupBox1_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void listView1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string selectedUsername;
+            
+            if (listView1.SelectedItems.Count > 0)
+            {
+                selectedUsername = listView1.SelectedItems[0].Text;
+                UpdateInfo(UserManager.GetUserByName(selectedUsername));
             }
         }
     }

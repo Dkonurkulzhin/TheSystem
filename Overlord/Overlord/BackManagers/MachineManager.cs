@@ -238,7 +238,7 @@ namespace Overlord
             //    }
         }
 
-        public static void GotEchoPacket(int index, string ip, bool isOccupied, string username, long balance, long minutesLeft)
+        public static void GotEchoPacket(int index, string ip, bool isOccupied, string username, long balance, long minutesLeft, long clientVersion)
         {
             if (index <= Machines.Length)
             {
@@ -247,7 +247,16 @@ namespace Overlord
                 Machines[index - 1].username = username;
                 Machines[index - 1].balance = balance;
                 Machines[index - 1].time = minutesLeft;
+                Machines[index - 1].CleintVersion = clientVersion;
+                User userToUpdate;
+                if (username != null && username != "")
+                {
+                    userToUpdate = UserManager.GetUserByName(username);
+                    userToUpdate.balance = balance;
+                    UserManager.SaveUser(userToUpdate);
+                }
                 UpdateStatTimer(index-1);
+
             }
 
         }
@@ -260,15 +269,21 @@ namespace Overlord
             {
                 Machines[index].status = MachineStatus.Disabled;
                 Machines[index].IP = "";
+               
             }
             timer.Dispose();
         }
 
         public static void UpdateStatTimer(int index)
         {
-            StatUpdateTimers[index] = new System.Timers.Timer(5000);
+            StatUpdateTimers[index] = new System.Timers.Timer(10000);
             StatUpdateTimers[index].Elapsed += OnStatTimerElapsed;
             StatUpdateTimers[index].Start();
+        }
+
+        public static void OnMachineLogOut(int machineIndex)
+        {
+
         }
 
     }

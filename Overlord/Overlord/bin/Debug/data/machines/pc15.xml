@@ -9,4 +9,5 @@
   <balance>0</balance>
   <group>Default</group>
   <IP>192.168.2.201</IP>
+  <CleintVersion>0</CleintVersion>
 </Machine>

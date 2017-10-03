@@ -27,6 +27,8 @@ namespace Overlord
         public ConsoleSettingsForm consoleSettingsForm;
         public UserSearchForm userSearchForm;
         public UpdateSettingsForm updateSettingsForm;
+        public UserConfigForm userConfigForm;
+        private int ViewType = 0;
         public Form1()
         {
             InitializeComponent();
@@ -34,18 +36,18 @@ namespace Overlord
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            
+
         }
 
         private int LoadMachines()
         {
-            
+
             return 0;
         }
 
         private void tabPage2_Click(object sender, EventArgs e)
         {
-            
+
         }
 
         private void ProductButton_Click(object sender, EventArgs e)
@@ -65,8 +67,9 @@ namespace Overlord
                 ConfigureAdminRights(GlobalVars.Authority);
 
             UpdatePCList();
+            MachineManager.SaveMachines();
             InitUIElements();
-          
+
 
         }
 
@@ -77,7 +80,7 @@ namespace Overlord
             ReservedPCImg.Image = GlobalVars.ReservedPCimg;
             EnabledPCImg.Image = GlobalVars.OKPCimg;
 
-        }   
+        }
 
         public void UpdatePCList(int viewtype = 0)
         {
@@ -110,9 +113,10 @@ namespace Overlord
 
             }
             ViewBar.Value = viewtype;
+            ViewType = viewtype;
             listView1.Sorting = SortOrder.None;
             listView1.FullRowSelect = true;
-         
+
             foreach (string group in GlobalVars.Settings.MacineGroups)
             {
                 ListViewGroup machineGroup = new ListViewGroup();
@@ -122,13 +126,13 @@ namespace Overlord
             }
             listView1.ShowGroups = true;
 
-            int freePCs =0; int enabledPCs = 0; int reservedPcs = 0;
+            int freePCs = 0; int enabledPCs = 0; int reservedPcs = 0;
             foreach (Machine machine in MachineManager.Machines)
             {
                 ListViewItem machineItem = new ListViewItem((viewtype != 0) ? machine.label : (machine.index + 1).ToString(), 0);
                 if (machine != null)
                 {
-                   // machine.status = MachineManager.MachineStatus.Ready;
+                    // machine.status = MachineManager.MachineStatus.Ready;
                     if (viewtype != 2)
                         machineItem.SubItems.Add(machine.label);
                     ListViewItem.ListViewSubItem stat = new ListViewItem.ListViewSubItem();
@@ -141,7 +145,7 @@ namespace Overlord
 
                     string machineViewTime = ((machine.status == MachineManager.MachineStatus.Busy) ?
                         machine.time.ToString() : "").ToString();
-                    machineItem.SubItems.Add( (viewtype == 2)? "время: " + machineViewTime : machineViewTime);
+                    machineItem.SubItems.Add((viewtype == 2) ? "время: " + machineViewTime : machineViewTime);
 
                     string machineViewBalance = ((machine.status == MachineManager.MachineStatus.Busy) ?
                         machine.balance.ToString() : "").ToString();
@@ -153,7 +157,7 @@ namespace Overlord
                         enabledPCs++;
                     if (machine.status == MachineManager.MachineStatus.Reserved)
                         reservedPcs++;
-                    
+
                 }
                 else
                 {
@@ -164,7 +168,7 @@ namespace Overlord
                 {
                     if (machine.group == group.Header)
                         machineItem.Group = group;
-                   
+
                 }
                 machineItem.ImageKey = machine.status.ToString();
                 listView1.Items.Add(machineItem);
@@ -174,13 +178,13 @@ namespace Overlord
                 // listView1.Columns.Add();
                 //  dataGridView1.Rows.Add(machine.index.ToString());
             }
-
-            
+            GC.Collect();
         }
 
         private void StatusRefreshTimer_Tick(object sender, EventArgs e)
         {
             toolStripStatusLabel2.Text = "В касссе: " + FinancialManager.GetCashString();
+            UpdatePCList(ViewType);
             //throw new NotImplementedException();
         }
 
@@ -260,16 +264,16 @@ namespace Overlord
             {
                 if (item.HasDropDownItems)
                 {
-                    foreach (ToolStripMenuItem subItem in GetItems(item)) 
+                    foreach (ToolStripMenuItem subItem in GetItems(item))
                     {
-                        
+
 
                         foreach (string name in GlobalVars.Settings.AuthorityMenuItems)
                         {
                             if (subItem.Text == name)
                             {
                                 subItem.Enabled = authority;
-                               
+
                                 Console.WriteLine(subItem.Text + " " + authority.ToString());
                             }
                         }
@@ -308,7 +312,7 @@ namespace Overlord
                 if (authorityCheckForm != null)
                     authorityCheckForm.Close();
                 authorityCheckForm = new AuthorityCheckForm();
-                authorityCheckForm.Show();   
+                authorityCheckForm.Show();
             }
         }
 
@@ -347,6 +351,8 @@ namespace Overlord
         {
             if (e.Button == MouseButtons.Right)
             {
+                if (sender == null)
+                    return;
                 if (listView1.SelectedItems != null)
                 {
                     MachineContexMenu.Items.Clear();
@@ -360,7 +366,7 @@ namespace Overlord
                     placeUserItem.Click += new EventHandler((Sender, E) => SearchUser(sender, e, listView1.SelectedItems[0].Index));
 
                     ToolStripItem addTimeItem = MachineContexMenu.Items.Add("Добавть время");
-                    addTimeItem.Click += new EventHandler((Sender, E) => ShowMachineAddDialog(sender, e,  indexes, true));
+                    addTimeItem.Click += new EventHandler((Sender, E) => ShowMachineAddDialog(sender, e, indexes, true));
 
                     ToolStripItem addCashItem = MachineContexMenu.Items.Add("Добавть средства");
                     addCashItem.Click += new EventHandler((Sender, E) => ShowMachineAddDialog(sender, e, indexes, false));
@@ -374,7 +380,7 @@ namespace Overlord
                     {
                         if (MachineManager.Machines[item.Index].status == MachineManager.MachineStatus.Reserved)
                             selectionIsReserved = true;
-                        
+
                     }
                     if (!selectionIsReserved)
                     {
@@ -394,12 +400,12 @@ namespace Overlord
                         Console.Write(listView1.SelectedItems[0].Index.ToString());
                         SwitchMachineCondition.Click += new EventHandler((Sender, E) => MachineManager.SwitchUnavailable(sender, e, listView1.SelectedItems[0].Index));
                     }
-                       
+
                     MachineContexMenu.Show(listView1, new Point(e.X, e.Y));
                 }
-                
+
             }
-            
+
         }
 
         public void SearchUser(object sender, EventArgs e, int machineIndex)
@@ -411,7 +417,7 @@ namespace Overlord
                 userSearchForm.Show();
             }
         }
-      
+
         public void ShowMachineAddDialog(object sender, EventArgs e, List<int> indexes, bool setTime = true)
         {
             List<Machine> machines = new List<Machine>();
@@ -419,7 +425,7 @@ namespace Overlord
             {
                 if (indexes.Contains(machine.index))
                     machines.Add(machine);
-               
+
             }
 
             foreach (Machine machine in machines)
@@ -435,11 +441,11 @@ namespace Overlord
             addTimeDialog = new AddTimeDialog(machines, setTime);
             addTimeDialog.TopMost = true;
             addTimeDialog.Show();
-            
+
         }
 
-        
-        
+
+
         private void listView1_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left && listView1.SelectedItems != null)
@@ -456,18 +462,18 @@ namespace Overlord
             switch (MessageBox.Show(text, header, MessageBoxButtons.YesNo))
             {
                 case DialogResult.Yes:
-                    return true;        
+                    return true;
                 case DialogResult.No:
-                    return false;                 
+                    return false;
                 default:
-                    return false;                  
+                    return false;
             }
         }
 
         public void ShowError(string text, string header = "Ошибка")
         {
             MessageBox.Show(text, header, MessageBoxButtons.OK, MessageBoxIcon.Error);
-            
+
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -477,8 +483,10 @@ namespace Overlord
 
         private void button1_Click(object sender, EventArgs e)
         {
-            UserConfigForm usconf = new UserConfigForm();
-            usconf.Show();
+            if (cashboxControlForm != null)
+                cashboxControlForm.Close();
+            cashboxControlForm = new CashBoxControlForm();
+            cashboxControlForm.Show();
         }
 
         private void EnabledPCImg_Click(object sender, EventArgs e)
@@ -493,7 +501,10 @@ namespace Overlord
 
         private void statusStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
-
+            if (cashboxControlForm != null)
+                cashboxControlForm.Close();
+            cashboxControlForm = new CashBoxControlForm();
+            cashboxControlForm.Show();
         }
 
         private void обновлениеКлиентовToolStripMenuItem_Click(object sender, EventArgs e)
@@ -503,5 +514,16 @@ namespace Overlord
             updateSettingsForm = new UpdateSettingsForm();
             updateSettingsForm.Show();
         }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            if (userConfigForm != null)
+                userConfigForm.Close();
+            userConfigForm = new UserConfigForm();
+            userConfigForm.Show();
+
+        }
     }
+
+     
 }

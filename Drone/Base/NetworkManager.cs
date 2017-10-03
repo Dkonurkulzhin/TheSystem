@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Networking;
-
+using System.Timers;
 using NetworkCommsDotNet;
 
 
@@ -43,15 +43,22 @@ namespace Drone
             messageHanlder.UserRecieved += ProcessRequestedUser;
             messageHanlder.LogOutCommand += ProcessLogOutCommand;
             broadcaster.StartBroadcasting(Constants.RequestHeaders[Constants.Messages.Echo], new MachineStatMessage(
-                GlobalVars.settings.pcNumber, false, "", 0, 0));
+                GlobalVars.settings.pcNumber, false, "", 0, 0, GlobalVars.settings.clientVersion));
+            System.Timers.Timer UpdateMessageTimer = new System.Timers.Timer(5000);
+            UpdateMessageTimer.AutoReset = true;
+            UpdateMessageTimer.Elapsed += UpdateEchoMessage;
+            UpdateMessageTimer.Start();
 
         }
 
-        public static void UpdateEchoMessage()
+        public static void UpdateEchoMessage(object sender, ElapsedEventArgs e)
         {
             broadcaster.Content = new MachineStatMessage(GlobalVars.settings.pcNumber,
-                (SessionManager.currentUser == null) ? false : true, SessionManager.currentUser.name,
-                (long)SessionManager.currentBalance, SessionManager.secondsLeft);
+                (SessionManager.currentUser != null) ? true : false,
+                (SessionManager.currentUser != null) ? SessionManager.currentUser.name : "",
+                (SessionManager.currentUser != null) ? (long)SessionManager.currentUser.balance : 0,
+                0, 
+                GlobalVars.settings.clientVersion);
         }
 
 

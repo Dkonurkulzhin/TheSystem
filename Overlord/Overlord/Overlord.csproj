@@ -92,6 +92,7 @@
       <DependentUpon>DebugLog.cs</DependentUpon>
     </Compile>
     <Compile Include="Debug\DebugManager.cs" />
+    <Compile Include="Elements\MachineStatUpdater.cs" />
     <Compile Include="UI\User\AddTimeDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -348,6 +349,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <DependentUpon>Database1.mdf</DependentUpon>
     </Content>
+    <None Include="Resources\remveuser.png" />
+    <None Include="Resources\adduser.png" />
+    <None Include="Resources\Users.png" />
   </ItemGroup>
   <Import Project="..\..\Networking\Networking.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

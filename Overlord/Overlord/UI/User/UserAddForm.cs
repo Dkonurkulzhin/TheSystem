@@ -64,7 +64,7 @@ namespace Overlord
             else
             {
                 ChangeUserData();
-                UserManager.SaveUser(UserToEdit.name);
+                UserManager.SaveUser(UserToEdit);
 
                 this.Close();
             }

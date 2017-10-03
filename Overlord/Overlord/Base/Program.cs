@@ -39,9 +39,11 @@ namespace Overlord
         {
             MachineManager.Initialize();
             FinancialManager.Initialize();
+            UserManager.Initialize();
             ProductManager.Initialize();
             TelegramManager.InitBot();
             DebugManager.Initialize();
+
         }
 
        

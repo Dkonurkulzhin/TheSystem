@@ -4,15 +4,28 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data.SqlClient;
+using Overlord.Elements;
 
 namespace Overlord
 {
    public static class UserManager
     {
         public static List<User> ActiveUsers = new List<User>();
-
+        public enum RateFormat { perHour, perMinute, perSecond};
         private static TempUserControllu UserDB = new TempUserControllu();
+        private static MachineStatUpdater machineStatUpdater = new MachineStatUpdater();
         
+        public static void Initialize()
+        {
+           machineStatUpdater.OnUserLoggedOut += LogOutUserFromMachine;
+        }
+        
+
+        public static void LogOutUserFromMachine(int index)
+        {
+
+        }
+
         public static User CheckUserData(string name, string password)
         {
             User UserToSend = UserDB.DeserializeUser(name);
@@ -45,9 +58,9 @@ namespace Overlord
             return UserDB.DeleteUser(name);
         }
 
-        public static void SaveUser(string name)
+        public static void SaveUser(User user)
         {
-            UserDB.SaveUser(GetUserByName(name));
+            UserDB.SaveUser(user);
         }
 
 
@@ -62,8 +75,24 @@ namespace Overlord
         {
             return true;
         }
-        
 
+        public static float GetCurrentRate(User user, RateFormat rateFormat = RateFormat.perSecond)
+        {
+            int rate = GlobalVars.Settings.BaseRatePerHour - user.level * GlobalVars.Settings.RatePerLevel;
+            switch (rateFormat)
+            {
+                case RateFormat.perSecond:
+                    return (float)rate / 3600;
+                case RateFormat.perMinute:
+                    return (float)rate / 60;
+                case RateFormat.perHour:
+                    return (float)rate;
+                default:
+
+                    break;
+            }
+            return (float)200 / 3600; //currentUser.exp;
+        }
 
     }
 }

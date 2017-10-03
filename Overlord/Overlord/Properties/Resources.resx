@@ -118,25 +118,34 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="adduser" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\adduser.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="Ecommerce-Cash-Register-icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Ecommerce-Cash-Register-icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="gamepad-icon-27" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\gamepad-icon-27.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Users" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Users.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="storeicon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\storeicon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="lock" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\lock.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="storeicon1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\storeicon1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="b72c832df92479ccc7bcb42c9faeb5af" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\b72c832df92479ccc7bcb42c9faeb5af.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Ecommerce-Cash-Register-icon1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Ecommerce-Cash-Register-icon1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="b72c832df92479ccc7bcb42c9faeb5af" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\b72c832df92479ccc7bcb42c9faeb5af.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="gamepad-icon-27" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\gamepad-icon-27.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="storeicon1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\storeicon1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="lock" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\lock.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="remveuser" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\remveuser.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

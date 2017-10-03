@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ClientSettings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <adminPassword>admin</adminPassword>
-  <pcNumber>11</pcNumber>
+  <pcNumber>7</pcNumber>
   <serverIP>192.168.2.201</serverIP>
   <pcsAmount>0</pcsAmount>
-  <applicationDirectory>E:\projects\TheSystem\Drone\bin\Debug\\</applicationDirectory>
+  <applicationDirectory>D:\Projects\System\TheSystem\Drone\bin\Debug\\</applicationDirectory>
   <broadcastPeriod>5000</broadcastPeriod>
   <AppCategories>
     <string>Игры</string>
@@ -12,4 +12,5 @@
     <string>Офис</string>
     <string>Настройки</string>
   </AppCategories>
+  <clientVersion>1001</clientVersion>
 </ClientSettings>

@@ -73,6 +73,16 @@ namespace Overlord.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap adduser {
+            get {
+                object obj = ResourceManager.GetObject("adduser", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap b72c832df92479ccc7bcb42c9faeb5af {
             get {
                 object obj = ResourceManager.GetObject("b72c832df92479ccc7bcb42c9faeb5af", resourceCulture);
@@ -113,6 +123,16 @@ namespace Overlord.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap remveuser {
+            get {
+                object obj = ResourceManager.GetObject("remveuser", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap storeicon {
             get {
                 object obj = ResourceManager.GetObject("storeicon", resourceCulture);
@@ -126,6 +146,16 @@ namespace Overlord.Properties {
         internal static System.Drawing.Bitmap storeicon1 {
             get {
                 object obj = ResourceManager.GetObject("storeicon1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Users {
+            get {
+                object obj = ResourceManager.GetObject("Users", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

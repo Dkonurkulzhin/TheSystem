@@ -30,5 +30,8 @@ namespace Overlord
 
         public string UpdateFolder = "";
 
+        public int BaseRatePerHour = 300;
+        public int RatePerLevel = 2;
+
     }
 }
