@@ -1,0 +1,9 @@
+D:\Projects\System\TheSystem\Packager\bin\Debug\Packager.exe.config
+D:\Projects\System\TheSystem\Packager\bin\Debug\Packager.exe
+D:\Projects\System\TheSystem\Packager\bin\Debug\Packager.pdb
+D:\Projects\System\TheSystem\Packager\obj\Debug\Packager.csprojResolveAssemblyReference.cache
+D:\Projects\System\TheSystem\Packager\obj\Debug\Packager.Form1.resources
+D:\Projects\System\TheSystem\Packager\obj\Debug\Packager.Properties.Resources.resources
+D:\Projects\System\TheSystem\Packager\obj\Debug\Packager.csproj.GenerateResource.Cache
+D:\Projects\System\TheSystem\Packager\obj\Debug\Packager.exe
+D:\Projects\System\TheSystem\Packager\obj\Debug\Packager.pdb

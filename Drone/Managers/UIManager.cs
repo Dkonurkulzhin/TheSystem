@@ -52,14 +52,14 @@ namespace Drone
             {
                 SecurityManager.ToggleWindowsShell(false);
             }
-            
+           
             // бинд ивентов
             SessionManager.OnPenaltyApplied += ShowPenaltyMessage;
             SessionManager.OnRejectedSession += ShowInvalidUserMessage;
             SessionManager.OnLogIn += ShowMainForm;
             SessionManager.OnLogOut += ShowLobbyForm;
             SessionManager.OnUserStatsUpdated += UpdateUserStats;
-     
+           
         }
 
         #region Внешние методы
@@ -134,6 +134,7 @@ namespace Drone
             MainForm.Invoke(new Action(delegate () { MainForm.Hide(); }));
             LobbyForm.Invoke(new Action(delegate () { LobbyForm.Show(); }));
             LobbyForm.Invoke(new Action(delegate () { LobbyForm.TopMost = false; }));
+          
         }
 
         private static void UpdateUserStats(User user)

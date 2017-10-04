@@ -18,6 +18,8 @@ Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Networking", "Networking\Ne
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Overlord", "Overlord\Overlord\Overlord.csproj", "{5404B601-0B68-4995-B8FE-F82001B9F1EF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Packager", "Packager\Packager.csproj", "{214D8E21-2AF8-4909-8FC3-47039B481562}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		Networking\Networking.projitems*{21d0d2ef-9c91-4caa-baea-8ec0bc42bc10}*SharedItemsImports = 4
@@ -42,6 +44,10 @@ Global
 		{5404B601-0B68-4995-B8FE-F82001B9F1EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5404B601-0B68-4995-B8FE-F82001B9F1EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5404B601-0B68-4995-B8FE-F82001B9F1EF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{214D8E21-2AF8-4909-8FC3-47039B481562}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{214D8E21-2AF8-4909-8FC3-47039B481562}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{214D8E21-2AF8-4909-8FC3-47039B481562}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{214D8E21-2AF8-4909-8FC3-47039B481562}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -36,6 +36,10 @@
     <ApplicationManifest>AsAdmin.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoUpdater.NET, Version=1.4.3.0, Culture=neutral, PublicKeyToken=942f95247e354701, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autoupdater.NET.Official.1.4.3\lib\net452\AutoUpdater.NET.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="MetroFramework, Version=1.4.0.0, Culture=neutral, PublicKeyToken=5f91a84759bf584a, processorArchitecture=MSIL">
       <HintPath>..\packages\MetroModernUI.1.4.0.0\lib\net\MetroFramework.dll</HintPath>
       <Private>True</Private>
@@ -84,6 +88,7 @@
     </Compile>
     <Compile Include="Managers\SecurityManager.cs" />
     <Compile Include="Managers\UIManager.cs" />
+    <Compile Include="Managers\UpdateManager.cs" />
     <Compile Include="Managers\WindowsSystemHandler.cs" />
     <Compile Include="UI\AdminForm.cs">
       <SubType>Form</SubType>

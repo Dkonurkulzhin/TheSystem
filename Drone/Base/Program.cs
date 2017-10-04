@@ -43,6 +43,7 @@ namespace Drone
             SessionManager.Initialize();
             UIManager.Initialize();
             AppManager.Initialize();
+            UpdateManager.Initialize();
         }
 
 

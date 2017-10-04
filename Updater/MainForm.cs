@@ -57,7 +57,7 @@ namespace Updater
             LoadClientSettings();
             TCPPortConfiguration.ReserveTCPPorts();
             InitUI();
-            udpBroadcaster = new UDPBroadcaster(10000, Constants.UDPBroodcastPort);
+            udpBroadcaster = new UDPBroadcaster(4000, Constants.UDPBroodcastPort);
             fileHandler = new FileHandler();
             fileHandler.UpdateLog += AddLineToLog;
             fileHandler.UpdatePercent += UpdateSendProgress;

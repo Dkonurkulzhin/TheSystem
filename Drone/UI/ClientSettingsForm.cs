@@ -12,6 +12,8 @@ namespace Drone
 {
     public partial class ClientSettingsForm : Form
     {
+      
+
         public ClientSettingsForm()
         {
             InitializeComponent();
@@ -25,8 +27,17 @@ namespace Drone
             //maskedTextBox1.Mask = "###.###.###.###";
             maskedTextBox1.ValidatingType = typeof(System.Net.IPAddress);
             maskedTextBox1.Text = GlobalVars.settings.serverIP;
+            UpdateManager.OnLatestVerision += ShowIsUpToDateNotify;
+            ClientVersion.Text = UpdateManager.GetCurrentVersion();
 
         }
+
+        private void ShowIsUpToDateNotify()
+        {
+            MessageBox.Show("Клиент обновлен до последней весрии " + UpdateManager.GetCurrentVersion());
+        }
+
+        
 
         private void button2_Click(object sender, EventArgs e)
         {
@@ -73,7 +84,7 @@ namespace Drone
 
         private void button4_Click(object sender, EventArgs e)
         {
-            UIManager.PerformUpdate();
+            UpdateManager.StartUpdateCheck();
         }
     }
 }

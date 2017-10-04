@@ -1,0 +1,10 @@
+Base Exception Type: System.IndexOutOfRangeException: Индекс находился вне границ массива.
+   в Overlord.MachineManager.GotEchoPacket(Int32 index, String ip, Boolean isOccupied, String username, Int64 balance, Int64 minutesLeft, Int64 clientVersion) в E:\projects\TheSystem\Overlord\Overlord\BackManagers\MachineManager.cs:строка 245
+   в Networking.UDPListener.EchoHandler(PacketHeader header, Connection connection, MachineStatMessage machineMessage) в E:\projects\TheSystem\Networking\UDPListener.cs:строка 84
+   в NetworkCommsDotNet.Tools.PacketTypeHandlerDelegateWrapper`1.Process(PacketHeader packetHeader, Connection connection, Object obj)
+   в NetworkCommsDotNet.NetworkComms.TriggerGlobalPacketHandlers(PacketHeader packetHeader, Connection connection, Object returnObject, Boolean ignoreUnknownPacketTypeOverride)
+
+Stack Trace:    в Overlord.MachineManager.GotEchoPacket(Int32 index, String ip, Boolean isOccupied, String username, Int64 balance, Int64 minutesLeft, Int64 clientVersion) в E:\projects\TheSystem\Overlord\Overlord\BackManagers\MachineManager.cs:строка 245
+   в Networking.UDPListener.EchoHandler(PacketHeader header, Connection connection, MachineStatMessage machineMessage) в E:\projects\TheSystem\Networking\UDPListener.cs:строка 84
+   в NetworkCommsDotNet.Tools.PacketTypeHandlerDelegateWrapper`1.Process(PacketHeader packetHeader, Connection connection, Object obj)
+   в NetworkCommsDotNet.NetworkComms.TriggerGlobalPacketHandlers(PacketHeader packetHeader, Connection connection, Object returnObject, Boolean ignoreUnknownPacketTypeOverride)

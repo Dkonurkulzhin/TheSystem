@@ -1,0 +1,12 @@
+Base Exception Type: System.UnauthorizedAccessException: Отказано в доступе по пути "D:\Projects\System\TheSystem\Drone\bin\Debug\__iw3sp".
+   в System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   в System.IO.FileStream.Init(String path, FileMode mode, FileAccess access, Int32 rights, Boolean useRights, FileShare share, Int32 bufferSize, FileOptions options, SECURITY_ATTRIBUTES secAttrs, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
+   в System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, FileOptions options)
+   в ReceivedFile..ctor(String filename, ConnectionInfo sourceInfo, Int64 sizeBytes, String relativeDirectory) в E:\projects\TheSystem\Networking\ReceivedFile.cs:строка 49
+   в Networking.FileHandler.IncomingPartialFileData(PacketHeader header, Connection connection, Byte[] data) в E:\projects\TheSystem\Networking\FileHandler.cs:строка 163
+
+Stack Trace:    в System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   в System.IO.FileStream.Init(String path, FileMode mode, FileAccess access, Int32 rights, Boolean useRights, FileShare share, Int32 bufferSize, FileOptions options, SECURITY_ATTRIBUTES secAttrs, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
+   в System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, FileOptions options)
+   в ReceivedFile..ctor(String filename, ConnectionInfo sourceInfo, Int64 sizeBytes, String relativeDirectory) в E:\projects\TheSystem\Networking\ReceivedFile.cs:строка 49
+   в Networking.FileHandler.IncomingPartialFileData(PacketHeader header, Connection connection, Byte[] data) в E:\projects\TheSystem\Networking\FileHandler.cs:строка 163

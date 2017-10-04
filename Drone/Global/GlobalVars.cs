@@ -32,6 +32,9 @@ namespace Drone
         static public string[] ProcessExceptions = {"Drone","Vs","devenv","Microsoft"};
         static public volatile bool StopApplyingRights = false;
 
+        // пути к репозиторию
+        static public string UpdateInfoLink = "https://raw.githubusercontent.com/Dkonurkulzhin/SystemBuilds/master/Client/UpdateInfo.xml";
+
         static XMLManager xmlManager = new XMLManager(); 
         static public RateSettings rateSettings = new RateSettings();
         

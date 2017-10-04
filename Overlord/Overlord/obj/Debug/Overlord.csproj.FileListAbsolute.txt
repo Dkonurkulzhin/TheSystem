@@ -323,3 +323,4 @@ E:\projects\TheSystem\Overlord\Overlord\obj\Debug\Overlord.csproj.GenerateResour
 D:\Projects\System\TheSystem\Overlord\Overlord\obj\Debug\Overlord.DebugLog.resources
 E:\projects\TheSystem\Overlord\Overlord\obj\Debug\Overlord.DebugLog.resources
 E:\projects\TheSystem\Overlord\Overlord\obj\Debug\Overlord.AddUserCashForm.resources
+D:\Projects\System\TheSystem\Overlord\Overlord\obj\Debug\Overlord.AddUserCashForm.resources
