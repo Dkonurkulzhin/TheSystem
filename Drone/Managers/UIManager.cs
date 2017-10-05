@@ -59,7 +59,9 @@ namespace Drone
             SessionManager.OnLogIn += ShowMainForm;
             SessionManager.OnLogOut += ShowLobbyForm;
             SessionManager.OnUserStatsUpdated += UpdateUserStats;
-           
+            SessionManager.OnRejectedBonus += ShowWarningMessage;
+
+
         }
 
         #region Внешние методы
@@ -99,13 +101,23 @@ namespace Drone
             }
         }
 
-        public static void PerformLogIn(User user)
+        public static void PerformRegularLogIn(User user)
         {
             if (SessionManager.currentUser == null)
             {
                 SessionManager.SendOpenSessionReqest(user);
             }
         }
+
+        public static void PerformNightBonusLogIn()
+        {
+            if (SessionManager.currentUser != null)
+            {
+                SessionManager.OpenBonusSession(new BonusObject(0, "Night", 19, 9, 100));
+               // SessionManager.SendOpenSessionReqest(user);
+            }
+        }
+
 
         public static void LaunchApplication(AppUnit app)
         {
@@ -115,6 +127,17 @@ namespace Drone
         public static List<AppUnit> GetAllApplications()
         {
             return AppManager.Apps;
+        }
+
+        public static string GetCurrentSessyionType()
+        {
+            if (SessionManager.GetActiveBonusName() == "")
+            {
+                return "Обычный тариф";
+            }
+            else
+                return "Тариф " + SessionManager.GetActiveBonusName();
+
         }
 
         #endregion
@@ -161,6 +184,8 @@ namespace Drone
         {
             ShowGenericMessage(message, Color.White);
         }
+
+        
 
 
         static void ShowGenericMessage(string message, Color messageColor)

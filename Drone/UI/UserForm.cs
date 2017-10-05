@@ -51,8 +51,18 @@ namespace Drone
             UserRatingLabel.Text = "Текущий тариф: " + SessionManager.GetCurrentRate(SessionManager.RateFormat.perHour) + " тг/час"; //SessionManager.currentRate.ToString()
             UserNameLabel.Text = user.name;
             UserLevelLabel.Text = user.level.ToString();
+            label1.Text = UIManager.GetCurrentSessyionType();
+            UserSettingButton.Enabled = (DateTime.Now.Hour >= 19 || DateTime.Now.Hour < 6);
+
+
         }
 
-       
+        private void UserSettingButton_Click(object sender, EventArgs e)
+        {
+            DialogResult askForBonus = MessageBox.Show("Со счета спишется 700тг, ночоной тариф действителен с 23:00 до 9:00. Задействовать ночной тариф?", 
+                "Ночной тариф", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+            if (askForBonus == DialogResult.Yes)
+                UIManager.PerformNightBonusLogIn();
+        }
     }
 }

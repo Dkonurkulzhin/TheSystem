@@ -75,12 +75,14 @@
             // 
             // UserSettingButton
             // 
+            this.UserSettingButton.Enabled = false;
             this.UserSettingButton.Location = new System.Drawing.Point(588, 12);
             this.UserSettingButton.Name = "UserSettingButton";
-            this.UserSettingButton.Size = new System.Drawing.Size(111, 34);
+            this.UserSettingButton.Size = new System.Drawing.Size(132, 34);
             this.UserSettingButton.TabIndex = 3;
-            this.UserSettingButton.Text = "Profile settings";
+            this.UserSettingButton.Text = "Включить ночной тариф";
             this.UserSettingButton.UseVisualStyleBackColor = true;
+            this.UserSettingButton.Click += new System.EventHandler(this.UserSettingButton_Click);
             // 
             // UserLogoutButton
             // 

@@ -76,7 +76,7 @@
             this.panel1.Controls.Add(this.UsernameInput);
             this.panel1.Location = new System.Drawing.Point(443, 395);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(259, 201);
+            this.panel1.Size = new System.Drawing.Size(259, 207);
             this.panel1.TabIndex = 3;
             this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 

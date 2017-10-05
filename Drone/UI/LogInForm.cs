@@ -59,7 +59,7 @@ namespace Drone
                 return;
             }
             UsernameLabel.ForeColor = StandartForeColor;
-            UIManager.PerformLogIn(new User(username, password));
+            UIManager.PerformRegularLogIn(new User(username, password));
             
           
 
@@ -92,15 +92,7 @@ namespace Drone
                 button1.Enabled = true;
             }));
         }
-        public void LogIn(User user)
-        {
-            BeginInvoke(new Action(() =>
-            {
-                Program.LogIn(user);
-            }));
-        }
-
-
+    
         protected override void OnFormClosing(FormClosingEventArgs e)
         {
             switch (e.CloseReason)
@@ -132,6 +124,11 @@ namespace Drone
         private void panel1_Paint(object sender, PaintEventArgs e)
         {
             
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
