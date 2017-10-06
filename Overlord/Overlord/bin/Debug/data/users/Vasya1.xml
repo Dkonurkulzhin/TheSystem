@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<User xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <name>Vasya1</name>
+  <password />
+  <level>0</level>
+  <exp>0</exp>
+  <balance>0</balance>
+  <regDate>0001-01-01T00:00:00</regDate>
+  <lastVisit>0001-01-01T00:00:00</lastVisit>
+  <personalName />
+  <personalSurname />
+  <phoneNumber />
+  <email />
+  <usergroup>Default</usergroup>
+  <expToNextLvl>0</expToNextLvl>
+</User>

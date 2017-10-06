@@ -368,6 +368,10 @@ namespace Overlord
 
                     ToolStripItem addTimeItem = MachineContexMenu.Items.Add("Добавть время");
                     addTimeItem.Click += new EventHandler((Sender, E) => ShowMachineAddDialog(sender, e, indexes, true));
+                    addTimeItem.Enabled = false;
+
+                    ToolStripItem addGuestSession = MachineContexMenu.Items.Add("Гостевая сессия");
+                    addGuestSession.Click += new EventHandler((Sender, E) => (new AddUserCashForm(new User("Guest")) ).Show());
 
                     ToolStripItem addCashItem = MachineContexMenu.Items.Add("Добавть средства");
                     addCashItem.Click += new EventHandler((Sender, E) => ShowMachineAddDialog(sender, e, indexes, false));

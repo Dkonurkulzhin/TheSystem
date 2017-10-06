@@ -5,6 +5,6 @@
   <cost>100</cost>
   <fee>0</fee>
   <imgPath>C:\Users\Dias\Pictures\704120.png</imgPath>
-  <stock>-1</stock>
+  <stock>0</stock>
   <notifyWhenLow>true</notifyWhenLow>
 </Product>

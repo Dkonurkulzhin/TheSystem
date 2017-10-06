@@ -38,7 +38,7 @@ namespace Overlord
 
         public static void AddLine(string line)
         {
-            if (LogEnabled)
+            if (LogEnabled && Log != null)
                 Log.Invoke(new Action(() => { Log.AddLineToLog(line);
                 }));
         }

@@ -47,6 +47,7 @@ namespace Overlord
 
             //Бинд ивентов для бота
             ProductManager.OnMessage += SendMessageToChat;
+            FinancialManager.OnNotify += SendMessageToChat;
         }
 
         static public async void SendMessageToChat(string message)

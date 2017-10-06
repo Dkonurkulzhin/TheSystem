@@ -13,8 +13,9 @@ namespace Overlord
     public partial class AddUserCashForm : Form
     {
         User userToPay;
-        public AddUserCashForm()
+        public AddUserCashForm(User user = null)
         {
+            userToPay = user;
             InitializeComponent();
             
         }
@@ -38,13 +39,27 @@ namespace Overlord
         private void numericUpDown1_ValueChanged(object sender, EventArgs e)
         {
             numericUpDown2.Value = numericUpDown1.Value;
+            PreCalculateNewCash((int)numericUpDown1.Value);
 
+        }
+
+        private void TogglePayElements(bool toggle)
+        {
+            groupBox1.Enabled = toggle;
+            OkButton.Enabled = toggle;
+            listView1.Enabled = !toggle;
+            textBox2.Enabled = !toggle;
         }
 
         private void PreCalculateNewCash(int cash)
         {
             if (userToPay == null)
+            {
+                TogglePayElements(false);
                 return;
+            }
+            TogglePayElements(true);
+            UserLabel.Text = userToPay.name;
             CurrentCashLabel.Text = "Текущий баланс: " + userToPay.balance.ToString();
             FinalCashLabel.Text = "Итоговый баланс: " + (userToPay.balance + cash).ToString();
         }
@@ -58,25 +73,22 @@ namespace Overlord
         {
             numericUpDown1.ValueChanged += CalculateShort;
             numericUpDown2.ValueChanged += CalculateShort;
-           
-           
+            PreCalculateNewCash(0);
+
+
         }
 
         private void listView1_MouseClick(object sender, MouseEventArgs e)
         {
-            if (listView1.SelectedItems.Count > 0)
-            {
-                userToPay = UserManager.GetUserByName(listView1.SelectedItems[0].Text);
-                PreCalculateNewCash((int)numericUpDown1.Value);
-            }
+           
             
         }
 
         private void AddCashToUser(int cash)
         {
-            if (cash >=0)
+            if (cash >=0 && userToPay != null)
             {
-                userToPay.balance += cash;
+                UserManager.AddBalance(userToPay, cash);
                 FinancialManager.AddFunds(cash);
             }
         }
@@ -89,8 +101,16 @@ namespace Overlord
 
         private void button6_Click(object sender, EventArgs e)
         {
-            AddCashToUser((int)numericUpDown1.Value);
+            AddCashToUser();
         }
+
+        private void AddCashToUser()
+        {
+            AddCashToUser((int)numericUpDown1.Value);
+            this.Close();
+        }
+
+   
 
         private void cash200_Click(object sender, EventArgs e)
         {
@@ -127,6 +147,18 @@ namespace Overlord
 
         }
 
-        
+        private void listView1_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            if (listView1.SelectedItems.Count > 0)
+            {
+                userToPay = UserManager.GetUserByName(listView1.SelectedItems[0].Text);
+                PreCalculateNewCash((int)numericUpDown1.Value);
+            }
+        }
+
+        private void CancelButton_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }

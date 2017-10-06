@@ -57,17 +57,46 @@ namespace Overlord
                 
         }
 
+        private void ShowUserError(string errorMessage)
+        {
+            MessageBox.Show(errorMessage, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
         private void button1_Click(object sender, EventArgs e)
         {
             if (UserManager.GetUserList().Contains(textBox1.Text) && UserIsNew)
-                MessageBox.Show("Пользоваетль с таким именем уже зарегестрирован", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            else
             {
-                ChangeUserData();
-                UserManager.SaveUser(UserToEdit);
-
-                this.Close();
+                ShowUserError("Пользоваетль с таким именем уже зарегестрирован");
+                return;
             }
+            if (textBox1.Text == "" && UserIsNew)
+            {
+                ShowUserError("Введите имя пользователя");
+                return;
+            }
+            if (textBox1.Text.Length < 4 && UserIsNew)
+            {
+                ShowUserError("Имя пользователя должно быть длиннее трех символов");
+                return;
+            }
+            if (textBox1.Text == "" && UserIsNew)
+            {
+                ShowUserError("Введите пароль");
+                return;
+            }
+            if (textBox6.Text.Length < 5 && UserIsNew)
+            {
+                ShowUserError("Пароль должен быть длиннее четырех символов");
+                return;
+            }
+
+
+            ChangeUserData();
+            UserManager.SaveUser(UserToEdit);
+            if (checkBox1.Checked)
+                (new AddUserCashForm(UserToEdit)).Show();
+            this.Close();
+            
                 
         }
 

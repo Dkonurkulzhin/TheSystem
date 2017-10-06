@@ -155,7 +155,7 @@ namespace Overlord
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if (productsToSale.Count > 0)
+            if (productsToSale.Count <= 0)
                 return;
             if (numericUpDown1.Value >= total)
                 CloseTransaction();

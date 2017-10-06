@@ -20,16 +20,16 @@ namespace Overlord
         Machine oneMachine;
         public AddTimeDialog(List<Machine> machinesToAdd, bool SetTime = true)
         {
+            InitializeComponent();
             machines = machinesToAdd;
             setTime = SetTime;
             if (machines.Count <= 1)
                 oneMachine = machines.First();
-            InitializeComponent();
         }
 
         private void AddTimeDialog_Load(object sender, EventArgs e)
         {
-           
+            
             numericUpDown1.Maximum = GlobalVars.Settings.Machines_MaxAddTime;
             numericUpDown2.Maximum = numericUpDown1.Maximum * price;
             button1.Enabled = false;
@@ -113,7 +113,13 @@ namespace Overlord
 
         private void button1_Click(object sender, EventArgs e)
         {
+            foreach (Machine machine in machines)
+            {
+                User Guest = new User("Guest");
+                Guest.balance = (double)numericUpDown2.Value;
+                MachineManager.LogInUser(machine.index, Guest);
 
+            }
             this.Close();
         }
 

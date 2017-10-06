@@ -5,6 +5,6 @@
   <cost>12</cost>
   <fee>0</fee>
   <imgPath />
-  <stock>0</stock>
+  <stock>-4</stock>
   <notifyWhenLow>true</notifyWhenLow>
 </Product>

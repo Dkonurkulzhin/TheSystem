@@ -73,6 +73,10 @@ namespace Overlord
 
         public static bool AddBalance(User user, int value)
         {
+            if (value > 20000)
+                return false;
+            user.balance += value;
+            SaveUser(user);
             return true;
         }
 

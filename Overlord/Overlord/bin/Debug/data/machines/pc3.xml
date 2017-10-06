@@ -3,9 +3,10 @@
   <index>3</index>
   <label>PC4</label>
   <aviability>false</aviability>
-  <status>Disabled</status>
+  <status>Ready</status>
   <time>0</time>
   <balance>0</balance>
   <group>Default</group>
+  <IP />
   <CleintVersion>0</CleintVersion>
 </Machine>
