@@ -18,6 +18,8 @@ namespace Overlord
         public static string DefaultCurrency = "tg";
 
         public static string MachineInnerLabel = "pc";
+        
+        public static string UpdateInfoLink = "https://raw.githubusercontent.com/Dkonurkulzhin/SystemBuilds/master/Server/UpdateInfo.xml";
 
         public static string DataPath = AppDomain.CurrentDomain.BaseDirectory + @"data\";
         public static string FinancialPath = DataPath + @"financial\";
@@ -56,7 +58,7 @@ namespace Overlord
                 try
                 {
                     imageList.Images.Add(stat.ToString(), Image.FromFile(ImagesDict[stat]));
-                    Console.WriteLine("pic loaded");   
+                   
                 }
                 catch (Exception e)
                 {

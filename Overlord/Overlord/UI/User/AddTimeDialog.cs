@@ -115,6 +115,8 @@ namespace Overlord
         {
             foreach (Machine machine in machines)
             {
+                if (machine.user != null)
+                    return;
                 User Guest = new User("Guest");
                 Guest.balance = (double)numericUpDown2.Value;
                 MachineManager.LogInUser(machine.index, Guest);

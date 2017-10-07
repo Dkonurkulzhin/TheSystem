@@ -16,7 +16,8 @@ namespace Overlord
         User UserToEdit;
         bool UserIsNew;
         UserConfigForm ParentForm;
-
+        private char[] RestrictedChars = {'~','$','%', '^', '&', '*', '(', ')', '-', '_', '=',
+            '+', '\\', '|', '?', '/', '!', ',', '"', '\'', ' ', '#'}; 
         public UserAddForm(UserConfigForm parentForm = null, User user = null)
         {
             UserToEdit = user;
@@ -103,6 +104,7 @@ namespace Overlord
         private void ChangeUserData()
         {
             UserToEdit.name = textBox1.Text;
+            UserToEdit.password = textBox6.Text;
             UserToEdit.personalName = textBox2.Text;
             UserToEdit.personalSurname = textBox3.Text;
             UserToEdit.phoneNumber = textBox4.Text;
@@ -116,6 +118,26 @@ namespace Overlord
             textBox3.Text = UserToEdit.personalSurname;
             textBox4.Text = UserToEdit.phoneNumber;
             textBox5.Text = UserToEdit.email;
+        }
+
+        private void textBox6_TextChanged(object sender, EventArgs e)
+        {
+            SetCheckedString(sender as TextBox);
+        }
+
+        private void SetCheckedString(TextBox textBox)
+        {
+            string text = textBox.Text;
+            foreach (char character in RestrictedChars)
+                if (text.Contains(character))
+                    text = text.Substring(0, text.Length - 1);
+            textBox.Text = text;
+            textBox.SelectionStart = text.Length;
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+            SetCheckedString(sender as TextBox);
         }
     }
 }

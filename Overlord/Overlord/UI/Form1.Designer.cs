@@ -32,9 +32,13 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.ActiveUserListLabel = new System.Windows.Forms.Label();
             this.ReservedPCLabel = new System.Windows.Forms.Label();
+            this.ReservedPCImg = new System.Windows.Forms.PictureBox();
             this.EnabledPCLabel = new System.Windows.Forms.Label();
+            this.EnabledPCImg = new System.Windows.Forms.PictureBox();
             this.FreePCLabel = new System.Windows.Forms.Label();
+            this.freePCImg = new System.Windows.Forms.PictureBox();
             this.ViewTypeLabel = new System.Windows.Forms.Label();
             this.ViewBar = new System.Windows.Forms.TrackBar();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
@@ -49,17 +53,22 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.cashbox = new System.Windows.Forms.ToolStripMenuItem();
             this.снятиеКассыToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.настройкиКассыToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.компьютерыToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.настройкиToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.статистикаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.информацияToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.обновлениеКлиентовToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.пользователиToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.продуктыToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.добавлениеПродуктовToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.контрольЗапасовToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.администрированиеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.войтиПодАдминомToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.выйтиИхПодАдминаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.дополнительноToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.настройкиTelegramToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.настройкиКонсолейToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
@@ -71,32 +80,25 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.AddCashButton = new System.Windows.Forms.Button();
-            this.NewUserButton = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.ProductButton = new System.Windows.Forms.Button();
             this.ConsoleControlButton = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
-            this.ReservedPCImg = new System.Windows.Forms.PictureBox();
-            this.EnabledPCImg = new System.Windows.Forms.PictureBox();
-            this.freePCImg = new System.Windows.Forms.PictureBox();
-            this.настройкиКассыToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.настройкиToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.добавлениеПродуктовToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.настройкиTelegramToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.настройкиКонсолейToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.AddCashButton = new System.Windows.Forms.Button();
+            this.NewUserButton = new System.Windows.Forms.Button();
+            this.проверитьОбновленияToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ReservedPCImg)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.EnabledPCImg)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.freePCImg)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ViewBar)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.ReservedPCImg)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.EnabledPCImg)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.freePCImg)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -111,6 +113,7 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.ActiveUserListLabel);
             this.tabPage1.Controls.Add(this.ReservedPCLabel);
             this.tabPage1.Controls.Add(this.ReservedPCImg);
             this.tabPage1.Controls.Add(this.EnabledPCLabel);
@@ -128,6 +131,15 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Таблица";
             this.tabPage1.UseVisualStyleBackColor = true;
+            this.tabPage1.Click += new System.EventHandler(this.tabPage1_Click);
+            // 
+            // ActiveUserListLabel
+            // 
+            this.ActiveUserListLabel.Location = new System.Drawing.Point(573, 7);
+            this.ActiveUserListLabel.Name = "ActiveUserListLabel";
+            this.ActiveUserListLabel.Size = new System.Drawing.Size(120, 155);
+            this.ActiveUserListLabel.TabIndex = 10;
+            this.ActiveUserListLabel.Text = "Текущие пользователи:";
             // 
             // ReservedPCLabel
             // 
@@ -137,6 +149,15 @@
             this.ReservedPCLabel.Size = new System.Drawing.Size(62, 13);
             this.ReservedPCLabel.TabIndex = 9;
             this.ReservedPCLabel.Text = "В резерве:";
+            // 
+            // ReservedPCImg
+            // 
+            this.ReservedPCImg.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.ReservedPCImg.Location = new System.Drawing.Point(572, 468);
+            this.ReservedPCImg.Name = "ReservedPCImg";
+            this.ReservedPCImg.Size = new System.Drawing.Size(16, 16);
+            this.ReservedPCImg.TabIndex = 8;
+            this.ReservedPCImg.TabStop = false;
             // 
             // EnabledPCLabel
             // 
@@ -148,6 +169,16 @@
             this.EnabledPCLabel.Text = "Исправных: ";
             this.EnabledPCLabel.Click += new System.EventHandler(this.EnabledPCLabel_Click);
             // 
+            // EnabledPCImg
+            // 
+            this.EnabledPCImg.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.EnabledPCImg.Location = new System.Drawing.Point(572, 444);
+            this.EnabledPCImg.Name = "EnabledPCImg";
+            this.EnabledPCImg.Size = new System.Drawing.Size(16, 16);
+            this.EnabledPCImg.TabIndex = 6;
+            this.EnabledPCImg.TabStop = false;
+            this.EnabledPCImg.Click += new System.EventHandler(this.EnabledPCImg_Click);
+            // 
             // FreePCLabel
             // 
             this.FreePCLabel.AutoSize = true;
@@ -156,6 +187,15 @@
             this.FreePCLabel.Size = new System.Drawing.Size(66, 13);
             this.FreePCLabel.TabIndex = 5;
             this.FreePCLabel.Text = "Свободных:";
+            // 
+            // freePCImg
+            // 
+            this.freePCImg.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.freePCImg.Location = new System.Drawing.Point(572, 420);
+            this.freePCImg.Name = "freePCImg";
+            this.freePCImg.Size = new System.Drawing.Size(16, 16);
+            this.freePCImg.TabIndex = 4;
+            this.freePCImg.TabStop = false;
             // 
             // ViewTypeLabel
             // 
@@ -239,7 +279,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(699, 525);
+            this.tabPage2.Size = new System.Drawing.Size(699, 538);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Расположение";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -277,6 +317,14 @@
             this.снятиеКассыToolStripMenuItem.Text = "Контроль кассы";
             this.снятиеКассыToolStripMenuItem.Click += new System.EventHandler(this.снятиеКассыToolStripMenuItem_Click);
             // 
+            // настройкиКассыToolStripMenuItem
+            // 
+            this.настройкиКассыToolStripMenuItem.Image = global::Overlord.Properties.Resources._lock;
+            this.настройкиКассыToolStripMenuItem.Name = "настройкиКассыToolStripMenuItem";
+            this.настройкиКассыToolStripMenuItem.Size = new System.Drawing.Size(170, 22);
+            this.настройкиКассыToolStripMenuItem.Text = "Настройки кассы";
+            this.настройкиКассыToolStripMenuItem.Click += new System.EventHandler(this.настройкиКассыToolStripMenuItem_Click);
+            // 
             // компьютерыToolStripMenuItem
             // 
             this.компьютерыToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -287,6 +335,14 @@
             this.компьютерыToolStripMenuItem.Name = "компьютерыToolStripMenuItem";
             this.компьютерыToolStripMenuItem.Size = new System.Drawing.Size(92, 20);
             this.компьютерыToolStripMenuItem.Text = "Компьютеры";
+            // 
+            // настройкиToolStripMenuItem
+            // 
+            this.настройкиToolStripMenuItem.Image = global::Overlord.Properties.Resources._lock;
+            this.настройкиToolStripMenuItem.Name = "настройкиToolStripMenuItem";
+            this.настройкиToolStripMenuItem.Size = new System.Drawing.Size(197, 22);
+            this.настройкиToolStripMenuItem.Text = "Настройки";
+            this.настройкиToolStripMenuItem.Click += new System.EventHandler(this.настройкиToolStripMenuItem_Click);
             // 
             // статистикаToolStripMenuItem
             // 
@@ -322,6 +378,14 @@
             this.продуктыToolStripMenuItem.Size = new System.Drawing.Size(74, 20);
             this.продуктыToolStripMenuItem.Text = "Продукты";
             // 
+            // добавлениеПродуктовToolStripMenuItem
+            // 
+            this.добавлениеПродуктовToolStripMenuItem.Image = global::Overlord.Properties.Resources._lock;
+            this.добавлениеПродуктовToolStripMenuItem.Name = "добавлениеПродуктовToolStripMenuItem";
+            this.добавлениеПродуктовToolStripMenuItem.Size = new System.Drawing.Size(201, 22);
+            this.добавлениеПродуктовToolStripMenuItem.Text = "Добавление продуктов";
+            this.добавлениеПродуктовToolStripMenuItem.Click += new System.EventHandler(this.добавлениеПродуктовToolStripMenuItem_Click);
+            // 
             // контрольЗапасовToolStripMenuItem
             // 
             this.контрольЗапасовToolStripMenuItem.Name = "контрольЗапасовToolStripMenuItem";
@@ -356,10 +420,27 @@
             // 
             this.дополнительноToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.настройкиTelegramToolStripMenuItem,
-            this.настройкиКонсолейToolStripMenuItem});
+            this.настройкиКонсолейToolStripMenuItem,
+            this.проверитьОбновленияToolStripMenuItem});
             this.дополнительноToolStripMenuItem.Name = "дополнительноToolStripMenuItem";
             this.дополнительноToolStripMenuItem.Size = new System.Drawing.Size(107, 20);
             this.дополнительноToolStripMenuItem.Text = "Дополнительно";
+            // 
+            // настройкиTelegramToolStripMenuItem
+            // 
+            this.настройкиTelegramToolStripMenuItem.Image = global::Overlord.Properties.Resources._lock;
+            this.настройкиTelegramToolStripMenuItem.Name = "настройкиTelegramToolStripMenuItem";
+            this.настройкиTelegramToolStripMenuItem.Size = new System.Drawing.Size(204, 22);
+            this.настройкиTelegramToolStripMenuItem.Text = "Настройки Telegram";
+            this.настройкиTelegramToolStripMenuItem.Click += new System.EventHandler(this.настройкиTelegramToolStripMenuItem_Click);
+            // 
+            // настройкиКонсолейToolStripMenuItem
+            // 
+            this.настройкиКонсолейToolStripMenuItem.Image = global::Overlord.Properties.Resources._lock;
+            this.настройкиКонсолейToolStripMenuItem.Name = "настройкиКонсолейToolStripMenuItem";
+            this.настройкиКонсолейToolStripMenuItem.Size = new System.Drawing.Size(204, 22);
+            this.настройкиКонсолейToolStripMenuItem.Text = "Настройки консолей";
+            this.настройкиКонсолейToolStripMenuItem.Click += new System.EventHandler(this.настройкиКонсолейToolStripMenuItem_Click);
             // 
             // statusStrip1
             // 
@@ -458,37 +539,6 @@
             this.label1.TabIndex = 10;
             this.label1.Text = "Магазин";
             // 
-            // panel2
-            // 
-            this.panel2.BackColor = System.Drawing.Color.White;
-            this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel2.Controls.Add(this.AddCashButton);
-            this.panel2.Controls.Add(this.NewUserButton);
-            this.panel2.Location = new System.Drawing.Point(123, 27);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(703, 52);
-            this.panel2.TabIndex = 10;
-            // 
-            // AddCashButton
-            // 
-            this.AddCashButton.Image = ((System.Drawing.Image)(resources.GetObject("AddCashButton.Image")));
-            this.AddCashButton.Location = new System.Drawing.Point(60, 3);
-            this.AddCashButton.Name = "AddCashButton";
-            this.AddCashButton.Size = new System.Drawing.Size(44, 44);
-            this.AddCashButton.TabIndex = 1;
-            this.AddCashButton.UseVisualStyleBackColor = true;
-            this.AddCashButton.Click += new System.EventHandler(this.AddCashButton_Click);
-            // 
-            // NewUserButton
-            // 
-            this.NewUserButton.Image = global::Overlord.Properties.Resources.adduser;
-            this.NewUserButton.Location = new System.Drawing.Point(8, 3);
-            this.NewUserButton.Name = "NewUserButton";
-            this.NewUserButton.Size = new System.Drawing.Size(44, 44);
-            this.NewUserButton.TabIndex = 0;
-            this.NewUserButton.UseVisualStyleBackColor = true;
-            this.NewUserButton.Click += new System.EventHandler(this.NewUserButton_Click);
-            // 
             // button3
             // 
             this.button3.Image = global::Overlord.Properties.Resources.Users;
@@ -540,73 +590,43 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
-            // ReservedPCImg
+            // panel2
             // 
-            this.ReservedPCImg.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.ReservedPCImg.Location = new System.Drawing.Point(572, 468);
-            this.ReservedPCImg.Name = "ReservedPCImg";
-            this.ReservedPCImg.Size = new System.Drawing.Size(16, 16);
-            this.ReservedPCImg.TabIndex = 8;
-            this.ReservedPCImg.TabStop = false;
+            this.panel2.BackColor = System.Drawing.Color.White;
+            this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel2.Controls.Add(this.AddCashButton);
+            this.panel2.Controls.Add(this.NewUserButton);
+            this.panel2.Location = new System.Drawing.Point(123, 27);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(703, 52);
+            this.panel2.TabIndex = 10;
             // 
-            // EnabledPCImg
+            // AddCashButton
             // 
-            this.EnabledPCImg.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.EnabledPCImg.Location = new System.Drawing.Point(572, 444);
-            this.EnabledPCImg.Name = "EnabledPCImg";
-            this.EnabledPCImg.Size = new System.Drawing.Size(16, 16);
-            this.EnabledPCImg.TabIndex = 6;
-            this.EnabledPCImg.TabStop = false;
-            this.EnabledPCImg.Click += new System.EventHandler(this.EnabledPCImg_Click);
+            this.AddCashButton.Image = ((System.Drawing.Image)(resources.GetObject("AddCashButton.Image")));
+            this.AddCashButton.Location = new System.Drawing.Point(60, 3);
+            this.AddCashButton.Name = "AddCashButton";
+            this.AddCashButton.Size = new System.Drawing.Size(44, 44);
+            this.AddCashButton.TabIndex = 1;
+            this.AddCashButton.UseVisualStyleBackColor = true;
+            this.AddCashButton.Click += new System.EventHandler(this.AddCashButton_Click);
             // 
-            // freePCImg
+            // NewUserButton
             // 
-            this.freePCImg.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.freePCImg.Location = new System.Drawing.Point(572, 420);
-            this.freePCImg.Name = "freePCImg";
-            this.freePCImg.Size = new System.Drawing.Size(16, 16);
-            this.freePCImg.TabIndex = 4;
-            this.freePCImg.TabStop = false;
+            this.NewUserButton.Image = global::Overlord.Properties.Resources.adduser;
+            this.NewUserButton.Location = new System.Drawing.Point(8, 3);
+            this.NewUserButton.Name = "NewUserButton";
+            this.NewUserButton.Size = new System.Drawing.Size(44, 44);
+            this.NewUserButton.TabIndex = 0;
+            this.NewUserButton.UseVisualStyleBackColor = true;
+            this.NewUserButton.Click += new System.EventHandler(this.NewUserButton_Click);
             // 
-            // настройкиКассыToolStripMenuItem
+            // проверитьОбновленияToolStripMenuItem
             // 
-            this.настройкиКассыToolStripMenuItem.Image = global::Overlord.Properties.Resources._lock;
-            this.настройкиКассыToolStripMenuItem.Name = "настройкиКассыToolStripMenuItem";
-            this.настройкиКассыToolStripMenuItem.Size = new System.Drawing.Size(170, 22);
-            this.настройкиКассыToolStripMenuItem.Text = "Настройки кассы";
-            this.настройкиКассыToolStripMenuItem.Click += new System.EventHandler(this.настройкиКассыToolStripMenuItem_Click);
-            // 
-            // настройкиToolStripMenuItem
-            // 
-            this.настройкиToolStripMenuItem.Image = global::Overlord.Properties.Resources._lock;
-            this.настройкиToolStripMenuItem.Name = "настройкиToolStripMenuItem";
-            this.настройкиToolStripMenuItem.Size = new System.Drawing.Size(197, 22);
-            this.настройкиToolStripMenuItem.Text = "Настройки";
-            this.настройкиToolStripMenuItem.Click += new System.EventHandler(this.настройкиToolStripMenuItem_Click);
-            // 
-            // добавлениеПродуктовToolStripMenuItem
-            // 
-            this.добавлениеПродуктовToolStripMenuItem.Image = global::Overlord.Properties.Resources._lock;
-            this.добавлениеПродуктовToolStripMenuItem.Name = "добавлениеПродуктовToolStripMenuItem";
-            this.добавлениеПродуктовToolStripMenuItem.Size = new System.Drawing.Size(201, 22);
-            this.добавлениеПродуктовToolStripMenuItem.Text = "Добавление продуктов";
-            this.добавлениеПродуктовToolStripMenuItem.Click += new System.EventHandler(this.добавлениеПродуктовToolStripMenuItem_Click);
-            // 
-            // настройкиTelegramToolStripMenuItem
-            // 
-            this.настройкиTelegramToolStripMenuItem.Image = global::Overlord.Properties.Resources._lock;
-            this.настройкиTelegramToolStripMenuItem.Name = "настройкиTelegramToolStripMenuItem";
-            this.настройкиTelegramToolStripMenuItem.Size = new System.Drawing.Size(190, 22);
-            this.настройкиTelegramToolStripMenuItem.Text = "Настройки Telegram";
-            this.настройкиTelegramToolStripMenuItem.Click += new System.EventHandler(this.настройкиTelegramToolStripMenuItem_Click);
-            // 
-            // настройкиКонсолейToolStripMenuItem
-            // 
-            this.настройкиКонсолейToolStripMenuItem.Image = global::Overlord.Properties.Resources._lock;
-            this.настройкиКонсолейToolStripMenuItem.Name = "настройкиКонсолейToolStripMenuItem";
-            this.настройкиКонсолейToolStripMenuItem.Size = new System.Drawing.Size(190, 22);
-            this.настройкиКонсолейToolStripMenuItem.Text = "Настройки консолей";
-            this.настройкиКонсолейToolStripMenuItem.Click += new System.EventHandler(this.настройкиКонсолейToolStripMenuItem_Click);
+            this.проверитьОбновленияToolStripMenuItem.Name = "проверитьОбновленияToolStripMenuItem";
+            this.проверитьОбновленияToolStripMenuItem.Size = new System.Drawing.Size(204, 22);
+            this.проверитьОбновленияToolStripMenuItem.Text = "Проверить обновления";
+            this.проверитьОбновленияToolStripMenuItem.Click += new System.EventHandler(this.проверитьОбновленияToolStripMenuItem_Click);
             // 
             // Form1
             // 
@@ -631,6 +651,9 @@
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ReservedPCImg)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.EnabledPCImg)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.freePCImg)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ViewBar)).EndInit();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
@@ -639,9 +662,6 @@
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.ReservedPCImg)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.EnabledPCImg)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.freePCImg)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -705,6 +725,8 @@
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Button AddCashButton;
         private System.Windows.Forms.Button NewUserButton;
+        private System.Windows.Forms.Label ActiveUserListLabel;
+        private System.Windows.Forms.ToolStripMenuItem проверитьОбновленияToolStripMenuItem;
     }
 }
 

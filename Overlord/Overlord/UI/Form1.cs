@@ -186,6 +186,7 @@ namespace Overlord
         {
             toolStripStatusLabel2.Text = "В касссе: " + FinancialManager.GetCashString();
             UpdatePCList(ViewType);
+            ActiveUserListLabel.Text = UserManager.GetActiveUsersString();
             //throw new NotImplementedException();
         }
 
@@ -354,7 +355,7 @@ namespace Overlord
             {
                 if (sender == null)
                     return;
-                if (listView1.SelectedItems != null)
+                if (listView1.SelectedItems.Count > 0)
                 {
                     MachineContexMenu.Items.Clear();
                     List<int> indexes = new List<int>();
@@ -542,7 +543,32 @@ namespace Overlord
             addUserCashForm = new AddUserCashForm();
             addUserCashForm.Show();
         }
+
+        private void tabPage1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void проверитьОбновленияToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            UpdateManager.StartUpdateCheck();
+            UpdateManager.OnLatestVerision += ShowIsUpToDateMessage;
+            UpdateManager.OnServerFailed += ShowServerErrorMessage;
+        }
+
+        private void ShowIsUpToDateMessage()
+        {
+            
+            MessageBox.Show("Сервер обновлен до последней версии: " + UpdateManager.GetCurrentVersion());
+        }
+        private void ShowServerErrorMessage()
+        {
+            ShowError("Сервер обновления недоступен!");
+
+        }
+
+
     }
 
-     
+
 }

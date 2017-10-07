@@ -14,12 +14,33 @@ namespace Overlord
         public enum RateFormat { perHour, perMinute, perSecond};
         private static TempUserControllu UserDB = new TempUserControllu();
         private static MachineStatUpdater machineStatUpdater = new MachineStatUpdater();
-        
+    
         public static void Initialize()
         {
            machineStatUpdater.OnUserLoggedOut += LogOutUserFromMachine;
         }
         
+        public static void AddActiveUser(User user)
+        {
+            if (!ActiveUsers.Contains(user))
+                ActiveUsers.Add(user);
+        }
+
+        public static string GetActiveUsersString()
+        {
+            string ActiveUserNames = "Текущие пользователи: ";
+            foreach (User user in ActiveUsers)
+            {
+                ActiveUserNames += user.name + ", ";
+            }
+            return ActiveUserNames;
+        }
+
+        public static void VerifyActiveUserList(List<User> users)
+        {
+            ActiveUsers = users;
+        }
+
 
         public static void LogOutUserFromMachine(int index)
         {

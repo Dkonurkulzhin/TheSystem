@@ -54,7 +54,9 @@ namespace Overlord
 
         public static void SendUserObject(User user, string ip)
         {
+            Console.WriteLine("Sending " + user.name + " to " + ip);
             messageHanler.SendUser(user, ip);
+            
       
         }
 

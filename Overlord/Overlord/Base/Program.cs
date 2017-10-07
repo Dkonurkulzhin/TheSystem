@@ -46,6 +46,11 @@ namespace Overlord
 
         }
 
+        static public void ShutDownApp()
+        {
+            Application.Exit();
+        }
+
        
        
     }

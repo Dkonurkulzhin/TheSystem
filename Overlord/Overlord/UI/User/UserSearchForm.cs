@@ -44,6 +44,8 @@ namespace Overlord
 
             listView1.ItemSelectionChanged += OnSelectedUserChanged;
 
+            this.Text += " (" + MachineManager.Machines[MachineID].label + ")";
+
             //        tb.KeyDown += new KeyEventHandler(tb_KeyDown);
 
             //        static void tb_KeyDown(object sender, KeyEventArgs e)

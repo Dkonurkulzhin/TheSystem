@@ -244,17 +244,21 @@ namespace Overlord
             {
                 Machines[index - 1].status = isOccupied ? MachineStatus.Busy : MachineStatus.Ready;
                 Machines[index - 1].IP = ip;
+                Machines[index - 1].CleintVersion = clientVersion;
+                if (username == null || username == "")
+                {
+                    return;
+                }
+                User userToUpdate;
+                userToUpdate = UserManager.GetUserByName(username);
                 Machines[index - 1].username = username;
                 Machines[index - 1].balance = balance;
                 Machines[index - 1].time = minutesLeft;
-                Machines[index - 1].CleintVersion = clientVersion;
-                User userToUpdate;
-                if (username != null && username != "")
-                {
-                    userToUpdate = UserManager.GetUserByName(username);
-                    userToUpdate.balance = balance;
-                    UserManager.SaveUser(userToUpdate);
-                }
+                userToUpdate.balance = balance;
+                //userToUpdate.exp = 
+                UserManager.AddActiveUser(userToUpdate);
+
+                UserManager.SaveUser(userToUpdate);
                 UpdateStatTimer(index-1);
 
             }
@@ -269,14 +273,29 @@ namespace Overlord
             {
                 Machines[index].status = MachineStatus.Disabled;
                 Machines[index].IP = "";
-               
+                Machines[index].username = "";
+                Machines[index].balance = 0;
+                Machines[index].time = 0;
+                Machines[index].user = null;
             }
+            UserManager.VerifyActiveUserList(GetAllUsersOnMachine());
             timer.Dispose();
+        }
+
+        public static List<User> GetAllUsersOnMachine()
+        {
+            List<User> usersOnMachines = new List<User>();
+            foreach (Machine machine in Machines)
+            {
+                if (machine.user != null)
+                    usersOnMachines.Add(machine.user);
+            }
+            return usersOnMachines;
         }
 
         public static void UpdateStatTimer(int index)
         {
-            StatUpdateTimers[index] = new System.Timers.Timer(10000);
+            StatUpdateTimers[index] = new System.Timers.Timer(12000);
             StatUpdateTimers[index].Elapsed += OnStatTimerElapsed;
             StatUpdateTimers[index].Start();
         }
