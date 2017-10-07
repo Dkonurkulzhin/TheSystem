@@ -29,7 +29,11 @@ namespace Overlord
         public UpdateSettingsForm updateSettingsForm;
         public UserConfigForm userConfigForm;
         public AddUserCashForm addUserCashForm;
+
         private int ViewType = 0;
+        private bool UpdateListEnabled = true;
+
+
         public Form1()
         {
             InitializeComponent();
@@ -51,13 +55,7 @@ namespace Overlord
 
         }
 
-        private void ProductButton_Click(object sender, EventArgs e)
-        {
-            if (storeForm != null)
-                storeForm.Close();
-            storeForm = new StoreForm();
-            storeForm.Show();
-        }
+     
 
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -82,6 +80,108 @@ namespace Overlord
             EnabledPCImg.Image = GlobalVars.OKPCimg;
 
         }
+
+       
+
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            DialogResult dialog = MessageBox.Show("Закрыть программу?", "Выход", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+            if (dialog == DialogResult.Yes)
+            {
+                Application.Exit();
+            }
+            else if (dialog == DialogResult.No)
+            {
+                e.Cancel = true;
+            }
+        }
+
+        public void ConfigureAdminRights(bool authority)
+        {
+            GlobalVars.Authority = authority;
+
+            foreach (ToolStripMenuItem item in menuStrip1.Items)
+            {
+                if (item.HasDropDownItems)
+                {
+                    foreach (ToolStripMenuItem subItem in GetItems(item))
+                    {
+
+
+                        foreach (string name in GlobalVars.Settings.AuthorityMenuItems)
+                        {
+                            if (subItem.Text == name)
+                            {
+                                subItem.Enabled = authority;
+
+                                Console.WriteLine(subItem.Text + " " + authority.ToString());
+                            }
+                        }
+
+                    }
+                }
+            }
+        }
+
+        private IEnumerable<ToolStripMenuItem> GetItems(ToolStripMenuItem item)
+        {
+            foreach (ToolStripMenuItem dropDownItem in item.DropDownItems)
+            {
+                if (dropDownItem.HasDropDownItems)
+                {
+                    foreach (ToolStripMenuItem subItem in GetItems(dropDownItem))
+                        yield return subItem;
+                }
+                yield return dropDownItem;
+            }
+        }
+
+        private void выйтиИхПодАдминаToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ConfigureAdminRights(false);
+        }
+
+        private void войтиПодАдминомToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (GlobalVars.Authority)
+            {
+                MessageBox.Show("Права уже активированы");
+            }
+            else
+            {
+                if (authorityCheckForm != null)
+                    authorityCheckForm.Close();
+                authorityCheckForm = new AuthorityCheckForm();
+                authorityCheckForm.Show();
+            }
+        }
+
+        
+        private void настройкиКонсолейToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (consoleSettingsForm != null)
+                consoleSettingsForm.Close();
+            consoleSettingsForm = new ConsoleSettingsForm();
+            consoleSettingsForm.Show();
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            listView1.ShowGroups = checkBox1.Checked;
+        }
+
+        private void ViewBar_Scroll(object sender, EventArgs e)
+        {
+            UpdatePCList(ViewBar.Value);
+        }
+
+        private void MachineContexMenu_Opening(object sender, CancelEventArgs e)
+        {
+
+        }
+
+        #region Список компьютеров, контекстные меню
 
         public void UpdatePCList(int viewtype = 0)
         {
@@ -182,14 +282,268 @@ namespace Overlord
             GC.Collect();
         }
 
+        private void listView1_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+                if (sender == null)
+                    return;
+                if (listView1.SelectedItems.Count > 0)
+                {
+                    MachineContexMenu.Items.Clear();
+                    List<int> indexes = new List<int>();
+
+                    foreach (ListViewItem item in listView1.SelectedItems)
+                    {
+                        indexes.Add(item.Index);
+                    }
+                    Machine FirstSelectedMachine = MachineManager.Machines[listView1.SelectedItems[0].Index];
+
+                    ToolStripItem placeUserItem = MachineContexMenu.Items.Add("Добавить пользователя");
+                    placeUserItem.Click += new EventHandler((Sender, E) => SearchUser(sender, e, listView1.SelectedItems[0].Index));
+
+                    ToolStripItem addTimeItem = MachineContexMenu.Items.Add("Добавть время");
+                    addTimeItem.Click += new EventHandler((Sender, E) => ShowMachineAddDialog(sender, e, indexes, true));
+               
+
+                    ToolStripItem addGuestSession;
+
+                    if (FirstSelectedMachine.status == MachineManager.MachineStatus.Busy)
+                    {
+                        addGuestSession = MachineContexMenu.Items.Add("Добавить средства");
+                        addGuestSession.Click += new EventHandler((Sender, E) => ShowMachineAddDialog(sender, e, indexes, false));
+                    }
+                    if (FirstSelectedMachine.status == MachineManager.MachineStatus.Ready)
+                    {
+                        addGuestSession = MachineContexMenu.Items.Add("Гостевая сессия");
+                        addGuestSession.Click += new EventHandler((Sender, E) => ShowMachineAddDialog(sender, e, indexes, false));
+                    }
+
+                    ToolStripItem EndSession = MachineContexMenu.Items.Add("Завершить сессию");
+                    EndSession.Click += new EventHandler((Sender, E) => MachineManager.EndSession(sender, e, indexes));
+
+                    ToolStripItem ReserveMachine;
+                    bool selectionIsReserved = false;
+                    foreach (ListViewItem item in listView1.SelectedItems)
+                    {
+                        if (MachineManager.Machines[item.Index].status == MachineManager.MachineStatus.Reserved)
+                            selectionIsReserved = true;
+
+                    }
+                    if (!selectionIsReserved)
+                    {
+                        ReserveMachine = MachineContexMenu.Items.Add("Забронировать");
+                        ReserveMachine.Click += new EventHandler((Sender, E) => MachineManager.ReserveMachines(sender, e, indexes));
+                    }
+                    else
+                    {
+                        ReserveMachine = MachineContexMenu.Items.Add("Снять бронь");
+                        ReserveMachine.Click += new EventHandler((Sender, E) => MachineManager.UnReserveMachines(sender, e, indexes));
+                    }
+
+                    ToolStripItem SwitchMachineCondition;
+                    if (listView1.SelectedItems.Count <= 1)
+                    {
+                        SwitchMachineCondition = MachineContexMenu.Items.Add("Активировать/деактивировать");
+                        Console.Write(listView1.SelectedItems[0].Index.ToString());
+                        SwitchMachineCondition.Click += new EventHandler((Sender, E) => MachineManager.SwitchUnavailable(sender, e, listView1.SelectedItems[0].Index));
+                    }
+
+                    MachineContexMenu.Show(listView1, new Point(e.X, e.Y));
+                    UpdateListEnabled = false;
+                    MachineContexMenu.Closing += ReEnablePCListUpdate;
+                }
+
+            }
+
+        }
+
+        public void ReEnablePCListUpdate(object sender, EventArgs e)
+        {
+            UpdateListEnabled = true;
+        }
+
+
+        public void ShowMachineAddDialog(object sender, EventArgs e, List<int> indexes, bool setTime = true)
+        {
+            List<Machine> machines = new List<Machine>();
+            foreach (Machine machine in MachineManager.Machines)
+            {
+                if (indexes.Contains(machine.index))
+                    machines.Add(machine);
+
+            }
+
+            foreach (Machine machine in machines)
+            {
+                if (machine.group != machines.First().group)
+                {
+                    MessageBox.Show("Можно выбирать компьютеры только одной группы!");
+                    return;
+                }
+            }
+            if (addTimeDialog != null)
+                addTimeDialog.Close();
+            addTimeDialog = new AddTimeDialog(machines, setTime);
+            addTimeDialog.TopMost = true;
+            addTimeDialog.Show();
+
+        }
+
+
+
+        private void listView1_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left && listView1.SelectedItems != null)
+            {
+                List<int> selectedindex = new List<int>();
+                selectedindex.Add(listView1.SelectedItems[0].Index);
+                ShowMachineAddDialog(sender, e, selectedindex, true);
+            }
+        }
+
+        #endregion
+
+        public void SearchUser(object sender, EventArgs e, int machineIndex)
+        {
+            if (listView1.SelectedItems != null)
+            {
+                userSearchForm = new UserSearchForm(machineIndex);
+                userSearchForm.TopMost = true;
+                userSearchForm.Show();
+            }
+        }
+
+
+        public bool ShowYesNoDialog(string text, string header = "Вы уверены?")
+        {
+            switch (MessageBox.Show(text, header, MessageBoxButtons.YesNo))
+            {
+                case DialogResult.Yes:
+                    return true;
+                case DialogResult.No:
+                    return false;
+                default:
+                    return false;
+            }
+        }
+
+        public void ShowError(string text, string header = "Ошибка")
+        {
+            MessageBox.Show(text, header, MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+        }
+
+        
+
         private void StatusRefreshTimer_Tick(object sender, EventArgs e)
         {
             toolStripStatusLabel2.Text = "В касссе: " + FinancialManager.GetCashString();
-            UpdatePCList(ViewType);
+            if (UpdateListEnabled)
+                UpdatePCList(ViewType);
             ActiveUserListLabel.Text = UserManager.GetActiveUsersString();
             //throw new NotImplementedException();
         }
 
+
+        private void проверитьОбновленияToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            UpdateManager.StartUpdateCheck();
+            UpdateManager.OnLatestVerision += ShowIsUpToDateMessage;
+            UpdateManager.OnServerFailed += ShowServerErrorMessage;
+        }
+
+        private void ShowIsUpToDateMessage()
+        {
+
+            MessageBox.Show("Сервер обновлен до последней версии: " + UpdateManager.GetCurrentVersion());
+        }
+        private void ShowServerErrorMessage()
+        {
+            ShowError("Сервер обновления недоступен!");
+
+        }
+
+
+
+        #region Открытие форм
+
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            if (cashboxControlForm != null)
+                cashboxControlForm.Close();
+            cashboxControlForm = new CashBoxControlForm();
+            cashboxControlForm.Show();
+        }
+
+        private void ProductButton_Click(object sender, EventArgs e)
+        {
+            if (storeForm != null)
+                storeForm.Close();
+            storeForm = new StoreForm();
+            storeForm.Show();
+        }
+
+        private void ConsoleControlButton_Click(object sender, EventArgs e)
+        {
+            if (!Program.consoleForm.Visible)
+                Program.consoleForm.Show();
+            else
+                Program.consoleForm.Hide();
+        }
+
+
+        private void statusStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+            if (cashboxControlForm != null)
+                cashboxControlForm.Close();
+            cashboxControlForm = new CashBoxControlForm();
+            cashboxControlForm.Show();
+        }
+
+        private void обновлениеКлиентовToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (updateSettingsForm != null)
+                updateSettingsForm.Close();
+            updateSettingsForm = new UpdateSettingsForm();
+            updateSettingsForm.Show();
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            if (userConfigForm != null)
+                userConfigForm.Close();
+            userConfigForm = new UserConfigForm();
+            userConfigForm.Show();
+
+        }
+
+        private void NewUserButton_Click(object sender, EventArgs e)
+        {
+            UserAddForm userAddForm = new UserAddForm();
+            userAddForm.Show();
+        }
+
+        private void AddCashButton_Click(object sender, EventArgs e)
+        {
+            if (addUserCashForm != null)
+                addUserCashForm.Close();
+            addUserCashForm = new AddUserCashForm();
+            addUserCashForm.Show();
+        }
+
+        private void tabPage1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void menuStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+
+        }
+
+       
         private void toolStripMenuItem1_Click(object sender, EventArgs e)
         {
 
@@ -243,256 +597,12 @@ namespace Overlord
             pcConfigForm.Show();
         }
 
+        #endregion
 
-
-        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            DialogResult dialog = MessageBox.Show("Закрыть программу?", "Выход", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-            if (dialog == DialogResult.Yes)
-            {
-                Application.Exit();
-            }
-            else if (dialog == DialogResult.No)
-            {
-                e.Cancel = true;
-            }
-        }
-
-        public void ConfigureAdminRights(bool authority)
-        {
-            GlobalVars.Authority = authority;
-
-            foreach (ToolStripMenuItem item in menuStrip1.Items)
-            {
-                if (item.HasDropDownItems)
-                {
-                    foreach (ToolStripMenuItem subItem in GetItems(item))
-                    {
-
-
-                        foreach (string name in GlobalVars.Settings.AuthorityMenuItems)
-                        {
-                            if (subItem.Text == name)
-                            {
-                                subItem.Enabled = authority;
-
-                                Console.WriteLine(subItem.Text + " " + authority.ToString());
-                            }
-                        }
-
-                    }
-                }
-            }
-        }
-
-        private IEnumerable<ToolStripMenuItem> GetItems(ToolStripMenuItem item)
-        {
-            foreach (ToolStripMenuItem dropDownItem in item.DropDownItems)
-            {
-                if (dropDownItem.HasDropDownItems)
-                {
-                    foreach (ToolStripMenuItem subItem in GetItems(dropDownItem))
-                        yield return subItem;
-                }
-                yield return dropDownItem;
-            }
-        }
-
-        private void выйтиИхПодАдминаToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            ConfigureAdminRights(false);
-        }
-
-        private void войтиПодАдминомToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (GlobalVars.Authority)
-            {
-                MessageBox.Show("Права уже активированы");
-            }
-            else
-            {
-                if (authorityCheckForm != null)
-                    authorityCheckForm.Close();
-                authorityCheckForm = new AuthorityCheckForm();
-                authorityCheckForm.Show();
-            }
-        }
-
-        private void ConsoleControlButton_Click(object sender, EventArgs e)
-        {
-            if (!Program.consoleForm.Visible)
-                Program.consoleForm.Show();
-            else
-                Program.consoleForm.Hide();
-        }
-
-        private void настройкиКонсолейToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (consoleSettingsForm != null)
-                consoleSettingsForm.Close();
-            consoleSettingsForm = new ConsoleSettingsForm();
-            consoleSettingsForm.Show();
-        }
-
-        private void checkBox1_CheckedChanged(object sender, EventArgs e)
-        {
-            listView1.ShowGroups = checkBox1.Checked;
-        }
-
-        private void ViewBar_Scroll(object sender, EventArgs e)
-        {
-            UpdatePCList(ViewBar.Value);
-        }
-
-        private void MachineContexMenu_Opening(object sender, CancelEventArgs e)
-        {
-
-        }
-
-        private void listView1_MouseClick(object sender, MouseEventArgs e)
-        {
-            if (e.Button == MouseButtons.Right)
-            {
-                if (sender == null)
-                    return;
-                if (listView1.SelectedItems.Count > 0)
-                {
-                    MachineContexMenu.Items.Clear();
-                    List<int> indexes = new List<int>();
-
-                    foreach (ListViewItem item in listView1.SelectedItems)
-                    {
-                        indexes.Add(item.Index);
-                    }
-                    ToolStripItem placeUserItem = MachineContexMenu.Items.Add("Добавить пользователя");
-                    placeUserItem.Click += new EventHandler((Sender, E) => SearchUser(sender, e, listView1.SelectedItems[0].Index));
-
-                    ToolStripItem addTimeItem = MachineContexMenu.Items.Add("Добавть время");
-                    addTimeItem.Click += new EventHandler((Sender, E) => ShowMachineAddDialog(sender, e, indexes, true));
-                    addTimeItem.Enabled = false;
-
-                    ToolStripItem addGuestSession = MachineContexMenu.Items.Add("Гостевая сессия");
-                    addGuestSession.Click += new EventHandler((Sender, E) => (new AddUserCashForm(new User("Guest")) ).Show());
-
-                    ToolStripItem addCashItem = MachineContexMenu.Items.Add("Добавть средства");
-                    addCashItem.Click += new EventHandler((Sender, E) => ShowMachineAddDialog(sender, e, indexes, false));
-
-                    ToolStripItem EndSession = MachineContexMenu.Items.Add("Завершить сессию");
-                    EndSession.Click += new EventHandler((Sender, E) => MachineManager.EndSession(sender, e, indexes));
-
-                    ToolStripItem ReserveMachine;
-                    bool selectionIsReserved = false;
-                    foreach (ListViewItem item in listView1.SelectedItems)
-                    {
-                        if (MachineManager.Machines[item.Index].status == MachineManager.MachineStatus.Reserved)
-                            selectionIsReserved = true;
-
-                    }
-                    if (!selectionIsReserved)
-                    {
-                        ReserveMachine = MachineContexMenu.Items.Add("Забронировать");
-                        ReserveMachine.Click += new EventHandler((Sender, E) => MachineManager.ReserveMachines(sender, e, indexes));
-                    }
-                    else
-                    {
-                        ReserveMachine = MachineContexMenu.Items.Add("Снять бронь");
-                        ReserveMachine.Click += new EventHandler((Sender, E) => MachineManager.UnReserveMachines(sender, e, indexes));
-                    }
-
-                    ToolStripItem SwitchMachineCondition;
-                    if (listView1.SelectedItems.Count <= 1)
-                    {
-                        SwitchMachineCondition = MachineContexMenu.Items.Add("Активировать/деактивировать");
-                        Console.Write(listView1.SelectedItems[0].Index.ToString());
-                        SwitchMachineCondition.Click += new EventHandler((Sender, E) => MachineManager.SwitchUnavailable(sender, e, listView1.SelectedItems[0].Index));
-                    }
-
-                    MachineContexMenu.Show(listView1, new Point(e.X, e.Y));
-                }
-
-            }
-
-        }
-
-        public void SearchUser(object sender, EventArgs e, int machineIndex)
-        {
-            if (listView1.SelectedItems != null)
-            {
-                userSearchForm = new UserSearchForm(machineIndex);
-                userSearchForm.TopMost = true;
-                userSearchForm.Show();
-            }
-        }
-
-        public void ShowMachineAddDialog(object sender, EventArgs e, List<int> indexes, bool setTime = true)
-        {
-            List<Machine> machines = new List<Machine>();
-            foreach (Machine machine in MachineManager.Machines)
-            {
-                if (indexes.Contains(machine.index))
-                    machines.Add(machine);
-
-            }
-
-            foreach (Machine machine in machines)
-            {
-                if (machine.group != machines.First().group)
-                {
-                    MessageBox.Show("Можно выбирать компьютеры только одной группы!");
-                    return;
-                }
-            }
-            if (addTimeDialog != null)
-                addTimeDialog.Close();
-            addTimeDialog = new AddTimeDialog(machines, setTime);
-            addTimeDialog.TopMost = true;
-            addTimeDialog.Show();
-
-        }
-
-
-
-        private void listView1_MouseDoubleClick(object sender, MouseEventArgs e)
-        {
-            if (e.Button == MouseButtons.Left && listView1.SelectedItems != null)
-            {
-                List<int> selectedindex = new List<int>();
-                selectedindex.Add(listView1.SelectedItems[0].Index);
-                ShowMachineAddDialog(sender, e, selectedindex, true);
-            }
-        }
-
-
-        public bool ShowYesNoDialog(string text, string header = "Вы уверены?")
-        {
-            switch (MessageBox.Show(text, header, MessageBoxButtons.YesNo))
-            {
-                case DialogResult.Yes:
-                    return true;
-                case DialogResult.No:
-                    return false;
-                default:
-                    return false;
-            }
-        }
-
-        public void ShowError(string text, string header = "Ошибка")
-        {
-            MessageBox.Show(text, header, MessageBoxButtons.OK, MessageBoxIcon.Error);
-
-        }
 
         private void button2_Click(object sender, EventArgs e)
         {
 
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            if (cashboxControlForm != null)
-                cashboxControlForm.Close();
-            cashboxControlForm = new CashBoxControlForm();
-            cashboxControlForm.Show();
         }
 
         private void EnabledPCImg_Click(object sender, EventArgs e)
@@ -504,71 +614,6 @@ namespace Overlord
         {
 
         }
-
-        private void statusStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
-        {
-            if (cashboxControlForm != null)
-                cashboxControlForm.Close();
-            cashboxControlForm = new CashBoxControlForm();
-            cashboxControlForm.Show();
-        }
-
-        private void обновлениеКлиентовToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (updateSettingsForm != null)
-                updateSettingsForm.Close();
-            updateSettingsForm = new UpdateSettingsForm();
-            updateSettingsForm.Show();
-        }
-
-        private void button3_Click(object sender, EventArgs e)
-        {
-            if (userConfigForm != null)
-                userConfigForm.Close();
-            userConfigForm = new UserConfigForm();
-            userConfigForm.Show();
-
-        }
-
-        private void NewUserButton_Click(object sender, EventArgs e)
-        {
-            UserAddForm userAddForm = new UserAddForm();
-            userAddForm.Show();
-        }
-
-        private void AddCashButton_Click(object sender, EventArgs e)
-        {
-            if (addUserCashForm != null)
-                addUserCashForm.Close();
-            addUserCashForm = new AddUserCashForm();
-            addUserCashForm.Show();
-        }
-
-        private void tabPage1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void проверитьОбновленияToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            UpdateManager.StartUpdateCheck();
-            UpdateManager.OnLatestVerision += ShowIsUpToDateMessage;
-            UpdateManager.OnServerFailed += ShowServerErrorMessage;
-        }
-
-        private void ShowIsUpToDateMessage()
-        {
-            
-            MessageBox.Show("Сервер обновлен до последней версии: " + UpdateManager.GetCurrentVersion());
-        }
-        private void ShowServerErrorMessage()
-        {
-            ShowError("Сервер обновления недоступен!");
-
-        }
-
-
     }
-
 
 }

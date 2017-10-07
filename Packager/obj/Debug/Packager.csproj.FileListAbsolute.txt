@@ -7,3 +7,12 @@ D:\Projects\System\TheSystem\Packager\obj\Debug\Packager.Properties.Resources.re
 D:\Projects\System\TheSystem\Packager\obj\Debug\Packager.csproj.GenerateResource.Cache
 D:\Projects\System\TheSystem\Packager\obj\Debug\Packager.exe
 D:\Projects\System\TheSystem\Packager\obj\Debug\Packager.pdb
+E:\projects\TheSystem\Packager\bin\Debug\Packager.exe.config
+E:\projects\TheSystem\Packager\obj\Debug\Packager.exe
+E:\projects\TheSystem\Packager\obj\Debug\Packager.pdb
+E:\projects\TheSystem\Packager\bin\Debug\Packager.exe
+E:\projects\TheSystem\Packager\bin\Debug\Packager.pdb
+E:\projects\TheSystem\Packager\obj\Debug\Packager.csprojResolveAssemblyReference.cache
+E:\projects\TheSystem\Packager\obj\Debug\Packager.Form1.resources
+E:\projects\TheSystem\Packager\obj\Debug\Packager.Properties.Resources.resources
+E:\projects\TheSystem\Packager\obj\Debug\Packager.csproj.GenerateResource.Cache

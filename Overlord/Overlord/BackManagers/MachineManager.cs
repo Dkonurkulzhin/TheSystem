@@ -57,6 +57,19 @@ namespace Overlord
             return true;
         }
 
+        public static void RefreshSession(int machineID, User user, int addBalance = 0)
+        {
+            user.balance += addBalance;
+            ClientCommunicationManager.SendUserObject(user, Machines[machineID].IP);
+        }
+
+        public static void LogInGuest(int machineID, int balance)
+        {
+            User guest = new User("Guest");
+            guest.balance = balance;
+            ClientCommunicationManager.SendUserObject(guest, Machines[machineID].IP);
+        }
+
         public static void LoadMachines() {
             
             for (int i = 0; i < GlobalVars.Settings.PC_amount; i++)
@@ -250,15 +263,24 @@ namespace Overlord
                     return;
                 }
                 User userToUpdate;
-                userToUpdate = UserManager.GetUserByName(username);
+
                 Machines[index - 1].username = username;
                 Machines[index - 1].balance = balance;
                 Machines[index - 1].time = minutesLeft;
-                userToUpdate.balance = balance;
-                //userToUpdate.exp = 
-                UserManager.AddActiveUser(userToUpdate);
-
-                UserManager.SaveUser(userToUpdate);
+                if (username != "Guest")
+                {
+                    userToUpdate = UserManager.GetUserByName(username);
+                    userToUpdate.balance = balance;
+                    //userToUpdate.exp = 
+                    Machines[index - 1].user = userToUpdate;
+                    UserManager.AddActiveUser(userToUpdate);
+                    UserManager.SaveUser(userToUpdate);
+                }
+                else
+                {
+                    Machines[index - 1].user = new User("Guest");
+                    Machines[index - 1].user.balance = balance;
+                }
                 UpdateStatTimer(index-1);
 
             }

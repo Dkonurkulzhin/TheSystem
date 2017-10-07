@@ -15,9 +15,10 @@ namespace Overlord
         private int price = 5;
         private long total;
         bool setTime;
-       
+      
         List<Machine> machines = new List<Machine>();
         Machine oneMachine;
+
         public AddTimeDialog(List<Machine> machinesToAdd, bool SetTime = true)
         {
             InitializeComponent();
@@ -57,7 +58,11 @@ namespace Overlord
             textBox2.Text = oneMachine.balance.ToString();
             richTextBox1.Text = oneMachine.label + "(" + MachineManager.StatusLabels[oneMachine.status] + ")" + ", ";
             textBox3.Text = oneMachine.username;
-            Text += oneMachine.username;
+            if (oneMachine.username != null)
+                Text += oneMachine.username;
+            else
+                Text += " гость";
+
         }
 
         private void ShowSeveralMachinesInfo()
@@ -115,14 +120,24 @@ namespace Overlord
         {
             foreach (Machine machine in machines)
             {
-                if (machine.user != null)
-                    return;
-                User Guest = new User("Guest");
-                Guest.balance = (double)numericUpDown2.Value;
-                MachineManager.LogInUser(machine.index, Guest);
-
+                if (machine.status == MachineManager.MachineStatus.Ready)
+                    StartGuestSession(machine);
+                if (machine.status == MachineManager.MachineStatus.Busy)
+                    AddBalanceToExistingSession(machine);
+               
             }
             this.Close();
+        }
+
+        private void AddBalanceToExistingSession(Machine machine)
+        {
+            if (machine.user != null)
+                MachineManager.RefreshSession(machine.index, machine.user, (int)numericUpDown2.Value);
+        }
+
+        private void StartGuestSession(Machine machine)
+        {
+            MachineManager.LogInGuest(machine.index, (int)numericUpDown2.Value);
         }
 
         private void label8_Click(object sender, EventArgs e)

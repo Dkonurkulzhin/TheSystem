@@ -88,7 +88,7 @@ namespace Drone
         {
             User admin = new User("Administrator");
             admin.balance = 200;
-            SessionManager.OpenSession(admin);
+            SessionManager.ProcessSession(admin);
            
         }
 

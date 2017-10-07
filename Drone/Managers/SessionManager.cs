@@ -67,7 +67,7 @@ namespace Drone
                 if (user.balance >= -1000)
                 {
                    
-                    OpenSession(user);     
+                    ProcessSession(user);     
                 }
                 else
                     OnRejectedSession?.Invoke("недостаточно средсвт на аккаунте"); 
@@ -79,12 +79,17 @@ namespace Drone
         
         }
 
-        public static void OpenSession(User user)
+        public static void ProcessSession(User user)
         {
             if (currentUser == null)
             {
                 currentUser = user;
                 StartSession();
+            }
+            else
+            {
+                if (user.name == currentUser.name)
+                    currentUser.balance = user.balance;
             }
             
         }
