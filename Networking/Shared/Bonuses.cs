@@ -19,16 +19,19 @@ public class BonusObject
     public int bonusID;
     [ProtoMember(6)]
     public int startDay;
+    [ProtoMember(7)]
+    public float feeMultiplier;
 
     protected BonusObject() {}
 
-    public BonusObject(int BonusID, string BonusName, int StartHour, int EndHour, int Cost)
+    public BonusObject(int BonusID, string BonusName, int StartHour, int EndHour, int Cost, float FeeMultiplier)
     {
         startHour = StartHour;
         endHour = EndHour;
         cost = Cost;
         bonusName = BonusName;
         bonusID = BonusID;
+        feeMultiplier = FeeMultiplier;
     }
 
 }

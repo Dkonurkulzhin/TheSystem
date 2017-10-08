@@ -16,6 +16,7 @@ namespace Overlord
         public long time;
         public long balance;
         public string group = GlobalVars.DefaultMachineGroup;
+        public float priceMultiplier = 1;
         public string IP;
         public string MAC_ADDRESS;
         public long CleintVersion;

@@ -6,7 +6,7 @@ namespace Networking
 {
     public static class Constants
     {
-        public enum Messages { Echo, RequestUpdate, RequestUserData, UserData, ForceUpdate, ForceLogOut};
+        public enum Messages { Echo, RequestUpdate, RequestUserData, UserData, ForceUpdate, ForceLogOut, ClientConfiguration};
         public static int UDPBroodcastPort = 9895;
         public static int ServerListenPort = 9896;
         public static int ClientListenPort = 9897;
@@ -18,7 +18,8 @@ namespace Networking
             {Messages.RequestUserData, "requser" },
             {Messages.UserData, "userdata"},
             {Messages.ForceUpdate, "forceupdate"},
-            {Messages.ForceLogOut, "forcelogout" }
+            {Messages.ForceLogOut, "forcelogout" },
+            {Messages.ClientConfiguration, "clientconfig" } 
         };
         public static string GetAddressFromEndPoint(EndPoint endPoint)
         {

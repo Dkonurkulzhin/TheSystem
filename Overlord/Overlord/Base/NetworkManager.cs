@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Net;
-
+using System.Globalization;
 
 using NetworkCommsDotNet;
 using NetworkCommsDotNet.Connections;
@@ -39,6 +39,13 @@ namespace Overlord
                     machine.IP, ClientListenPort);
         }
 
+        public static void SendConfiguration(Machine machine)
+        {
+            if (machine.IP != null && machine.IP != "")
+                messageHanler.SendConfiguration(new MachineConfiguration(machine.label, machine.priceMultiplier),
+                    machine.IP);
+        }
+
 
         public static void SendUserOnRequest(PacketHeader header, Connection connection, User user)
         {
@@ -56,8 +63,11 @@ namespace Overlord
         {
             Console.WriteLine("Sending " + user.name + " to " + ip);
             messageHanler.SendUser(user, ip);
-            
-      
+        }
+
+        public static void SendWakeUpPacket(string MACaddress)
+        {
+            WakeFunction(MACaddress);
         }
 
         public static void UpdateStatus(PacketHeader header, Connection connection, object user)
@@ -94,6 +104,40 @@ namespace Overlord
         {
             Transitions.Remove(ip);
             GC.Collect();
+        }
+
+
+        private static void WakeFunction(string MAC_ADDRESS)
+        {
+            WakeUPHandler client = new WakeUPHandler();
+            client.Connect(new
+               IPAddress(0xffffffff),  //255.255.255.255  i.e broadcast
+               0x2fff); // port=12287 let's use this one 
+            client.SetClientToBrodcastMode();
+            //set sending bites
+            int counter = 0;
+            //buffer to be send
+            byte[] bytes = new byte[1024];   // more than enough :-)
+                                             //first 6 bytes should be 0xFF
+            for (int y = 0; y < 6; y++)
+                bytes[counter++] = 0xFF;
+            //now repeate MAC 16 times
+            for (int y = 0; y < 16; y++)
+            {
+                int i = 0;
+                for (int z = 0; z < 6; z++)
+                {
+                    bytes[counter++] =
+                        byte.Parse(MAC_ADDRESS.Substring(i, 2),
+                        NumberStyles.HexNumber);
+                    i += 2;
+                }
+            }
+
+            //now send wake up packet
+            int reterned_value = client.Send(bytes, 1024);
+
+
         }
 
     }

@@ -25,8 +25,7 @@ namespace Drone
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             
-            GlobalVars.LoadSettings();
-            GlobalVars.CreateSystemFolders();
+           
             InitManagers();
             Application.Run();
             
@@ -39,6 +38,7 @@ namespace Drone
 
         public static void InitManagers()
         {
+            GlobalVars.Initialize();
             NetworkManager.Initialize();
             SessionManager.Initialize();
             UIManager.Initialize();

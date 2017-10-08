@@ -109,6 +109,7 @@ namespace Overlord
             UserToEdit.personalSurname = textBox3.Text;
             UserToEdit.phoneNumber = textBox4.Text;
             UserToEdit.email = textBox5.Text;
+            UserToEdit.level = (int)numericUpDown1.Value;
         }
 
         private void LoadUserData()
@@ -118,6 +119,7 @@ namespace Overlord
             textBox3.Text = UserToEdit.personalSurname;
             textBox4.Text = UserToEdit.phoneNumber;
             textBox5.Text = UserToEdit.email;
+            numericUpDown1.Value = UserToEdit.level;
         }
 
         private void textBox6_TextChanged(object sender, EventArgs e)

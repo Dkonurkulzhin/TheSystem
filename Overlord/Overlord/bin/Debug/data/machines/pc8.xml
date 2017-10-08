@@ -4,10 +4,11 @@
   <label>PC9</label>
   <username />
   <aviability>false</aviability>
-  <status>Ready</status>
+  <status>Disabled</status>
   <time>0</time>
   <balance>0</balance>
   <group>Default</group>
-  <IP>192.168.2.201</IP>
+  <priceMultiplier>1</priceMultiplier>
+  <IP />
   <CleintVersion>1001</CleintVersion>
 </Machine>

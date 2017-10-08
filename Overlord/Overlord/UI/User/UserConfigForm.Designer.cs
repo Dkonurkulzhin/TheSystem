@@ -35,17 +35,27 @@
             this.button3 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.Info = new System.Windows.Forms.GroupBox();
-            this.NameLabel = new System.Windows.Forms.Label();
-            this.BalanceLabel = new System.Windows.Forms.Label();
-            this.LevelLabel = new System.Windows.Forms.Label();
-            this.RateLabel = new System.Windows.Forms.Label();
-            this.RegisteredLabel = new System.Windows.Forms.Label();
             this.ExpLabel = new System.Windows.Forms.Label();
+            this.RegisteredLabel = new System.Windows.Forms.Label();
+            this.RateLabel = new System.Windows.Forms.Label();
+            this.LevelLabel = new System.Windows.Forms.Label();
+            this.BalanceLabel = new System.Windows.Forms.Label();
+            this.NameLabel = new System.Windows.Forms.Label();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.AddGroupButton = new System.Windows.Forms.Button();
+            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.DeleteGroupButton = new System.Windows.Forms.Button();
+            this.AddGroupBox = new System.Windows.Forms.GroupBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.EditGroupButton = new System.Windows.Forms.Button();
+            this.StartingLevelNum = new System.Windows.Forms.NumericUpDown();
+            this.GroupNameLabel = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
-            this.groupBox2.SuspendLayout();
             this.Info.SuspendLayout();
+            this.groupBox2.SuspendLayout();
+            this.AddGroupBox.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.StartingLevelNum)).BeginInit();
             this.SuspendLayout();
             // 
             // listView1
@@ -81,11 +91,9 @@
             // listBox1
             // 
             this.listBox1.FormattingEnabled = true;
-            this.listBox1.Items.AddRange(new object[] {
-            "das"});
             this.listBox1.Location = new System.Drawing.Point(15, 23);
             this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(153, 108);
+            this.listBox1.Size = new System.Drawing.Size(160, 82);
             this.listBox1.TabIndex = 5;
             this.listBox1.Click += new System.EventHandler(this.listBox1_Click);
             this.listBox1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.listBox1_MouseClick);
@@ -123,16 +131,6 @@
             this.groupBox1.Text = "Пользовтели";
             this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
             // 
-            // groupBox2
-            // 
-            this.groupBox2.Controls.Add(this.listBox1);
-            this.groupBox2.Location = new System.Drawing.Point(12, 388);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(465, 143);
-            this.groupBox2.TabIndex = 7;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Группы";
-            // 
             // Info
             // 
             this.Info.Controls.Add(this.ExpLabel);
@@ -148,40 +146,14 @@
             this.Info.TabStop = false;
             this.Info.Text = "Информация";
             // 
-            // NameLabel
+            // ExpLabel
             // 
-            this.NameLabel.AutoSize = true;
-            this.NameLabel.Location = new System.Drawing.Point(7, 20);
-            this.NameLabel.Name = "NameLabel";
-            this.NameLabel.Size = new System.Drawing.Size(0, 13);
-            this.NameLabel.TabIndex = 0;
-            // 
-            // BalanceLabel
-            // 
-            this.BalanceLabel.AutoSize = true;
-            this.BalanceLabel.Location = new System.Drawing.Point(7, 39);
-            this.BalanceLabel.Name = "BalanceLabel";
-            this.BalanceLabel.Size = new System.Drawing.Size(50, 13);
-            this.BalanceLabel.TabIndex = 1;
-            this.BalanceLabel.Text = "Баланс: ";
-            // 
-            // LevelLabel
-            // 
-            this.LevelLabel.AutoSize = true;
-            this.LevelLabel.Location = new System.Drawing.Point(7, 58);
-            this.LevelLabel.Name = "LevelLabel";
-            this.LevelLabel.Size = new System.Drawing.Size(54, 13);
-            this.LevelLabel.TabIndex = 2;
-            this.LevelLabel.Text = "Уровень:";
-            // 
-            // RateLabel
-            // 
-            this.RateLabel.AutoSize = true;
-            this.RateLabel.Location = new System.Drawing.Point(6, 94);
-            this.RateLabel.Name = "RateLabel";
-            this.RateLabel.Size = new System.Drawing.Size(43, 13);
-            this.RateLabel.TabIndex = 3;
-            this.RateLabel.Text = "Тариф:";
+            this.ExpLabel.AutoSize = true;
+            this.ExpLabel.Location = new System.Drawing.Point(8, 76);
+            this.ExpLabel.Name = "ExpLabel";
+            this.ExpLabel.Size = new System.Drawing.Size(37, 13);
+            this.ExpLabel.TabIndex = 5;
+            this.ExpLabel.Text = "Опыт:";
             // 
             // RegisteredLabel
             // 
@@ -192,14 +164,127 @@
             this.RegisteredLabel.TabIndex = 4;
             this.RegisteredLabel.Text = "Зарегестрирован:";
             // 
-            // ExpLabel
+            // RateLabel
             // 
-            this.ExpLabel.AutoSize = true;
-            this.ExpLabel.Location = new System.Drawing.Point(8, 76);
-            this.ExpLabel.Name = "ExpLabel";
-            this.ExpLabel.Size = new System.Drawing.Size(37, 13);
-            this.ExpLabel.TabIndex = 5;
-            this.ExpLabel.Text = "Опыт:";
+            this.RateLabel.AutoSize = true;
+            this.RateLabel.Location = new System.Drawing.Point(6, 94);
+            this.RateLabel.Name = "RateLabel";
+            this.RateLabel.Size = new System.Drawing.Size(43, 13);
+            this.RateLabel.TabIndex = 3;
+            this.RateLabel.Text = "Тариф:";
+            // 
+            // LevelLabel
+            // 
+            this.LevelLabel.AutoSize = true;
+            this.LevelLabel.Location = new System.Drawing.Point(7, 58);
+            this.LevelLabel.Name = "LevelLabel";
+            this.LevelLabel.Size = new System.Drawing.Size(54, 13);
+            this.LevelLabel.TabIndex = 2;
+            this.LevelLabel.Text = "Уровень:";
+            // 
+            // BalanceLabel
+            // 
+            this.BalanceLabel.AutoSize = true;
+            this.BalanceLabel.Location = new System.Drawing.Point(7, 39);
+            this.BalanceLabel.Name = "BalanceLabel";
+            this.BalanceLabel.Size = new System.Drawing.Size(50, 13);
+            this.BalanceLabel.TabIndex = 1;
+            this.BalanceLabel.Text = "Баланс: ";
+            // 
+            // NameLabel
+            // 
+            this.NameLabel.AutoSize = true;
+            this.NameLabel.Location = new System.Drawing.Point(7, 20);
+            this.NameLabel.Name = "NameLabel";
+            this.NameLabel.Size = new System.Drawing.Size(0, 13);
+            this.NameLabel.TabIndex = 0;
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.EditGroupButton);
+            this.groupBox2.Controls.Add(this.AddGroupBox);
+            this.groupBox2.Controls.Add(this.DeleteGroupButton);
+            this.groupBox2.Controls.Add(this.listBox1);
+            this.groupBox2.Location = new System.Drawing.Point(12, 388);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(529, 143);
+            this.groupBox2.TabIndex = 7;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Группы";
+            // 
+            // AddGroupButton
+            // 
+            this.AddGroupButton.Location = new System.Drawing.Point(6, 87);
+            this.AddGroupButton.Name = "AddGroupButton";
+            this.AddGroupButton.Size = new System.Drawing.Size(179, 23);
+            this.AddGroupButton.TabIndex = 6;
+            this.AddGroupButton.Text = "Добавить";
+            this.AddGroupButton.UseVisualStyleBackColor = true;
+            this.AddGroupButton.Click += new System.EventHandler(this.AddGroupButton_Click);
+            // 
+            // textBox2
+            // 
+            this.textBox2.Location = new System.Drawing.Point(69, 19);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(108, 20);
+            this.textBox2.TabIndex = 7;
+            // 
+            // DeleteGroupButton
+            // 
+            this.DeleteGroupButton.Location = new System.Drawing.Point(100, 110);
+            this.DeleteGroupButton.Name = "DeleteGroupButton";
+            this.DeleteGroupButton.Size = new System.Drawing.Size(75, 23);
+            this.DeleteGroupButton.TabIndex = 8;
+            this.DeleteGroupButton.Text = "Удалить";
+            this.DeleteGroupButton.UseVisualStyleBackColor = true;
+            // 
+            // AddGroupBox
+            // 
+            this.AddGroupBox.Controls.Add(this.GroupNameLabel);
+            this.AddGroupBox.Controls.Add(this.StartingLevelNum);
+            this.AddGroupBox.Controls.Add(this.label1);
+            this.AddGroupBox.Controls.Add(this.AddGroupButton);
+            this.AddGroupBox.Controls.Add(this.textBox2);
+            this.AddGroupBox.Location = new System.Drawing.Point(181, 23);
+            this.AddGroupBox.Name = "AddGroupBox";
+            this.AddGroupBox.Size = new System.Drawing.Size(191, 116);
+            this.AddGroupBox.TabIndex = 9;
+            this.AddGroupBox.TabStop = false;
+            this.AddGroupBox.Text = "Добавить группу";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(6, 47);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(108, 13);
+            this.label1.TabIndex = 8;
+            this.label1.Text = "Начальный уровень";
+            // 
+            // EditGroupButton
+            // 
+            this.EditGroupButton.Location = new System.Drawing.Point(15, 110);
+            this.EditGroupButton.Name = "EditGroupButton";
+            this.EditGroupButton.Size = new System.Drawing.Size(75, 23);
+            this.EditGroupButton.TabIndex = 10;
+            this.EditGroupButton.Text = "Изменить";
+            this.EditGroupButton.UseVisualStyleBackColor = true;
+            // 
+            // StartingLevelNum
+            // 
+            this.StartingLevelNum.Location = new System.Drawing.Point(120, 45);
+            this.StartingLevelNum.Name = "StartingLevelNum";
+            this.StartingLevelNum.Size = new System.Drawing.Size(57, 20);
+            this.StartingLevelNum.TabIndex = 9;
+            // 
+            // GroupNameLabel
+            // 
+            this.GroupNameLabel.AutoSize = true;
+            this.GroupNameLabel.Location = new System.Drawing.Point(6, 22);
+            this.GroupNameLabel.Name = "GroupNameLabel";
+            this.GroupNameLabel.Size = new System.Drawing.Size(57, 13);
+            this.GroupNameLabel.TabIndex = 10;
+            this.GroupNameLabel.Text = "Название";
             // 
             // UserConfigForm
             // 
@@ -215,9 +300,12 @@
             this.Text = "Управление пользователями";
             this.Load += new System.EventHandler(this.UserConfigForm_Load);
             this.groupBox1.ResumeLayout(false);
-            this.groupBox2.ResumeLayout(false);
             this.Info.ResumeLayout(false);
             this.Info.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
+            this.AddGroupBox.ResumeLayout(false);
+            this.AddGroupBox.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.StartingLevelNum)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -240,5 +328,13 @@
         private System.Windows.Forms.Label NameLabel;
         private System.Windows.Forms.Label RegisteredLabel;
         private System.Windows.Forms.Label ExpLabel;
+        private System.Windows.Forms.Button DeleteGroupButton;
+        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.Button AddGroupButton;
+        private System.Windows.Forms.Button EditGroupButton;
+        private System.Windows.Forms.GroupBox AddGroupBox;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label GroupNameLabel;
+        private System.Windows.Forms.NumericUpDown StartingLevelNum;
     }
 }

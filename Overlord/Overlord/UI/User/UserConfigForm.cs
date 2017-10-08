@@ -34,11 +34,9 @@ namespace Overlord
 
         private void UserConfigForm_Load(object sender, EventArgs e)
         {
-            listBox1.MouseDown += new MouseEventHandler(listBox1_MouseDown);
+            //listBox1.MouseDown += new MouseEventHandler(listBox1_MouseDown);
             
             UpdateUserList("");
-
-
 
             //Thread st = new Thread(TestThread);
             //st.Start();
@@ -111,6 +109,7 @@ namespace Overlord
 
         private void UpdateUserGroups()
         {
+            listBox1.Items.Clear();
             foreach(string userGroup in GlobalVars.Settings.UserGroups)
             {
                 listBox1.Items.Add(userGroup);
@@ -133,9 +132,13 @@ namespace Overlord
 
         }
 
-        private void addGroup(object sender, EventArgs e)
+        private bool addGroup(string groupName)
         {
-
+            if (GlobalVars.Settings.UserGroups.Contains(groupName))
+                return false;
+            GlobalVars.Settings.UserGroups.Add(groupName);
+            GlobalVars.SaveSettings();
+            return true;
         }
 
         private void listBox1_Click(object sender, EventArgs e)
@@ -144,68 +147,7 @@ namespace Overlord
          
         }
 
-        private ContextMenu ShowContexMenu()
-        {
-            ContextMenu groupMenu = new ContextMenu();
-
-            if (listBox1.SelectedIndex == ListBox.NoMatches)
-            {
-                MenuItem add = new MenuItem();
-                add.Text = "Создать";
-                add.Click += new EventHandler(addGroup);
-                groupMenu.MenuItems.Add(add);
-            }
-            else
-            {
-                MenuItem edit = new MenuItem();
-                edit.Text = "Изменить";
-                edit.Click += new EventHandler(editGroup);
-                groupMenu.MenuItems.Add(edit);
-
-                MenuItem delete = new MenuItem();
-                delete.Text = "Удалить";
-                delete.Click += new EventHandler(deleteGroup);
-                groupMenu.MenuItems.Add(delete);
-            }
-            return groupMenu;
-            
-        }
-
-        void listBox1_MouseDown(object sender, MouseEventArgs e)
-        {
-            Console.WriteLine(e.Button.ToString());
-            if (e.Button == MouseButtons.Right)
-            {
-                int index = this.listBox1.IndexFromPoint(e.X, e.Y);
-                if (index != ListBox.NoMatches)
-                {
-
-                }
-
-            }
-
-            Console.WriteLine(e.Button.ToString());
-            if (e.Button == MouseButtons.Right)
-            {
-                int index = listBox1.IndexFromPoint(e.X, e.Y);
-                if (index != ListBox.NoMatches)
-                {
-                    listBox1.SelectedIndex = index;
-                    ShowContexMenu().Show(this, new Point(e.X, e.Y + listBox1.Location.Y));
-                }
-                else
-                {
-                    listBox1.SelectedIndex = ListBox.NoMatches;
-                    ShowContexMenu().Show(this, new Point(e.X, e.Y + listBox1.Location.Y));
-                }
-                //if (listBox1.SelectedItem != null && listBox1.IndexFromPoint(e.X, e.Y) != ListBox.NoMatches)
-                //{
-                //    ShowContexMenu().Show(this, new Point(e.X, e.Y + listBox1.Location.Y));
-                //}
-
-                // groupMenu.Show(this, new Point(e.X, e.Y + listBox1.Location.Y));
-            }
-        }
+      
 
         private void groupBox1_Enter(object sender, EventArgs e)
         {
@@ -222,5 +164,73 @@ namespace Overlord
                 UpdateInfo(UserManager.GetUserByName(selectedUsername));
             }
         }
+
+        private void AddGroupButton_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        //private ContextMenu ShowContexMenu()
+        //{
+        //    ContextMenu groupMenu = new ContextMenu();
+
+        //    if (listBox1.SelectedIndex == ListBox.NoMatches)
+        //    {
+        //        MenuItem add = new MenuItem();
+        //        add.Text = "Создать";
+        //        add.Click += new EventHandler(addGroup);
+        //        groupMenu.MenuItems.Add(add);
+        //    }
+        //    else
+        //    {
+        //        MenuItem edit = new MenuItem();
+        //        edit.Text = "Изменить";
+        //        edit.Click += new EventHandler(editGroup);
+        //        groupMenu.MenuItems.Add(edit);
+
+        //        MenuItem delete = new MenuItem();
+        //        delete.Text = "Удалить";
+        //        delete.Click += new EventHandler(deleteGroup);
+        //        groupMenu.MenuItems.Add(delete);
+        //    }
+        //    return groupMenu;
+
+        //}
+
+        //void listBox1_MouseDown(object sender, MouseEventArgs e)
+        //{
+        //    Console.WriteLine(e.Button.ToString());
+        //    if (e.Button == MouseButtons.Right)
+        //    {
+        //        int index = this.listBox1.IndexFromPoint(e.X, e.Y);
+        //        if (index != ListBox.NoMatches)
+        //        {
+
+        //        }
+
+        //    }
+
+        //    Console.WriteLine(e.Button.ToString());
+        //    if (e.Button == MouseButtons.Right)
+        //    {
+        //        int index = listBox1.IndexFromPoint(e.X, e.Y);
+        //        if (index != ListBox.NoMatches)
+        //        {
+        //            listBox1.SelectedIndex = index;
+        //            ShowContexMenu().Show(this, new Point(e.X, e.Y)); //  + listBox1.Location.Y
+        //        }
+        //        else
+        //        {
+        //            listBox1.SelectedIndex = ListBox.NoMatches;
+        //            ShowContexMenu().Show(this, new Point(e.X, e.Y)); // +  + listBox1.Location.Y
+        //        }
+        //        //if (listBox1.SelectedItem != null && listBox1.IndexFromPoint(e.X, e.Y) != ListBox.NoMatches)
+        //        //{
+        //        //    ShowContexMenu().Show(this, new Point(e.X, e.Y + listBox1.Location.Y));
+        //        //}
+
+        //        // groupMenu.Show(this, new Point(e.X, e.Y + listBox1.Location.Y));
+        //    }
+        //}
     }
 }

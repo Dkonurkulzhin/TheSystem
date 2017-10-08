@@ -23,10 +23,16 @@ public class MachineStatMessage
     [ProtoMember(6)]
     public long ClientVersion;
 
+    [ProtoMember(7)]
+    public string MAC;
+
+    [ProtoMember(8)]
+    public string Bonus;
+
     protected MachineStatMessage() { }
 
     public MachineStatMessage(int index, bool isOccupied, string username, 
-        long balance, long minutesLeft, long clientVersion)
+        long balance, long minutesLeft, long clientVersion, string mac = "", string bonus = "regular")
     {
         Index = index;
         IsOccupied = isOccupied;
@@ -34,6 +40,8 @@ public class MachineStatMessage
         Balance = balance;
         MinutesLeft = minutesLeft;
         ClientVersion = clientVersion;
+        MAC = mac;
+        Bonus = bonus;
     }
 
 }

@@ -8,7 +8,7 @@ using System.IO;
 
 namespace Drone
 {
-    static class GlobalVars
+    public static class GlobalVars
     {
 
         static public bool debug = true;
@@ -38,6 +38,7 @@ namespace Drone
         static XMLManager xmlManager = new XMLManager(); 
         static public RateSettings rateSettings = new RateSettings();
         
+     
         public static class InterfaceConfig
         {
             public class UserStatPos
@@ -46,6 +47,21 @@ namespace Drone
                 public static int Y = (int)(0.84F * ScreenHeight);
             }
         }
+
+        public static void Initialize()
+        {
+            LoadSettings();
+            CreateSystemFolders();
+            NetworkManager.OnConfig += GetConfigurationFromServer;
+        }
+
+        private static void GetConfigurationFromServer(MachineConfiguration config)
+        {
+            settings.PCLabel = config.MachineLabel;
+            settings.PriceMultiplier = config.PriceMultiplier;
+        }
+
+
 
         public static bool LoadSettings()
         {

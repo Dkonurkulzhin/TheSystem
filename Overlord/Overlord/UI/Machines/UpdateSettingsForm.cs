@@ -43,7 +43,8 @@ namespace Overlord
 
                 listBox1.Items.Add(machine.label + " (" + machine.index.ToString() + "), " + 
                     ((machine.status != MachineManager.MachineStatus.Disabled) ? (machine.IP + 
-                    " version " + machine.CleintVersion) : "offline" ));
+                    " version " + machine.CleintVersion) : "offline" + " " + 
+                    machine.MAC_ADDRESS));
                
                 
             }

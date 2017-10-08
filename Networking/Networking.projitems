@@ -16,6 +16,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)ReceivedFile.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SendInfo.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Shared\Bonuses.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Shared\MachineConfiguration.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Shared\MachineStatMessage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Shared\User.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)TCPPortConfiguration.cs" />

@@ -2,10 +2,13 @@
 <Machine xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <index>2</index>
   <label>PC3</label>
+  <username />
   <aviability>false</aviability>
-  <status>Disabled</status>
+  <status>Ready</status>
   <time>0</time>
   <balance>0</balance>
   <group>Default</group>
-  <CleintVersion>0</CleintVersion>
+  <priceMultiplier>1</priceMultiplier>
+  <IP>192.168.2.201</IP>
+  <CleintVersion>1001</CleintVersion>
 </Machine>

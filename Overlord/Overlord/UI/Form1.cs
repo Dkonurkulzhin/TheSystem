@@ -319,6 +319,19 @@ namespace Overlord
                         addGuestSession.Click += new EventHandler((Sender, E) => ShowMachineAddDialog(sender, e, indexes, false));
                     }
 
+                    ToolStripItem TogglePCPower;
+
+                    if (FirstSelectedMachine.status == MachineManager.MachineStatus.Disabled)
+                    {
+                        TogglePCPower = MachineContexMenu.Items.Add("Включить компьютер");
+                        //TogglePCPower.Click += new EventHandler((Sender, E) => MachineManager.WakeUpMachines(indexes));
+                    }
+                    else
+                    {
+                        TogglePCPower = MachineContexMenu.Items.Add("Отключить компьютер");
+                        //TogglePCPower.Click += new EventHandler((Sender, E) => MachineManager.WakeUpMachines(indexes));
+                    }
+
                     ToolStripItem EndSession = MachineContexMenu.Items.Add("Завершить сессию");
                     EndSession.Click += new EventHandler((Sender, E) => MachineManager.EndSession(sender, e, indexes));
 

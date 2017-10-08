@@ -14,6 +14,7 @@ namespace Overlord
         public enum RateFormat { perHour, perMinute, perSecond};
         private static TempUserControllu UserDB = new TempUserControllu();
         private static MachineStatUpdater machineStatUpdater = new MachineStatUpdater();
+        private static List<string> UserCategories = GlobalVars.Settings.UserGroups;
     
         public static void Initialize()
         {

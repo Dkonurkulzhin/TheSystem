@@ -31,6 +31,8 @@ namespace Networking
         public delegate void UpdateEH();
         public event UpdateEH NotifyUpdate;
 
+        public delegate void GotConfigurationEH(MachineConfiguration config);
+        public event GotConfigurationEH OnIncommingConfiguration;
         
         public delegate void TimeoutEH(string message);
         public event TimeoutEH ConnectionTimeOut;
@@ -114,6 +116,11 @@ namespace Networking
             SendUserObject(user, Constants.RequestHeaders[Constants.Messages.UserData], ip, Constants.ClientListenPort); 
         }
 
+        public void SendConfiguration(MachineConfiguration config, string ip)
+        {
+            SendObject(config, Constants.RequestHeaders[Constants.Messages.ClientConfiguration], ip, Constants.ClientListenPort);
+        }
+
         public void SendForceUpdate(string ip)
         {
             SendObject("update", Constants.RequestHeaders[Constants.Messages.ForceUpdate], ip, Constants.ClientListenPort);
@@ -140,6 +147,7 @@ namespace Networking
                 NetworkComms.AppendGlobalConnectionCloseHandler(OnCleintConnectionClose);
                 NetworkComms.AppendGlobalIncomingPacketHandler<User>(Constants.RequestHeaders[Constants.Messages.UserData], GetUserOnClient);
                 NetworkComms.AppendGlobalIncomingPacketHandler<string>(Constants.RequestHeaders[Constants.Messages.ForceLogOut], GetLogOutCommand);
+                NetworkComms.AppendGlobalIncomingPacketHandler<MachineConfiguration>(Constants.RequestHeaders[Constants.Messages.ClientConfiguration], GetConfiguration);
                 return true;
             }
             catch (Exception ex)
@@ -163,6 +171,12 @@ namespace Networking
         {
             SendUserObject(user, Constants.RequestHeaders[Constants.Messages.RequestUserData], serverIP, Constants.ServerListenPort);
             
+        }
+
+        private void GetConfiguration(PacketHeader header, Connection connection, MachineConfiguration config)
+        {
+            OnIncommingConfiguration?.Invoke(config);
+            Console.WriteLine("Recieved Config!");
         }
 
         private void GetLogOutCommand(PacketHeader header, Connection connection, string message)

@@ -16,5 +16,7 @@ namespace Drone
         public int broadcastPeriod = 5000;
         public string[] AppCategories = { "Игры", "Интернет", "Офис", "Настройки" };
         public long clientVersion = 1001;
+        public float PriceMultiplier = 1F;
+        public string PCLabel = "";
     }
 }

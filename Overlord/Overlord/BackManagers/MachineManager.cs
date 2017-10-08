@@ -14,7 +14,7 @@ namespace Overlord
 
         public static Machine[] Machines = new Machine[GlobalVars.Settings.PC_amount];
         private static System.Timers.Timer[] StatUpdateTimers = new System.Timers.Timer[GlobalVars.Settings.PC_amount];
-
+        private static System.Timers.Timer MachineSaveTimer = new System.Timers.Timer(20000); //сохраняем состояние машин раз в 20 секунд
         private static Dictionary<MachineManager.MachineStatus, string> statusLabels = new Dictionary<MachineManager.MachineStatus, string>() {
             {MachineManager.MachineStatus.Ready, "свободен" },
             {MachineManager.MachineStatus.Busy, "занят"},
@@ -41,11 +41,19 @@ namespace Overlord
 
         public static void Initialize()
         {
-            for(int i = 0; i < GlobalVars.Settings.PC_amount; i++)
+            LoadMachines();
+            for (int i = 0; i < GlobalVars.Settings.PC_amount; i++)
             {
                 UpdateStatTimer(i);
             }
-            LoadMachines();
+            MachineSaveTimer.AutoReset = true;
+            MachineSaveTimer.Elapsed += SaveMachinesOnTimer;  
+            MachineSaveTimer.Start();
+        }
+
+        public static void SaveMachinesOnTimer(object sender, ElapsedEventArgs e)
+        {
+            SaveMachines();
         }
 
         public static bool LogInUser(int machineID, User user)
@@ -68,6 +76,17 @@ namespace Overlord
             User guest = new User("Guest");
             guest.balance = balance;
             ClientCommunicationManager.SendUserObject(guest, Machines[machineID].IP);
+        }
+
+
+        public static void WakeUpMachines(List<int> machineIDs)
+        {
+            foreach (int machineID in machineIDs)
+            {
+                string machineMAC = Machines[machineID].MAC_ADDRESS;
+                if (machineMAC != null && machineMAC != "")
+                    ClientCommunicationManager.SendWakeUpPacket(machineMAC);
+            }
         }
 
         public static void LoadMachines() {
@@ -251,26 +270,33 @@ namespace Overlord
             //    }
         }
 
-        public static void GotEchoPacket(int index, string ip, bool isOccupied, string username, long balance, long minutesLeft, long clientVersion)
+       
+
+        public static void GotEchoPacket(MachineStatMessage message, string ip)
         {
+            //int index, string ip, bool isOccupied, string username, long balance, long minutesLeft, long clientVersion, string MachineMAC
+            int index = message.Index;
+
             if (index <= Machines.Length)
             {
-                Machines[index - 1].status = isOccupied ? MachineStatus.Busy : MachineStatus.Ready;
+                //if (Machines[index - 1].status == MachineStatus.Disabled)
+                    ClientCommunicationManager.SendConfiguration(Machines[index - 1]);
+                Machines[index - 1].status = message.IsOccupied ? MachineStatus.Busy : MachineStatus.Ready;
                 Machines[index - 1].IP = ip;
-                Machines[index - 1].CleintVersion = clientVersion;
-                if (username == null || username == "")
+                Machines[index - 1].CleintVersion = message.ClientVersion;
+                if (message.Username == null || message.Username == "")
                 {
                     return;
                 }
                 User userToUpdate;
 
-                Machines[index - 1].username = username;
-                Machines[index - 1].balance = balance;
-                Machines[index - 1].time = minutesLeft;
-                if (username != "Guest")
+                Machines[index - 1].username = message.Username;
+                Machines[index - 1].balance = message.Balance;
+                Machines[index - 1].time = message.MinutesLeft;
+                if (message.Username != "Guest")
                 {
-                    userToUpdate = UserManager.GetUserByName(username);
-                    userToUpdate.balance = balance;
+                    userToUpdate = UserManager.GetUserByName(message.Username);
+                    userToUpdate.balance = message.Balance;
                     //userToUpdate.exp = 
                     Machines[index - 1].user = userToUpdate;
                     UserManager.AddActiveUser(userToUpdate);
@@ -279,7 +305,7 @@ namespace Overlord
                 else
                 {
                     Machines[index - 1].user = new User("Guest");
-                    Machines[index - 1].user.balance = balance;
+                    Machines[index - 1].user.balance = message.Balance;
                 }
                 UpdateStatTimer(index-1);
 

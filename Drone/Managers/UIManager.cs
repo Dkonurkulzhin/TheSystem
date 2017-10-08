@@ -113,7 +113,7 @@ namespace Drone
         {
             if (SessionManager.currentUser != null)
             {
-                SessionManager.OpenBonusSession(new BonusObject(0, "Night", 19, 9, 100));
+                SessionManager.OpenBonusSession(new BonusObject(0, "Night", 19, 9, 100, 1F));
                // SessionManager.SendOpenSessionReqest(user);
             }
         }

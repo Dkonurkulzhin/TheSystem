@@ -50,6 +50,7 @@ namespace Drone
             NetworkManager.OnPenalty += ApplyPenalty;
             NetworkManager.OnLogOutCommand += TryCloseSessionOnCommand;
             LoadBonuses();
+            
         }
 
         #region Открытие/закрытие сесии 
@@ -254,6 +255,7 @@ namespace Drone
 
             if (!IsBonusAvailable(CurrentBonus))
                 sessionType = SessionType.Regular;
+            
 
             //if (CurrentBonus.startHour > CurrentBonus.endHour)
             //{
@@ -272,7 +274,8 @@ namespace Drone
 
         public static float GetCurrentRate(RateFormat rateFormat = RateFormat.perSecond)
         {
-            int rate = GlobalVars.rateSettings.BaseRatePerHour - currentUser.level * GlobalVars.rateSettings.RatePerLevel;
+            int rate = (int) Math.Round((GlobalVars.rateSettings.BaseRatePerHour - currentUser.level * GlobalVars.rateSettings.RatePerLevel)
+                * GlobalVars.settings.PriceMultiplier);
             switch (rateFormat)
             {
                 case RateFormat.perSecond:
