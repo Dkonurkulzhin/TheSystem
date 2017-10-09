@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using Overlord.Elements;
 namespace Overlord
 {
     public static class FinancialManager
@@ -13,10 +13,11 @@ namespace Overlord
 
         public delegate void MessageDelegate(string message);
         public static event MessageDelegate OnNotify;
-
+        public static ExcelHandler Excel = new ExcelHandler();
         public static void Initialize()
         {
             LoadCashboxData();
+            Excel.Init();
         }
 
         public static bool LoadCashboxData()

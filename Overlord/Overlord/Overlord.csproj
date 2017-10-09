@@ -52,6 +52,11 @@
       <HintPath>..\..\packages\Autoupdater.NET.Official.1.4.3\lib\net452\AutoUpdater.NET.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Microsoft.Office.Interop.Excel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>..\..\packages\Microsoft.Office.Interop.Excel.15.0.4795.1000\lib\net20\Microsoft.Office.Interop.Excel.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="NetworkCommsDotNet, Version=3.0.0.0, Culture=neutral, PublicKeyToken=f58108eb6480f6ec, processorArchitecture=MSIL">
       <HintPath>..\..\packages\NetworkCommsDotNet.3.0.3\lib\NetworkCommsDotNet.dll</HintPath>
       <Private>True</Private>
@@ -97,6 +102,7 @@
       <DependentUpon>DebugLog.cs</DependentUpon>
     </Compile>
     <Compile Include="Debug\DebugManager.cs" />
+    <Compile Include="Elements\ExcelHandler.cs" />
     <Compile Include="Elements\MachineStatUpdater.cs" />
     <Compile Include="Elements\WakeUPHandler.cs" />
     <Compile Include="UI\User\AddUserCashForm.cs">
