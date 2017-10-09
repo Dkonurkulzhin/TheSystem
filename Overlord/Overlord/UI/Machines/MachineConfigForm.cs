@@ -14,6 +14,7 @@ namespace Overlord
     {
         private MachineEditForm machineEditForm;
 
+        private Dictionary<string, float> GroupMultipliers;
 
         public MachineConfigForm()
         {
@@ -31,7 +32,7 @@ namespace Overlord
             UpdateGroupList();
             numericUpDown1.Value = GlobalVars.Settings.PC_amount;
             numericUpDown1.ValueChanged += new EventHandler(UpdateMachineCount);
-
+            GroupMultipliers = MachineManager.GetMachineGroupPriceMultiplier();
         }
 
 
@@ -134,6 +135,8 @@ namespace Overlord
                 }
             }
             GlobalVars.Settings.MacineGroups.Remove(listBox1.SelectedItem.ToString());
+            int groupIndex = GlobalVars.Settings.MacineGroups.IndexOf(listBox1.SelectedItem.ToString());
+            GlobalVars.Settings.MacineGroupsMultiplier.Remove(GlobalVars.Settings.MacineGroupsMultiplier[groupIndex]);
             UpdateGroupList();
             LoadList();
             GlobalVars.SaveSettings();
@@ -142,7 +145,7 @@ namespace Overlord
         private void UpdateGroupList()
         {
             listBox1.Items.Clear();
-
+            GroupMultipliers = MachineManager.GetMachineGroupPriceMultiplier();
             foreach (var group in GlobalVars.Settings.MacineGroups)
                 listBox1.Items.Add(group);
         }
@@ -174,6 +177,40 @@ namespace Overlord
             LoadList();
 
             Program.MainForm.UpdatePCList();
+        }
+
+        private void numericUpDown2_ValueChanged(object sender, EventArgs e)
+        {
+            ChangePriceSettings( ( (float)numericUpDown2.Value)/100);
+        }
+
+        private void ChangePriceSettings(float newMultiplier)
+        {
+           if (listBox1.SelectedIndex >= 0)
+           {
+                GroupMultipliers[listBox1.SelectedItem.ToString()] = newMultiplier;
+                SaveGroupSettings();
+           }
+        }
+
+        private void SaveGroupSettings()
+        {
+            GlobalVars.Settings.MacineGroups = GroupMultipliers.Keys.ToList();
+            GlobalVars.Settings.MacineGroupsMultiplier = GroupMultipliers.Values.ToList();
+            GlobalVars.SaveSettings();
+            MachineManager.SaveMachines();
+            MachineManager.LoadMachines();
+        }
+
+        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            PriceBox.Enabled = (listBox1.SelectedIndex >= 0);
+            if (listBox1.SelectedIndex >= 0)
+            {
+                numericUpDown2.Value = (decimal)(100 * GroupMultipliers[listBox1.SelectedItem.ToString()]);
+            }
+
+
         }
     }
 }

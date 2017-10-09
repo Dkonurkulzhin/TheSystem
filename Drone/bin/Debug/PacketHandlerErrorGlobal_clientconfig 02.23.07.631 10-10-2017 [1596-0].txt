@@ -1,0 +1,28 @@
+Base Exception Type: System.IO.IOException: Процесс не может получить доступ к файлу "E:\projects\TheSystem\Drone\bin\Debug\settings.xml", так как этот файл используется другим процессом.
+   в System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   в System.IO.FileStream.Init(String path, FileMode mode, FileAccess access, Int32 rights, Boolean useRights, FileShare share, Int32 bufferSize, FileOptions options, SECURITY_ATTRIBUTES secAttrs, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
+   в System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, FileOptions options, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
+   в System.IO.StreamWriter.CreateFile(String path, Boolean append, Boolean checkHost)
+   в System.IO.StreamWriter..ctor(String path, Boolean append, Encoding encoding, Int32 bufferSize, Boolean checkHost)
+   в System.IO.StreamWriter..ctor(String path)
+   в Drone.XMLManager.SerializeSettings(ClientSettings settings) в E:\projects\TheSystem\Drone\Global\XMLManager.cs:строка 60
+   в Drone.GlobalVars.SaveSettings() в E:\projects\TheSystem\Drone\Global\GlobalVars.cs:строка 87
+   в Drone.GlobalVars.GetConfigurationFromServer(MachineConfiguration config) в E:\projects\TheSystem\Drone\Global\GlobalVars.cs:строка 63
+   в Drone.NetworkManager.ProcessIncommingConfiguration(MachineConfiguration config) в E:\projects\TheSystem\Drone\Base\NetworkManager.cs:строка 87
+   в Networking.MessageHandler.GetConfiguration(PacketHeader header, Connection connection, MachineConfiguration config) в E:\projects\TheSystem\Networking\MessageHandler.cs:строка 178
+   в NetworkCommsDotNet.Tools.PacketTypeHandlerDelegateWrapper`1.Process(PacketHeader packetHeader, Connection connection, Object obj)
+   в NetworkCommsDotNet.NetworkComms.TriggerGlobalPacketHandlers(PacketHeader packetHeader, Connection connection, Object returnObject, Boolean ignoreUnknownPacketTypeOverride)
+
+Stack Trace:    в System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   в System.IO.FileStream.Init(String path, FileMode mode, FileAccess access, Int32 rights, Boolean useRights, FileShare share, Int32 bufferSize, FileOptions options, SECURITY_ATTRIBUTES secAttrs, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
+   в System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, FileOptions options, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
+   в System.IO.StreamWriter.CreateFile(String path, Boolean append, Boolean checkHost)
+   в System.IO.StreamWriter..ctor(String path, Boolean append, Encoding encoding, Int32 bufferSize, Boolean checkHost)
+   в System.IO.StreamWriter..ctor(String path)
+   в Drone.XMLManager.SerializeSettings(ClientSettings settings) в E:\projects\TheSystem\Drone\Global\XMLManager.cs:строка 60
+   в Drone.GlobalVars.SaveSettings() в E:\projects\TheSystem\Drone\Global\GlobalVars.cs:строка 87
+   в Drone.GlobalVars.GetConfigurationFromServer(MachineConfiguration config) в E:\projects\TheSystem\Drone\Global\GlobalVars.cs:строка 63
+   в Drone.NetworkManager.ProcessIncommingConfiguration(MachineConfiguration config) в E:\projects\TheSystem\Drone\Base\NetworkManager.cs:строка 87
+   в Networking.MessageHandler.GetConfiguration(PacketHeader header, Connection connection, MachineConfiguration config) в E:\projects\TheSystem\Networking\MessageHandler.cs:строка 178
+   в NetworkCommsDotNet.Tools.PacketTypeHandlerDelegateWrapper`1.Process(PacketHeader packetHeader, Connection connection, Object obj)
+   в NetworkCommsDotNet.NetworkComms.TriggerGlobalPacketHandlers(PacketHeader packetHeader, Connection connection, Object returnObject, Boolean ignoreUnknownPacketTypeOverride)

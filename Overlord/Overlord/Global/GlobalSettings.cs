@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace Overlord
 {
     public class GlobalSettings
-    { 
+    {
         public string Telegram_BotAPIkey;
         public long Telegram_ChatID;
         public bool Telegram_notifyProducts;
@@ -25,6 +25,7 @@ namespace Overlord
 
         public int PC_amount;
         public List<string> MacineGroups = new List<string>();
+        public List<float> MacineGroupsMultiplier = new List<float>();
         public List<string> UserGroups = new List<string>();
         public long Machines_MaxAddTime = 1440;
 

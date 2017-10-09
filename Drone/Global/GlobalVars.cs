@@ -53,12 +53,14 @@ namespace Drone
             LoadSettings();
             CreateSystemFolders();
             NetworkManager.OnConfig += GetConfigurationFromServer;
+
         }
 
         private static void GetConfigurationFromServer(MachineConfiguration config)
         {
             settings.PCLabel = config.MachineLabel;
             settings.PriceMultiplier = config.PriceMultiplier;
+            SaveSettings();
         }
 
 

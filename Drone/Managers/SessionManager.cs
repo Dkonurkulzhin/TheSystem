@@ -49,9 +49,12 @@ namespace Drone
             NetworkManager.OnUserRecieve += TryOpenSession;
             NetworkManager.OnPenalty += ApplyPenalty;
             NetworkManager.OnLogOutCommand += TryCloseSessionOnCommand;
+           
             LoadBonuses();
             
         }
+
+       
 
         #region Открытие/закрытие сесии 
 

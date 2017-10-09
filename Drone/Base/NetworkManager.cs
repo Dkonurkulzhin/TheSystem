@@ -47,6 +47,7 @@ namespace Drone
             messageHanlder.NotifyUpdate += SetPendingUpdate;
             messageHanlder.UserRecieved += ProcessRequestedUser;
             messageHanlder.LogOutCommand += ProcessLogOutCommand;
+            messageHanlder.OnIncommingConfiguration += ProcessIncommingConfiguration;
             MACAddr = GetMacAddress();
             Console.WriteLine(MACAddr);
             broadcaster.StartBroadcasting(Constants.RequestHeaders[Constants.Messages.Echo], new MachineStatMessage(

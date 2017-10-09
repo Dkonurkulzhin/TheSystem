@@ -95,15 +95,34 @@ namespace Overlord
             {
                 Machines[i] = XMLManager.DeserializeMachine(i);
                 if (Machines[i] == null)
-                    Machines[i] = ShowErrorMachine(); 
+                    Machines[i] = ShowErrorMachine();
+                Machines[i].priceMultiplier = GetMachineGroupPriceMultiplier()[Machines[i].group];
             }
            
         }
 
+        public static Dictionary<string, float> GetMachineGroupPriceMultiplier()
+        {
+            List<string> group = GlobalVars.Settings.MacineGroups;
+            List<float> multipliers = GlobalVars.Settings.MacineGroupsMultiplier;
+            Dictionary<string, float> PriceMultipliers = new Dictionary<string, float>();
+            for (int i = 0; i < group.Count; i++)
+            {
+                bool multiplierExisting = (i < multipliers.Count);
+                PriceMultipliers.Add(group[i], multiplierExisting ? multipliers[i] : 1F);
+            }
+            return PriceMultipliers;
+
+
+        }
+        
         public static void SaveMachines()
         {
             for (int i = 0; i < GlobalVars.Settings.PC_amount; i++)
             {
+                Machine MachineToSave = Machines[i];
+                MachineToSave.IP = "";
+                MachineToSave.status = MachineStatus.Disabled;
                 XMLManager.SerializeMachines(Machines[i]);
             }
         }

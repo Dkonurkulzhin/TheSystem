@@ -75,5 +75,10 @@ namespace Overlord
             cashbox = new Cashbox();
             UpdateCash();
         }
+
+        public static void SetUpMachineGroupPrices(int groupIndex, decimal multiplier)
+        {
+
+        }
     }
 }
