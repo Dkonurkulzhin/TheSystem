@@ -26,6 +26,7 @@ namespace Overlord
         public static string ProductPath = DataPath + @"products\";
         public static string MachinePath = DataPath + @"machines\";
         public static string TempUserPath = DataPath + @"users\";
+        public static string ReportPath = AppDomain.CurrentDomain.BaseDirectory + @"Reports\";
 
         public static string ResourcesPath = AppDomain.CurrentDomain.BaseDirectory + @"resources\";
         public static string IconsPath = ResourcesPath + @"icons\";
@@ -81,7 +82,10 @@ namespace Overlord
                 TelegramBotAPIkey = Settings.Telegram_BotAPIkey;
                 TelegramChatID = Settings.Telegram_ChatID;
             }
-            Settings.Administration_AdminPassword = "test1234";
+            
+
+            Settings.Administration_AdminPassword = "test1234"; //временно!
+            Settings.AuthorityMenuItems.Clear();
             Settings.AuthorityMenuItems.Add("Настройки кассы"); Settings.AuthorityMenuItems.Add("Добавление продуктов");
             Settings.AuthorityMenuItems.Add("Настройки Telegram"); Settings.AuthorityMenuItems.Add("Настройки консолей");
             Settings.AuthorityMenuItems.Add("Выйти из под админа"); Settings.AuthorityMenuItems.Add("Настройки");
@@ -112,8 +116,9 @@ namespace Overlord
                 Directory.CreateDirectory(MachinePath);
             if (!Directory.Exists(TempUserPath))
                 Directory.CreateDirectory(TempUserPath);
-
-
+            if (!Directory.Exists(ReportPath))
+                Directory.CreateDirectory(ReportPath);
+            
 
         }
 

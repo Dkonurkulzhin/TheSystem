@@ -615,7 +615,10 @@ namespace Overlord
 
         private void button2_Click(object sender, EventArgs e)
         {
-
+            var dialogResult = MessageBox.Show("Вы уверены что хотите закончить смену?", "Внимание!",
+                MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+            if (dialogResult == DialogResult.Yes)
+                FinancialManager.MakeShiftReport();
         }
 
         private void EnabledPCImg_Click(object sender, EventArgs e)

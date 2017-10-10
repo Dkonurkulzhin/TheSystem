@@ -8,10 +8,10 @@ namespace Overlord
 {
     public class Cashbox
     {
-        public long CurrentCash;
+        public decimal CurrentCash;
         public string Currency;
-        private bool CashInitialized = false;
-
+        public bool CashInitialized = false;
+        public SerializableDictionary<string, decimal> Transactions;
 
        
     }

@@ -104,6 +104,7 @@
     <Compile Include="Debug\DebugManager.cs" />
     <Compile Include="Elements\ExcelHandler.cs" />
     <Compile Include="Elements\MachineStatUpdater.cs" />
+    <Compile Include="Elements\SerializableDictionary.cs" />
     <Compile Include="Elements\WakeUPHandler.cs" />
     <Compile Include="UI\User\AddUserCashForm.cs">
       <SubType>Form</SubType>

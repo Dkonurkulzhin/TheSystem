@@ -14,10 +14,33 @@ namespace Overlord
         public delegate void MessageDelegate(string message);
         public static event MessageDelegate OnNotify;
         public static ExcelHandler Excel = new ExcelHandler();
+
+        public delegate void TransactionEH(decimal val, string type);
+        public static event TransactionEH OnTransaction;
+        
+
         public static void Initialize()
         {
             LoadCashboxData();
-            Excel.Init();
+            OnTransaction += LogTransaction;
+        }
+
+        public static void LogTransaction(decimal val, string type = "")
+        {
+            string TransactionName = DateTime.Now.ToString() + "." + type;
+            if (cashbox.Transactions.ContainsKey(TransactionName))
+                cashbox.Transactions[TransactionName] += val;
+            else
+                cashbox.Transactions.Add(TransactionName, val);
+        }
+
+        public static void MakeShiftReport()
+        {
+            Excel.CreateShiftReport(cashbox);
+            cashbox.Transactions.Clear();
+            cashbox.Transactions = null;
+            UpdateCash();
+            OnNotify?.Invoke("Смена закончена");
         }
 
         public static bool LoadCashboxData()
@@ -25,7 +48,11 @@ namespace Overlord
             cashbox = XMLManager.DeserializeCashData();
             if (cashbox!=null)
                 CashInitialized = true;
+            else
+                return false;
             cashbox.Currency = GlobalVars.DefaultCurrency;
+            if (cashbox.Transactions == null)
+                cashbox.Transactions = new SerializableDictionary<string, decimal>();
             UpdateCash();
             if (GlobalVars.isLocal)
                 return true;
@@ -35,29 +62,32 @@ namespace Overlord
 
         public static string getCurrency()
         {
-            return cashbox.Currency;
+            return (cashbox != null) ? cashbox.Currency : "";
         }
 
-        public static long getCurrentCash()
+        public static decimal getCurrentCash()
         {
-            return cashbox.CurrentCash;
+            return (cashbox != null) ? cashbox.CurrentCash : -1;
         }
 
-        public static void WithdrawFunds(long Val, bool RequresNotify = false, string NotifyMessage = "")
+        public static void WithdrawFunds(decimal Val, bool RequresNotify = false, string NotifyMessage = "")
         {
-            cashbox.CurrentCash = cashbox.CurrentCash - Val;
+            cashbox.CurrentCash -= Val;
+            OnTransaction?.Invoke(Val, "");
             UpdateCash();
             if (RequresNotify)
                 OnNotify?.Invoke(NotifyMessage);
 
         }
 
-        public static void AddFunds(long Val, bool RequresNotify = false, string NotifyMessage = "")
+        public static void AddFunds(decimal Val, bool RequresNotify = false, string NotifyMessage = "")
         {
-            cashbox.CurrentCash = cashbox.CurrentCash + Val;
+            cashbox.CurrentCash += Val;
+            OnTransaction?.Invoke(Val, "");
             UpdateCash();
             if (RequresNotify)
                 OnNotify?.Invoke(NotifyMessage);
+           
         }
 
         public static void UpdateCash()
@@ -68,12 +98,14 @@ namespace Overlord
 
         public static string GetCashString()
         {
-            return cashbox.CurrentCash.ToString() + " " + cashbox.Currency;
+            return (cashbox != null)? cashbox.CurrentCash.ToString() + " " + cashbox.Currency :
+                "ошибка кассы";
         }
 
         public static void ClearCash()
         {
             cashbox = new Cashbox();
+            cashbox.Transactions = new SerializableDictionary<string, decimal>();
             UpdateCash();
         }
 
