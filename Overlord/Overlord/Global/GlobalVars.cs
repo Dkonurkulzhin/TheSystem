@@ -16,7 +16,6 @@ namespace Overlord
         public static bool isLocal = true;
         public static string SoftWareVersion = "inDev";
         public static string DefaultCurrency = "tg";
-
         public static string MachineInnerLabel = "pc";
         
         public static string UpdateInfoLink = "https://raw.githubusercontent.com/Dkonurkulzhin/SystemBuilds/master/Server/UpdateInfo.xml";
@@ -52,6 +51,7 @@ namespace Overlord
                  {MachineManager.MachineStatus.Busy,IconsPath +"busy.png"},
                  {MachineManager.MachineStatus.Reserved, IconsPath + "reserved.png"},
                  {MachineManager.MachineStatus.Disabled, IconsPath + @"disabled.png" },
+                 {MachineManager.MachineStatus.Offline, IconsPath + @"disabled.png" },
                  {MachineManager.MachineStatus.Unavailable, IconsPath + "outoforder.png"}
             };
             foreach (MachineManager.MachineStatus stat in Enum.GetValues(typeof(MachineManager.MachineStatus)))
@@ -82,7 +82,6 @@ namespace Overlord
                 TelegramBotAPIkey = Settings.Telegram_BotAPIkey;
                 TelegramChatID = Settings.Telegram_ChatID;
             }
-            
 
             Settings.Administration_AdminPassword = "test1234"; //временно!
             Settings.AuthorityMenuItems.Clear();
@@ -90,7 +89,6 @@ namespace Overlord
             Settings.AuthorityMenuItems.Add("Настройки Telegram"); Settings.AuthorityMenuItems.Add("Настройки консолей");
             Settings.AuthorityMenuItems.Add("Выйти из под админа"); Settings.AuthorityMenuItems.Add("Настройки");
 
-            
             if (!Settings.MacineGroups.Contains(DefaultMachineGroup))
                 Settings.MacineGroups.Add(DefaultMachineGroup);
             InitConsoles();
@@ -102,8 +100,6 @@ namespace Overlord
             XMLManager.SerializeGlobalSettings(Settings);
         }
            
-        
-
         public static void InitDataPathes()
         {
             if (!Directory.Exists(DataPath))
@@ -118,8 +114,6 @@ namespace Overlord
                 Directory.CreateDirectory(TempUserPath);
             if (!Directory.Exists(ReportPath))
                 Directory.CreateDirectory(ReportPath);
-            
-
         }
 
         public static void InitConsoles()

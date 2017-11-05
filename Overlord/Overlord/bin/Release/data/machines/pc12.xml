@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Machine xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <index>12</index>
+  <label>PC13</label>
+  <username />
+  <aviability>false</aviability>
+  <status>Disabled</status>
+  <time>0</time>
+  <balance>0</balance>
+  <group>Default</group>
+  <priceMultiplier>1</priceMultiplier>
+  <IP />
+  <CleintVersion>0</CleintVersion>
+</Machine>

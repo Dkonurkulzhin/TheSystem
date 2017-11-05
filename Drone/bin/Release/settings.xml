@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ClientSettings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <adminPassword>admin</adminPassword>
-  <pcNumber>0</pcNumber>
-  <serverIP>127.0.0.1</serverIP>
+  <pcNumber>10</pcNumber>
+  <serverIP>192.168.2.201</serverIP>
   <pcsAmount>0</pcsAmount>
   <applicationDirectory>D:\Projects\System\TheSystem\Drone\bin\Release\\</applicationDirectory>
   <broadcastPeriod>5000</broadcastPeriod>

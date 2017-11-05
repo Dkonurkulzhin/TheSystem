@@ -117,11 +117,7 @@ namespace Drone.Managers
 //            return true;
 //        }
 
-        static void dsdds()
-        {
-
-        }
-        
+      
 
     }
 

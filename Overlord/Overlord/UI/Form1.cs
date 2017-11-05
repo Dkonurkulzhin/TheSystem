@@ -81,9 +81,6 @@ namespace Overlord
 
         }
 
-       
-
-
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
             DialogResult dialog = MessageBox.Show("Закрыть программу?", "Выход", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
